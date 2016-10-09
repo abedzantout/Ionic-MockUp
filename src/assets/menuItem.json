@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Lasagne",
+    "image": "images/lasagne.jpg",
+    "description": "Italian Pasta."
+  },
+  {
+    "name": "kebab",
+    "image": "images/kebab.jpg",
+    "description": "Turkish grilled meat."
+  },
+  {
+    "name": "humus",
+    "image": "images/humus.jpg",
+    "description": "Lebanese cold starter."
+  }
+]
