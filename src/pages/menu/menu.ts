@@ -1,32 +1,33 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import {FoodItemsProvider} from '../../providers/food-items-provider';
+import { FoodItemsProvider } from '../../providers/food-items-provider';
 
-import {foodItem} from '../foodItem';
+import { foodItem } from '../foodItem';
 
 /*
-  Generated class for the Menu page.
+ Generated class for the Menu page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+ See http://ionicframework.com/docs/v2/components/#navigation for more info on
+ Ionic pages and navigation.
+ */
 @Component({
-  selector: 'page-menu',
-  templateUrl: 'menu.html',
-  providers: [FoodItemsProvider]
+    selector: 'page-menu',
+    templateUrl: 'menu.html',
+    providers: [ FoodItemsProvider ]
 })
 export class MenuPage {
 
-  foodItems: foodItem[];
+    title: string = "menu";
+    foodItems: foodItem[];
 
-  constructor(private navCtrl: NavController) {
-    this.foodItems = [
-      {name: "Lasagne",image: "../../assets/images/lasagne.jpg",description: "Italian Pasta."},
-      {name: "kebab",image: "../../assets/images/kebab.jpg",description: "Turkish grilled meat."},
-      {name: "humus",image: "../../assets/images/humus.jpg",description: "Lebanese cold starter."}
-    ]
-  }
+    constructor( private navCtrl: NavController ) {
+        this.foodItems = [
+            { name: "Lasagne", image: "../../assets/images/lasagne.jpg", description: "Italian Pasta." },
+            { name: "kebab", image: "../../assets/images/kebab.jpg", description: "Turkish grilled meat." },
+            { name: "humus", image: "../../assets/images/humus.jpg", description: "Lebanese cold starter." }
+        ]
+    }
 
 
 }

@@ -17,7 +17,7 @@ export class FoodItemsProvider {
 
   load(){
     if(this.foodItems){
-      return Promise.resolve(this.foodItems);
+      return new Promise.resolve(this.foodItems);
     }
 
     // return new Promise(resolve => {
