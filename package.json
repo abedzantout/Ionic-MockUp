@@ -22,6 +22,7 @@
     "@ionic/app-scripts": "latest",
     "typescript": "^2.0.3"
   },
+  "description": "ionic-Mockup: An Ionic project",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
@@ -30,13 +31,5 @@
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard"
   ],
-  "cordovaPlatforms": [
-    "ios",
-    {
-      "platform": "ios",
-      "version": "",
-      "locator": "ios"
-    }
-  ],
-  "description": "Ionic-MockUp: An Ionic project"
+  "cordovaPlatforms": []
 }

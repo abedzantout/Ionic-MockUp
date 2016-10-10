@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {foodItem} from '../foodItem';
+import {foodItem} from '../pages/foodItem';
 
 /*
   Generated class for the FoodItemsProvider provider.
@@ -20,14 +20,14 @@ export class FoodItemsProvider {
       return Promise.resolve(this.foodItems);
     }
 
-    return new Promise(resolve => {
-      this.http.get('https://api.github.com/users')
-        .map(res => <Array<user>>(res.json()))
-        .subscribe(users => {
-          this.githubUsers = users;
-          resolve(this.githubUsers);
-        });
-    });
+    // return new Promise(resolve => {
+    //   this.http.get('https://api.github.com/users')
+    //     .map(res => <Array<user>>(res.json()))
+    //     .subscribe(users => {
+    //       this.githubUsers = users;
+    //       resolve(this.githubUsers);
+    //     });
+    // });
   }
 
 }
