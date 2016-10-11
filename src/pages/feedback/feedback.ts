@@ -22,6 +22,4 @@ export class FeedbackPage {
             { input: "notes" }
         ]
     }
-
-
 }
