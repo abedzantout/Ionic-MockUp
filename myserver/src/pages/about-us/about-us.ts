@@ -21,7 +21,7 @@ constructor( public navCtrl: NavController ) {
 this.headerText  = "Restaurant Name";
 this.image       = "../../assets/images/restaurant.jpg";
 this.description = "We are a restaurant in bliss street";
-this.title       = "About Us";
+this.title       = "WORKS FROM WEB INTERFACE!!";
 
 }
 
