@@ -13,7 +13,7 @@ import { NavController } from 'ionic-angular';
 })
 export class FeedbackPage {
     fields: Array<{input: string}> = [];
-    title: string                  = "feedback";
+    private title: string          = "feedback";
 
     constructor( public navCtrl: NavController ) {
         this.fields = [

@@ -19,20 +19,11 @@ import { foodItem } from '../foodItem';
 
 export class MenuPage {
 
-    title: string = "MAMENUMOFO";
-    foodItems: foodItem[];
-
-
-   getTitle(){
-     return this.title;
-   }
-
-   setTitle(newTitle){
-     this.title = newTitle;
-   }
+    private title: string = "Menu";
+    content: foodItem[];
 
     constructor( private navCtrl: NavController ) {
-        this.foodItems = [
+        this.content = [
             { name: "Lasagne", image: "../../assets/images/lasagne.jpg", description: "Italian Pasta." },
             { name: "kebab", image: "../../assets/images/kebab.jpg", description: "Turkish grilled meat." },
             { name: "humus", image: "../../assets/images/humus.jpg", description: "Lebanese cold starter." }
