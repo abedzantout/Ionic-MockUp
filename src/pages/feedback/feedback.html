@@ -26,6 +26,6 @@
       <ion-input type="text"></ion-input>
     </ion-item>
   </ion-list>
-  <button ion-button>Submit</button>
+  <button *ngFor="let button of buttons" [value]="button.value" ion-button>{{button.buttonText}}</button>
 
 </ion-content>

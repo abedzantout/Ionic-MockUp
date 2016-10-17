@@ -16,6 +16,7 @@ export class FeedbackPage {
     fields: Array<{input: string}> = [];
     private jsonContent: Object;
     private title: string;
+    private buttons: Array<any>;
 
     constructor( public navCtrl: NavController, private _service: Service ) {
 
@@ -37,5 +38,9 @@ export class FeedbackPage {
         let content      = this.jsonContent[ 'Application' ][ 'pages' ][1]['feedback'] ;
         this.title = content['title'];
         this.fields = content['content'];
+        this.buttons = content['buttons'];
+        for(let button of this.buttons){
+            console.log(button);
+        }
     }
 }

@@ -38,6 +38,16 @@
 			{
 			  "input": "notes"
 			}
+		  ],
+		  "buttons": [
+			  {
+				"buttonText": "Submit",
+				"value": "submit"
+			  },
+			  {
+				"buttonText": "Cancel",
+				"value": "cancel"
+			  }
 		  ]
 		}
 	  },
