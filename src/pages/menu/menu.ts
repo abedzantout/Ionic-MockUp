@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FoodItemsProvider } from '../../providers/food-items-provider';
 import { foodItem } from '../foodItem';
+import { Service } from "../../services/service";
 
 /*
  Generated class for the Menu page.
@@ -19,15 +20,27 @@ import { foodItem } from '../foodItem';
 
 export class MenuPage {
 
-    private title: string = "Menu";
-    content: foodItem[];
+    private title: string;
+            content: foodItem[];
+    private jsonContent: Object;
 
-    constructor( private navCtrl: NavController ) {
-        this.content = [
-            { name: "Lasagne", image: "../../assets/images/lasagne.jpg", description: "Italian Pasta." },
-            { name: "kebab", image: "../../assets/images/kebab.jpg", description: "Turkish grilled meat." },
-            { name: "humus", image: "../../assets/images/humus.jpg", description: "Lebanese cold starter." }
-        ]
+    constructor( private navCtrl: NavController, private _service: Service ) {
+
+        this.jsonContent = this._service.getJson().subscribe(
+            ( data ) => {this.jsonContent = data;},
+            ( err ) => {console.log(err);},
+            () => {
+                this._service.setJsonContent(this.jsonContent);
+                this.setJsonLocally();
+            }
+        );
+    }
+
+    private setJsonLocally() {
+        this.jsonContent = JSON.parse(this._service.getJsonContent());
+        let content      = this.jsonContent[ 'Application' ][ 'pages' ][ 2 ][ 'menu' ];
+        this.title       = content[ 'title' ];
+        this.content     = content[ 'content' ];
     }
 
 
