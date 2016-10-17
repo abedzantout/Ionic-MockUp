@@ -33,10 +33,14 @@ export class FeedbackPage {
     }
 
     private setJsonLocally() {
+
         this.jsonContent = JSON.parse(this._service.getJsonContent());
         let content      = this.jsonContent[ 'Application' ][ 'pages' ][1]['feedback'] ;
         this.title = content['title'];
         this.fields = content['content'];
         this.buttons = content['buttons'];
+        for(let button of this.buttons){
+            console.log(button);
+        }
     }
 }
