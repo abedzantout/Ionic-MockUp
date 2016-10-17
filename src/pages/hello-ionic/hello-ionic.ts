@@ -25,11 +25,9 @@ export class HelloIonicPage {
                 this.setJsonLocally();
             }
         );
-
     }
 
-
-    setJsonLocally() {
+    private setJsonLocally() {
         this.jsonContent = JSON.parse(this._service.getJsonContent());
         this.title   = this.jsonContent[ 'Application' ][ 'pages' ][ 0 ][ 'hello-ionic' ][ 'title' ];
         this.content = [
