@@ -8,7 +8,7 @@
 	"pages": [
 	  {
 		"hello-ionic": {
-		  "title": "Main Page",
+		  "title": "Hello World!",
 		  "content": [
 			{
 			  "title": "Menu",

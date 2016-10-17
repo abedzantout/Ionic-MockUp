@@ -12,15 +12,45 @@ import { Service } from "../../services/service";
 })
 export class HelloIonicPage {
     content: Array<{title: string, component: any}>;
-    private title: string = "Main Page";
+    private title: string;
+    private jsonContent: Object;
 
     constructor( private navCtrl: NavController, private _service: Service ) {
 
+        this.jsonContent = this._service.getJson().subscribe(
+            ( data ) => {this.jsonContent = data;},
+            ( err ) => {console.log(err);},
+            () => {
+                this._service.setJsonContent(this.jsonContent);
+                this.setJsonLocally();
+            }
+        );
+
+    }
+
+
+    setJsonLocally() {
+        this.jsonContent = JSON.parse(this._service.getJsonContent());
+        this.title   = this.jsonContent[ 'Application' ][ 'pages' ][ 0 ][ 'hello-ionic' ][ 'title' ];
         this.content = [
-            { title: 'Menu', component: MenuPage },
-            { title: 'About us', component: AboutUsPage },
-            { title: 'feedback', component: FeedbackPage }
-        ];
+            {
+                title: this.jsonContent[ 'Application' ][ 'pages' ][ 0 ][ 'hello-ionic' ][ 'content' ][ 0 ][ 'title' ],
+                component: MenuPage
+            },
+            {
+                title: this.jsonContent[ 'Application' ][ 'pages' ][ 0 ][ 'hello-ionic' ][ 'content' ][ 1 ][ 'title' ],
+                component: AboutUsPage
+            },
+            {
+                title: this.jsonContent[ 'Application' ][ 'pages' ][ 0 ][ 'hello-ionic' ][ 'content' ][ 2 ][ 'title' ],
+                component: FeedbackPage
+            }
+        ]
+
+    }
+
+    private getLocalContent() {
+        return this.jsonContent;
     }
 
     goToPage( page ) {
