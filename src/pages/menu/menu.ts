@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
 import { FoodItemsProvider } from '../../providers/food-items-provider';
-import { DataChanger } from '../../providers/data-changer';
-
 import { foodItem } from '../foodItem';
 
 /*
@@ -17,7 +14,7 @@ import { foodItem } from '../foodItem';
 @Component({
     selector: 'page-menu',
     templateUrl: 'menu.html',
-    providers: [ FoodItemsProvider, DataChanger ]
+    providers: [ FoodItemsProvider ]
 })
 
 export class MenuPage {
