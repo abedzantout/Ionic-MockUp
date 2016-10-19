@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ionic Template Modifier</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1>Ionic Template Modifier</h1>
+<ul class="list-group">
+    <!-- DISPLAY INFORMATION REGARDING THE MENU PAGE -->
+    <li class="list-group-item"><h3>Menu Page</h3>
+    <label for="MPageTitle"><h4>Title :</h4></label>
+    <input type="text" class="form-control" placeholder="Enter Page name" id="MPageTitle">
+    <div *ngFor="let c of Mcards"> <!-- displaying cards list with all the cards' subdivisions-->
+        <label  [attr.for] = "c.name + 'Card'">Item Card :</label>
+        <input type="text" class="form-control" placeholder="Enter item name" [attr.id] = "c.name + 'Card'">
+        <input type="text" class="form-control" placeholder="Enter item photo" [attr.id] = "c.image + 'Card'">
+        <input type="text" class="form-control" placeholder="Enter item description" [attr.id] = "c.description + 'Card'">
+    </div>
+    </li>
+
+    <!-- DISPLAY INFORMATION REGARDING THE FEEDBACK PAGE -->
+    <li class="list-group-item"><h3>FeedBack Page</h3>
+        <label for="FBPageTitle"><h4>Title :</h4></label>
+        <input type="text" class="form-control" placeholder="Enter Page name" id="FBPageTitle">
+        <div *ngFor="let f of FBinputList"> <!-- displaying fields list -->
+            <label  [attr.for] = "f.input + 'Field'">Input Field :</label>
+            <input type="text" class="form-control" placeholder="Enter Field type" [attr.id] = "f.input + 'Field'">
+        </div>
+        <div *ngFor="let btn of FBbuttonList"><!-- displaying buttons list -->
+            <label  [attr.for] = "btn.value + 'button'">{{btn.value}} button:</label>
+            <input type="text" class="form-control" [attr.placeholder]="'Enter '+ btn.value + ' button value'" [attr.id] = "btn.value + 'button'">
+        </div>
+    </li>
+
+    <!-- DISPLAY INFORMATION REGARDING THE ABOUT US PAGE -->
+    <li class="list-group-item"><h3>About-us Page</h3>
+        <label for="AUPageTitle"><h4>Title :</h4></label>
+        <input type="text" class="form-control" placeholder="Enter Page name" id="AUPageTitle">
+        <h4><b>Page Content:</b></h4>
+        <div *ngFor="let AUK of AUKEYS">
+            <label  [attr.for] = "AUK">{{AUK}} :</label>
+            <input type="text" class="form-control" [attr.placeholder]="'Enter '+ AUK" [attr.id] = "AUK">
+        </div>
+    </li>
+</ul>
+
+<button type="button" class="btn btn-primary">Save Changes</button>
+
+</body>
+</html>
