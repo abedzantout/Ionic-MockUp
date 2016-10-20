@@ -7,3 +7,4 @@ client/node_modules/angular-in-memory-web-api/bundles/
 client/node_modules/fsevents/
 client/node_modules/nan/
 client/node_modules/normalize-package-data/test/normalize.js~
+/.idea/
