@@ -8,3 +8,10 @@ client/node_modules/fsevents/
 client/node_modules/nan/
 client/node_modules/normalize-package-data/test/normalize.js~
 /.idea/
+client/app/app.component.js
+client/app/app.component.js.map
+client/app/app.module.js
+client/app/app.module.js.map
+client/app/services/iconfigGetter.service.js
+client/app/services/iconfigGetter.service.js.map
+/client/typings/
