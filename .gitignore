@@ -15,3 +15,4 @@ client/app/app.module.js.map
 client/app/services/iconfigGetter.service.js
 client/app/services/iconfigGetter.service.js.map
 /client/typings/
+.gitignore
