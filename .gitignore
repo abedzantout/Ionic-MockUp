@@ -1,34 +1,8 @@
-# Specifies intentionally untracked files to ignore when using Git
-# http://git-scm.com/docs/gitignore
-
-*~
-*.sw[mnpcod]
-*.log
-*.tmp
-*.tmp.*
-log.txt
-*.sublime-project
-*.sublime-workspace
-.vscode/
-npm-debug.log*
-
-.idea/
-.sass-cache/
-.tmp/
-.versions/
-coverage/
-dist/
-node_modules/
-tmp/
-temp/
-hooks/
-platforms/
-plugins/
-plugins/android.json
-plugins/ios.json
-www/
-$RECYCLE.BIN/
-
+# Created by .ignore support plugin (hsz.mobi)
 .DS_Store
-Thumbs.db
-UserInterfaceState.xcuserstate
+.gitignore
+.idea/jsLibraryMappings.xml
+.idea/workspace.xml
+www/
+/client/node_modules/
+/ionic/node_modules/
