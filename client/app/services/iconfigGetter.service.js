@@ -33,4 +33,3 @@ var IconfigGetterService = (function () {
     return IconfigGetterService;
 }());
 exports.IconfigGetterService = IconfigGetterService;
-//# sourceMappingURL=iconfigGetter.service.js.map

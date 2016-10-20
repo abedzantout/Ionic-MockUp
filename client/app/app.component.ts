@@ -59,8 +59,7 @@ export class AppComponent {
         this.AUimage       = content[ 'content' ][ 'image' ];
         this.AUdescription = content[ 'content' ][ 'description' ];
         this.AUtitle       = content[ 'title' ];
-        let content      = this.jsonContent[ 'Application' ][ 'pages' ][ 3 ] [ 'about-us' ]['content'];
-        this.AUKEYS = Object.keys(content);
+        this.AUKEYS = Object.keys(content ['content']);
     }
 
     private getMKeys(){

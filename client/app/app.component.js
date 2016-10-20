@@ -42,8 +42,7 @@ var AppComponent = (function () {
         this.AUimage = content['content']['image'];
         this.AUdescription = content['content']['description'];
         this.AUtitle = content['title'];
-        var content = this.jsonContent['Application']['pages'][3]['about-us']['content'];
-        this.AUKEYS = Object.keys(content);
+        this.AUKEYS = Object.keys(content['content']);
     };
     AppComponent.prototype.getMKeys = function () {
         var content = this.jsonContent['Application']['pages'][2]['menu'];
@@ -62,4 +61,3 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
