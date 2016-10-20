@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+.DS_Store
+.gitignore
+.idea/jsLibraryMappings.xml
+.idea/workspace.xml
+www/
+/client/node_modules/
