@@ -1,8 +1,9 @@
-# Created by .ignore support plugin (hsz.mobi)
+
+/client/node_modules/
 .DS_Store
-.gitignore
 .idea/jsLibraryMappings.xml
 .idea/workspace.xml
-www/
-/client/node_modules/
-/ionic/node_modules/
+client/node_modules/angular-in-memory-web-api/bundles/
+client/node_modules/fsevents/
+client/node_modules/nan/
+client/node_modules/normalize-package-data/test/normalize.js~
