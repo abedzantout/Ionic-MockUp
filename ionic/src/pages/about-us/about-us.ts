@@ -21,7 +21,6 @@ export class AboutUsPage {
 
     constructor( public navCtrl: NavController, private _service: Service ) {
 
-
         this.jsonContent = this._service.getJson().subscribe(
             ( data ) => {this.jsonContent = data;},
             ( err ) => {console.log(err);},
