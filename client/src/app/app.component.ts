@@ -45,7 +45,7 @@ import { AppState } from './app.service';
 })
 export class AppComponent {
     angularclassLogo = 'assets/img/angularclass-avatar.png';
-    name             = 'CMPS 299';
+    name             = 'Angular 2 Webpack Starter';
 
     constructor( public appState: AppState ) {
 

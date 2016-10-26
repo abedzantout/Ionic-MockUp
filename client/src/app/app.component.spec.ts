@@ -17,7 +17,7 @@ describe('App', () => {
     }));
 
     it('should have a url', inject([ AppComponent ], ( app: AppComponent ) => {
-        expect(app.name).toEqual('CMPS 299');
+        expect(app.url).toEqual('https://twitter.com/AngularClass');
     }));
 
 });
