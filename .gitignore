@@ -16,3 +16,8 @@ client/app/services/iconfigGetter.service.js
 client/app/services/iconfigGetter.service.js.map
 /client/typings/
 .gitignore
+app/
+gulpfile.js
+test.json
+typings.json
+typings/

@@ -1,1 +1,8 @@
-/*styles for home content only*/
+html, body {
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+span.active {
+    background-color: gray;
+}
