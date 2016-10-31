@@ -126,6 +126,9 @@ module.exports = function (options) {
                     test  : /\.(jpg|png|gif)$/,
                     loader: 'file'
                 },
+                {
+                    test: /\.(ttf|eot|svg)(\?v=.+)?$/, loader: 'file-loader'
+                },
             ],
         },
         /*
@@ -239,6 +242,7 @@ module.exports = function (options) {
              * See: https://gist.github.com/sokra/27b24881210b56bbaff7
              */
             new LoaderOptionsPlugin({}),
+            new webpack.IgnorePlugin(/regenerator|nodent|js-beautify/, /ajv/),
         ],
         /*
          * Include polyfills or mocks for various node stuff

@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { AppState } from '../app.service';
 import { Title } from './title';
 import { IconfigGetterService } from '../services/iconfigGetter.service';
 
+
+import { JsonEditorComponent, JsonEditorOptions } from 'ng2-jsoneditor';
 @Component({
     // The selector is what angular internally uses
     // for `document.querySelectorAll(selector)` in our index.html
@@ -19,30 +21,36 @@ import { IconfigGetterService } from '../services/iconfigGetter.service';
     // Every Angular template is first compiled by the browser before Angular runs it's compiler
     templateUrl: './home.component.html'
 })
+
+
 export class HomeComponent {
 
     private jsonContent: Object;
+    public editorOptions: JsonEditorOptions;
 
-    //The interface is still too static. I have too many variables, perhaps itll be more dynamic for the next release.
+    public data: any = {
+        "Array": [ 1, 2, 3 ],
+        "Boolean": true,
+        "Null": null,
+        "Number": 123,
+        "Object": { "a": "b", "c": "d" },
+        "String": "Hello World"
+    };
 
-    Mtitle: string; //M = 'Menu' list of M variabls
-    private Mcards: Array<any>;
-
-    FBtitle: string; //FB = 'feed-back'  list of FB variables
-    FBinputList: Array<{ input: string }> = [];
-    private FBbuttonList: Array<any>;
+    @ViewChild(JsonEditorComponent) editor: JsonEditorComponent;
 
 
-    AUtitle: string; //AU = 'about-us'  list of AU variable
-    AUheaderText: string;
-    AUimage: string;
-    AUdescription: string;
-    AUKEYS: string[];
+    private loadEditor() {
 
-    // Set our default values
-    localState = { value: '' };
-    // TypeScript public modifiers
+    }
+
+    private onEditorReady() {
+
+    }
+
+
     constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService ) {
+
         this.jsonContent = this._service.getJson().subscribe(
             ( data ) => { this.jsonContent = data; },
             ( err ) => { console.log(err) },
@@ -51,70 +59,26 @@ export class HomeComponent {
                 this.setJsonLocally();
             }
         );
+        this.editorOptions = new JsonEditorOptions();
+
     }
 
     ngOnInit() {
-        console.log('hello `Home` component');
+        this.loadEditor();
+
         // this.title.getData().subscribe(data => this.data = data);
     }
 
-    submitState( value: string ) {
-        console.log('submitState', value);
-        this.appState.set('value', value);
-        this.localState.value = '';
-    }
 
     private setJsonLocally() {
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        var file         = this._service.getJsonContent();
-        var obj          = { name: 'JP' };
-
-        // console.dir(jsonfile.readFileSync(file));
-        // console.log(jsonfile.readFileSync(this._service.getJsonContent()));
-        this.getAUKeys();
-        this.getFBKeys();
-        this.getMKeys();
-    }
-
-    private getFBKeys() {
-        let content       = this.jsonContent[ 'Application' ][ 'pages' ][ 1 ][ 'feedback' ];
-        this.FBtitle      = content[ 'title' ];
-        this.FBinputList  = content[ 'content' ];
-        this.FBbuttonList = content[ 'buttons' ];
-        for ( let field of this.FBinputList ) {
-            console.log(field.input);
-        }
-    }
-
-    private getAUKeys() {
-        let content        = this.jsonContent[ 'Application' ][ 'pages' ][ 3 ][ 'about-us' ];
-        this.AUheaderText  = content[ 'content' ][ 'headerText' ];
-        this.AUimage       = content[ 'content' ][ 'image' ];
-        this.AUdescription = content[ 'content' ][ 'description' ];
-        this.AUtitle       = content[ 'title' ];
-        this.AUKEYS        = Object.keys(content[ 'content' ]);
-    }
-
-    private getMKeys() {
-        let content = this.jsonContent[ 'Application' ][ 'pages' ][ 2 ][ 'menu' ];
-        this.Mtitle = content[ 'title' ];
-        this.Mcards = content[ 'content' ];
-
+        console.log(this.jsonContent);
     }
 
 
-    private saveChanges() { //This method to save changes back into the iconfig
-
+    public setTreeMode() {
+        this.editor.set(this.data);
+        this.editor.setMode('tree');
     }
 
-    /* private getPages(){
-     let content = this.jsonContent['Application']['pages'][0]['hello-ionic'];
-     console.log(Object.keys(content));
-     for(var i =0; i< Object.keys(content).length;i++){
-     // console.log(content[i]['title']);
-
-     }
-     }
-
-     ionViewDidLoad() {}*/
 }

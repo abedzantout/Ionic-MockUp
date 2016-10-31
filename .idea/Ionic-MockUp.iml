@@ -5,7 +5,7 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/client/node_modules" />
-      <excludeFolder url="file://$MODULE_DIR$/ionic/platforms" />
+      <excludeFolder url="file://$MODULE_DIR$/Ionic/platforms" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
