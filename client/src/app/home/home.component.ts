@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AppState } from '../app.service';
 import { Title } from './title';
 import { IconfigGetterService } from '../services/iconfigGetter.service';
+import { DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 
 import { JsonEditorComponent, JsonEditorOptions } from 'ng2-jsoneditor';
@@ -26,30 +27,15 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ng2-jsoneditor';
 export class HomeComponent {
 
     private jsonContent: Object;
-    public editorOptions: JsonEditorOptions;
+    private finishedLoading: boolean=false;
 
-    public data: any = {
-        "Array": [ 1, 2, 3 ],
-        "Boolean": true,
-        "Null": null,
-        "Number": 123,
-        "Object": { "a": "b", "c": "d" },
-        "String": "Hello World"
-    };
-
-    @ViewChild(JsonEditorComponent) editor: JsonEditorComponent;
+    private htmlString: string;
 
 
-    private loadEditor() {
+    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer ) {
 
-    }
-
-    private onEditorReady() {
-
-    }
-
-
-    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService ) {
+        this.finishedLoading = false;
+        this.htmlString = "";
 
         this.jsonContent = this._service.getJson().subscribe(
             ( data ) => { this.jsonContent = data; },
@@ -57,28 +43,96 @@ export class HomeComponent {
             () => {
                 this._service.setJsonContent(this.jsonContent);
                 this.setJsonLocally();
+
+                this.finishedLoading = true;
             }
         );
-        this.editorOptions = new JsonEditorOptions();
 
     }
 
     ngOnInit() {
-        this.loadEditor();
 
         // this.title.getData().subscribe(data => this.data = data);
+
+    }
+
+
+    private isArray(o) {
+    return Object.prototype.toString.call(o) === '[object Array]';
+}
+
+
+    private traverseArray(arr, level) {
+
+    arr.forEach((x) => {
+        this.traverse(x, level + "  ");
+    });
+}
+
+    private traverseObject(obj, level) {
+
+
+
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                this.htmlString += key + ": ";
+                this.traverse(obj[key], level + "    ");
+            }
+        }
+
+
+
+
+    }
+
+
+
+    private traverse(x, level) {
+
+    if (this.isArray(x)) {
+        this.htmlString += "<br />";
+        this.traverseArray(x, level);
+        this.htmlString += "<br />";
+    } else if ((typeof x === 'object') && (x !== null)) {
+        this.htmlString += "<br />";
+        this.traverseObject(x, level);
+        this.htmlString += "<br />";
+    } else {
+
+        let inputString = '<input value="'+x+'" size="35" />';
+        this.htmlString += inputString;
+
+        this.htmlString += "<br />";
+        this.htmlString += "<br />";
+
+    }
+
+}
+
+
+    public get safeHtmlString() : SafeHtml {
+        return this._sanitizer.bypassSecurityTrustHtml(this.htmlString);
+    }
+
+
+    private getStringifiedContent(){
+        return JSON.stringify(this.jsonContent, null, "<br/>");
     }
 
 
     private setJsonLocally() {
+
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        console.log(this.jsonContent);
+        this.traverse(this.jsonContent, 2);
+
     }
 
 
-    public setTreeMode() {
-        this.editor.set(this.data);
-        this.editor.setMode('tree');
+    private saveChanges(){
+
+        console.log(this.htmlString);
+
     }
+
 
 }
