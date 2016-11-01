@@ -28,6 +28,8 @@ export class HomeComponent {
 
     private jsonContent: Object;
     private newJsonContent: string;
+    private objectId: number;
+    private buttonValues: Array<string>;
 
     private finishedLoading: boolean = false;
 
@@ -50,6 +52,8 @@ export class HomeComponent {
         this.valueID         = -1;
         this.newJsonContent  = "";
         this.arrCounter      = 0;
+        this.objectId        = 0;
+        this.buttonValues    = [];
 
 
         this.jsonContent = this._service.getJson().subscribe(
@@ -109,12 +113,15 @@ export class HomeComponent {
             this.newJsonContent += "{";
         }
         for ( var key in obj ) {
+
             if ( obj.hasOwnProperty(key) ) {
+
                 this.htmlString += key;
                 if ( level == 99 ) {
                     this.newJsonContent += '"' + key + '":';
                 }
                 this.traverse(obj[ key ], level + "    ");
+
             }
         }
         if ( level == 99 ) {
@@ -132,14 +139,20 @@ export class HomeComponent {
             this.traverseArray(x, level);
 
         } else if ( (typeof x === 'object') && (x !== null) ) {
-            this.htmlString += "<div class='form-group'>";
+            this.htmlString += `<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample` + this.objectId + `"  
+                                aria-expanded="false" aria-controls="collapseExample` + this.objectId + `">Toggle</button>`;
+            this.htmlString += '<div class="form-group collapse" id="collapseExample' + this.objectId + '">';
+            this.objectId += 1;
+
+            this.htmlString += '<div class="card card-block">';
             this.traverseObject(x, level);
+            this.htmlString += '</div>';
             this.htmlString += "</div>";
         } else {
+
             this.valuesInJson.push(x);
             let inputString = '<input class="form-control" value="' + x + '" size="35" />';
             this.htmlString += inputString;
-
             if ( level == 99 ) {
                 this.valueID += 1;
                 this.newJsonContent += '"' + this.inputValues[ this.valueID ] + '",';
@@ -169,13 +182,10 @@ export class HomeComponent {
             // deal with inputs[index] element.
             this.inputValues.push(inputs[ index ][ 'value' ]);
         }
-        console.log(this.valuesInJson);
-        console.log(this.inputValues);
 
         this.traverse(this.jsonContent, 99);
         this.newJsonContent = this.newJsonContent.substring(0, this.newJsonContent.length - 1);
-        console.log(this.newJsonContent);
-        console.log(JSON.parse(this.newJsonContent));
+        console.log(this.buttonValues);
 
     }
 
