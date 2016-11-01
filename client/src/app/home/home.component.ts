@@ -1,12 +1,12 @@
-import {Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
-import {AppState} from '../app.service';
-import {Title} from './title';
-import {IconfigGetterService} from '../services/iconfigGetter.service';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import { AppState } from '../app.service';
+import { Title } from './title';
+import { IconfigGetterService } from '../services/iconfigGetter.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 
-import {JsonEditorComponent, JsonEditorOptions} from 'ng2-jsoneditor';
+import { JsonEditorComponent, JsonEditorOptions } from 'ng2-jsoneditor';
 @Component({
     // The selector is what angular internally uses
     // for `document.querySelectorAll(selector)` in our index.html
@@ -18,7 +18,7 @@ import {JsonEditorComponent, JsonEditorOptions} from 'ng2-jsoneditor';
         IconfigGetterService
     ],
     // Our list of styles in our component. We may add more to compose many styles together
-    styleUrls: ['./home.component.css'],
+    styleUrls: [ './home.component.css' ],
     // Every Angular template is first compiled by the browser before Angular runs it's compiler
     templateUrl: './home.component.html'
 })
@@ -41,22 +41,22 @@ export class HomeComponent {
     private arrCounter: number;
 
 
-    constructor(public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer) {
+    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer ) {
 
         this.finishedLoading = false;
-        this.htmlString = "";
-        this.valuesInJson = [];
-        this.inputValues = [];
-        this.valueID = -1;
-        this.newJsonContent = "";
-        this.arrCounter = 0;
+        this.htmlString      = "";
+        this.valuesInJson    = [];
+        this.inputValues     = [];
+        this.valueID         = -1;
+        this.newJsonContent  = "";
+        this.arrCounter      = 0;
 
 
         this.jsonContent = this._service.getJson().subscribe(
-            (data) => {
+            ( data ) => {
                 this.jsonContent = data;
             },
-            (err) => {
+            ( err ) => {
                 console.log(err)
             },
             () => {
@@ -76,114 +76,84 @@ export class HomeComponent {
     }
 
 
-    private isArray(o) {
+    private isArray( o ) {
         return Object.prototype.toString.call(o) === '[object Array]';
     }
 
 
-    private traverseArray(arr, level) {
+    private traverseArray( arr, level ) {
 
-        if (level == 99) {
+        if ( level == 99 ) {
             this.newJsonContent += "[";
         }
         this.arrCounter = arr.length;
-        let counter = 0;
+        let counter     = 0;
 
 
-        arr.forEach((x) => {
+        arr.forEach(( x ) => {
             this.traverse(x, level + "  ");
         });
 
-        if (level == 99) {
+        if ( level == 99 ) {
             this.newJsonContent += "],";
         }
-        if (level == 99) {
+        if ( level == 99 ) {
             this.newJsonContent = this.newJsonContent.replace(",]", "]");
         }
 
 
     }
 
-    private traverseObject(obj, level) {
-
-        if (level == 99) {
+    private traverseObject( obj, level ) {
+        if ( level == 99 ) {
             this.newJsonContent += "{";
         }
-
-
-        for (var key in obj) {
-
-            if (obj.hasOwnProperty(key)) {
-
-                this.htmlString += key + ": ";
-                if (level == 99) {
+        for ( var key in obj ) {
+            if ( obj.hasOwnProperty(key) ) {
+                this.htmlString += key;
+                if ( level == 99 ) {
                     this.newJsonContent += '"' + key + '":';
                 }
-                this.traverse(obj[key], level + "    ");
+                this.traverse(obj[ key ], level + "    ");
             }
         }
-
-        if (level == 99) {
+        if ( level == 99 ) {
             this.newJsonContent += "},";
         }
-        if (level == 99) {
+        if ( level == 99 ) {
             this.newJsonContent = this.newJsonContent.replace(",}", "}");
         }
-
-
     }
 
 
-    private traverse(x, level) {
+    private traverse( x, level ) {
 
-        if (this.isArray(x)) {
-
-
-            this.htmlString += "<br />";
+        if ( this.isArray(x) ) {
             this.traverseArray(x, level);
-            this.htmlString += "<br />";
 
-
-        } else if ((typeof x === 'object') && (x !== null)) {
-
-
-            this.htmlString += "<br />";
+        } else if ( (typeof x === 'object') && (x !== null) ) {
+            this.htmlString += "<div class='form-group'>";
             this.traverseObject(x, level);
-            this.htmlString += "<br />";
-
-
+            this.htmlString += "</div>";
         } else {
-
-
             this.valuesInJson.push(x);
-
-            let inputString = '<input value="' + x + '" size="35" />';
+            let inputString = '<input class="form-control" value="' + x + '" size="35" />';
             this.htmlString += inputString;
 
-            this.htmlString += "<br />";
-            this.htmlString += "<br />";
-
-            if (level == 99) {
+            if ( level == 99 ) {
                 this.valueID += 1;
-
-                this.newJsonContent += '"' + this.inputValues[this.valueID] + '",';
+                this.newJsonContent += '"' + this.inputValues[ this.valueID ] + '",';
             }
-
-
         }
-
     }
-
 
     public get safeHtmlString(): SafeHtml {
         return this._sanitizer.bypassSecurityTrustHtml(this.htmlString);
     }
 
-
     private getStringifiedContent() {
         return JSON.stringify(this.jsonContent, null, "<br/>");
     }
-
 
     private setJsonLocally() {
 
@@ -192,29 +162,19 @@ export class HomeComponent {
 
     }
 
-
     private saveChanges() {
 
-
         let inputs = document.getElementsByTagName('input');
-
-
-        for (let index = 0; index < inputs.length; ++index) {
+        for ( let index = 0; index < inputs.length; ++index ) {
             // deal with inputs[index] element.
-
-            this.inputValues.push(inputs[index]['value']);
-
+            this.inputValues.push(inputs[ index ][ 'value' ]);
         }
-
         console.log(this.valuesInJson);
         console.log(this.inputValues);
 
         this.traverse(this.jsonContent, 99);
-
         this.newJsonContent = this.newJsonContent.substring(0, this.newJsonContent.length - 1);
-
         console.log(this.newJsonContent);
-
         console.log(JSON.parse(this.newJsonContent));
 
     }
