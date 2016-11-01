@@ -1,10 +1,6 @@
-/**
- * @author: @AngularClass
- */
-
-const helpers      = require('./helpers');
-const webpackMerge = require('webpack-merge'); // used to merge webpack configs
-const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+const helpers                       = require('./helpers');
+const webpackMerge                  = require('webpack-merge'); // used to merge webpack configs
+const commonConfig                  = require('./webpack.common.js'); // the settings that are common to prod and dev
 /**
  * Webpack Plugins
  */
@@ -16,10 +12,11 @@ const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplaceme
 const ProvidePlugin                 = require('webpack/lib/ProvidePlugin');
 const UglifyJsPlugin                = require('webpack/lib/optimize/UglifyJsPlugin');
 const WebpackMd5Hash                = require('webpack-md5-hash');
+const CompressionPlugin             = require("compression-webpack-plugin");
 /**
  * Webpack Constants
  */
-const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
+const ENV                           = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST     = process.env.HOST || 'localhost';
 const PORT     = process.env.PORT || 8080;
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
@@ -42,20 +39,20 @@ module.exports = function (env) {
          *
          * See: http://webpack.github.io/docs/configuration.html#output
          */
-        output: {
+        output : {
             /**
              * The output directory as absolute path (required).
              *
              * See: http://webpack.github.io/docs/configuration.html#output-path
              */
-            path: helpers.root('dist'),
+            path             : helpers.root('dist'),
             /**
              * Specifies the name of each output file on disk.
              * IMPORTANT: You must not specify an absolute path here!
              *
              * See: http://webpack.github.io/docs/configuration.html#output-filename
              */
-            filename: '[name].[chunkhash].bundle.js',
+            filename         : '[name].[chunkhash].bundle.js',
             /**
              * The filename of the SourceMaps for the JavaScript files.
              * They are inside the output.path directory.
@@ -69,7 +66,7 @@ module.exports = function (env) {
              *
              * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
              */
-            chunkFilename: '[id].[chunkhash].chunk.js'
+            chunkFilename    : '[id].[chunkhash].chunk.js'
         },
         /**
          * Add additional plugins to the compiler.
@@ -135,13 +132,9 @@ module.exports = function (env) {
                 // }, // debug
                 // comments: true, //debug
                 beautify: false, //prod
-                mangle  : {
-                    screw_ie8  : true,
-                    keep_fnames: true
-                }, //prod
-                compress: {
-                    screw_ie8: true
-                }, //prod
+                // mangle: { screw_ie8 : true, keep_fnames: true }, //prod
+                mangle  : false,
+                compress: {screw_ie8: true}, //prod
                 comments: false //prod
             }),
             /**
@@ -175,7 +168,16 @@ module.exports = function (env) {
             //   regExp: /\.css$|\.html$|\.js$|\.map$/,
             //   threshold: 2 * 1024
             // })
+            new CompressionPlugin({
+                asset    : "[path].gz[query]",
+                algorithm: "gzip",
+                test     : /\.js$|\.css$|\.html$/,
+                threshold: 10240,
+                minRatio : 0.8
+            }),
             /**
+             *
+             *
              * Plugin LoaderOptionsPlugin (experimental)
              *
              * See: https://gist.github.com/sokra/27b24881210b56bbaff7
@@ -183,13 +185,17 @@ module.exports = function (env) {
             new LoaderOptionsPlugin({
                 debug  : false,
                 options: {
+                    context   : helpers.root('src'),
+                    output    : {
+                        path: helpers.root('dist')
+                    },
                     /**
                      * Static analysis linter for TypeScript advanced options configuration
                      * Description: An extensible linter for the TypeScript language.
                      *
                      * See: https://github.com/wbuchwalter/tslint-loader
                      */
-                    tslint: {
+                    tslint    : {
                         emitErrors  : true,
                         failOnHint  : true,
                         resourcePath: 'src'
@@ -220,7 +226,7 @@ module.exports = function (env) {
          *
          * See: https://webpack.github.io/docs/configuration.html#node
          */
-        node: {
+        node   : {
             global        : true,
             crypto        : 'empty',
             process       : false,
@@ -229,4 +235,4 @@ module.exports = function (env) {
             setImmediate  : false
         }
     });
-}
+};

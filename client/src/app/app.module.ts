@@ -18,7 +18,6 @@ import { AppState, InternalStateType } from './app.service';
 import { HomeComponent } from './home';
 import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
-import { JSONEditorModule } from 'ng2-jsoneditor';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -48,7 +47,6 @@ type StoreType = {
         BrowserModule,
         FormsModule,
         HttpModule,
-        JSONEditorModule,
         RouterModule.forRoot(ROUTES, { useHash: true })
     ],
     providers: [ // expose our Services and Providers into Angular's dependency injection

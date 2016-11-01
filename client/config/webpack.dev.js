@@ -1,16 +1,20 @@
-/**
- * @author: @AngularClass
- */
-
-const helpers      = require('./helpers');
-const webpackMerge = require('webpack-merge'); // used to merge webpack configs
-const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+const helpers             = require('./helpers');
+const path                = require('path');
+const webpackMerge        = require('webpack-merge'); // used to merge webpack configs
+const commonConfig        = require('./webpack.common.js'); // the settings that are common to prod and dev
 /**
  * Webpack Plugins
  */
 const DefinePlugin        = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin  = require('webpack/lib/NamedModulesPlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+/**
+ * Webpack Dashboard
+ */
+//
+// var Dashboard             = require('webpack-dashboard');
+// const DashboardPlugin     = require('webpack-dashboard/plugin');
+// var dashboard             = new Dashboard();
 /**
  * Webpack Constants
  */
@@ -37,26 +41,26 @@ module.exports = function (options) {
          * See: http://webpack.github.io/docs/configuration.html#devtool
          * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
          */
-        devtool: 'cheap-module-source-map',
+        devtool  : 'cheap-module-source-map',
         /**
          * Options affecting the output of the compilation.
          *
          * See: http://webpack.github.io/docs/configuration.html#output
          */
-        output: {
+        output   : {
             /**
              * The output directory as absolute path (required).
              *
              * See: http://webpack.github.io/docs/configuration.html#output-path
              */
-            path: helpers.root('dist'),
+            path             : helpers.root('dist'),
             /**
              * Specifies the name of each output file on disk.
              * IMPORTANT: You must not specify an absolute path here!
              *
              * See: http://webpack.github.io/docs/configuration.html#output-filename
              */
-            filename: '[name].bundle.js',
+            filename         : '[name].bundle.js',
             /**
              * The filename of the SourceMaps for the JavaScript files.
              * They are inside the output.path directory.
@@ -69,11 +73,11 @@ module.exports = function (options) {
              *
              * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
              */
-            chunkFilename: '[id].chunk.js',
-            library      : 'ac_[name]',
-            libraryTarget: 'var',
+            chunkFilename    : '[id].chunk.js',
+            library          : 'ac_[name]',
+            libraryTarget    : 'var',
         },
-        plugins: [
+        plugins  : [
             /**
              * Plugin: DefinePlugin
              * Description: Define free variables.
@@ -108,19 +112,25 @@ module.exports = function (options) {
             new LoaderOptionsPlugin({
                 debug  : true,
                 options: {
+                    context: helpers.root('src'),
+                    output : {
+                        path: helpers.root('dist')
+                    },
                     /**
                      * Static analysis linter for TypeScript advanced options configuration
                      * Description: An extensible linter for the TypeScript language.
                      *
                      * See: https://github.com/wbuchwalter/tslint-loader
                      */
-                    tslint: {
+                    tslint : {
                         emitErrors  : false,
                         failOnHint  : false,
                         resourcePath: 'src'
-                    },
+                    }
                 }
             }),
+            // uncomment for a surprise :)
+            // new DashboardPlugin(dashboard.setData)
         ],
         /**
          * Webpack Development Server configuration
@@ -133,7 +143,9 @@ module.exports = function (options) {
         devServer: {
             port              : METADATA.port,
             host              : METADATA.host,
-            historyApiFallback: true,
+            historyApiFallback: {
+                index: '/index.html'
+            },
             watchOptions      : {
                 aggregateTimeout: 300,
                 poll            : 1000
@@ -146,7 +158,7 @@ module.exports = function (options) {
          *
          * See: https://webpack.github.io/docs/configuration.html#node
          */
-        node: {
+        node     : {
             global        : true,
             crypto        : 'empty',
             process       : true,
@@ -155,4 +167,4 @@ module.exports = function (options) {
             setImmediate  : false
         }
     });
-}
+};
