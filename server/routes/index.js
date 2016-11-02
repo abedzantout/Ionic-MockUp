@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var fs = require('file-system');
+var fs = require('fs');
 
 
 /* GET home page. */
@@ -9,31 +9,29 @@ router.get('/', function (req, res, next) {
   res.render('../../client/dist/index.html');
 });
 
-router.get('/getIconfig', function(req, res, next){
+router.get('/getIconfig' , function(req, res, next){
 
-    res.contentType('application/json');
+   // res.contentType('application/json');
 
-    fs.readFile('iconfig.json', (err, data)=>{
+    console.log("ENTERED GETICONFIG");
 
-        console.log(data);
+    fs.readFile('iconfig.json', 'utf8',  (err, data)=>{
 
-        var iconfigJson = JSON.stringify(data);
-
-        res.send(iconfigJson);
-
+        res.send(data);
 
     });
 
 
-
-
 });
+
 
 router.post('/sendJson', function(req, res, next){
 
-    fs.writeFile('testconfig.json', '{"name":"Abbas B."}', function(err){
+
+    fs.writeFile('iconfig.json', JSON.stringify(req['body']), function(err){
         console.log(err);
-    } );
+    });
+
 
   res.send("Changes saved.");
 

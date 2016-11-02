@@ -197,26 +197,26 @@ export class HomeComponent {
 
         // send to server
 
-        let headers = new Headers();
+        let headers      = new Headers; // ... Set content type to JSON
+        headers.append( 'Content-Type', 'application/json' )
+       let options       = new RequestOptions({ headers: headers }); // Create a request option
 
-        headers.append('Content-Type', 'application/json');
 
+        return this.http.post('/sendJson', this.newJsonContent, options).map((res: Response) => {
 
-        let requestOptions = new RequestOptions({
-            method: RequestMethod.Post,
-            url: 'http://localhost:3000/sendJson',
-            headers: headers,
-            body: this.newJsonContent
+            if (res) {
+                this.changesMessage = res['_body'];
+            }
+
         });
 
 
-
-        return this.http.request(new Request(requestOptions))
-            .map((res: Response) => {
-                if (res) {
-                    this.changesMessage = res['_body'];
-                }
-            });
+        // return this.http.request(new Request(requestOptions))
+        //     .map((res: Response) => {
+        //         if (res) {
+        //             this.changesMessage = res['_body'];
+        //         }
+        //     });
 
     }
 
