@@ -11,9 +11,6 @@ router.get('/', function (req, res, next) {
 
 router.get('/getIconfig' , function(req, res, next){
 
-   // res.contentType('application/json');
-
-    console.log("ENTERED GETICONFIG");
 
     fs.readFile('iconfig.json', 'utf8',  (err, data)=>{
 
@@ -30,6 +27,7 @@ router.post('/sendJson', function(req, res, next){
 
     fs.writeFile('iconfig.json', JSON.stringify(req['body']), function(err){
         console.log(err);
+        
     });
 
 
