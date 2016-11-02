@@ -14,7 +14,7 @@ export class IconfigGetterService {
     }
 
     getJson() {
-        return this.http.get('app/services/iconfig.json').map(( res: Response ) =>res);
+        return this.http.get('http://localhost:3000/getIconfig').map(( res: Response ) =>res);
     }
 
     setJsonContent( content ) {

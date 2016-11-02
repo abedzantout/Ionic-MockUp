@@ -1,9 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
+
+import {Http, RequestOptions, RequestMethod, Headers, Request, Response} from '@angular/http';
 
 import { AppState } from '../app.service';
 import { Title } from './title';
 import { IconfigGetterService } from '../services/iconfigGetter.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {Observable} from 'rxjs/Rx';
 
 
 import { JsonEditorComponent, JsonEditorOptions } from 'ng2-jsoneditor';
@@ -42,8 +45,10 @@ export class HomeComponent {
 
     private arrCounter: number;
 
+    private changesMessage: string;
 
-    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer ) {
+
+    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer, private http: Http, private ngZone: NgZone) {
 
         this.finishedLoading = false;
         this.htmlString      = "";
@@ -54,6 +59,7 @@ export class HomeComponent {
         this.arrCounter      = 0;
         this.objectId        = 0;
         this.buttonValues    = [];
+        this.changesMessage = "";
 
 
         this.jsonContent = this._service.getJson().subscribe(
@@ -109,6 +115,7 @@ export class HomeComponent {
     }
 
     private traverseObject( obj, level ) {
+
         if ( level == 99 ) {
             this.newJsonContent += "{";
         }
@@ -117,9 +124,12 @@ export class HomeComponent {
             if ( obj.hasOwnProperty(key) ) {
 
                 this.htmlString += key;
+                this.buttonValues.push(key);
+
                 if ( level == 99 ) {
                     this.newJsonContent += '"' + key + '":';
                 }
+
                 this.traverse(obj[ key ], level + "    ");
 
             }
@@ -139,8 +149,9 @@ export class HomeComponent {
             this.traverseArray(x, level);
 
         } else if ( (typeof x === 'object') && (x !== null) ) {
-            this.htmlString += `<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample` + this.objectId + `"  
-                                aria-expanded="false" aria-controls="collapseExample` + this.objectId + `">Toggle</button>`;
+
+            this.htmlString += `<button onclick="if(this.innerHTML=='+'){this.innerHTML='-';}else{this.innerHTML='+';}" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample` + this.objectId + `"  
+                                aria-expanded="false" aria-controls="collapseExample` + this.objectId + `">+</button>`;
             this.htmlString += '<div class="form-group collapse" id="collapseExample' + this.objectId + '">';
             this.objectId += 1;
 
@@ -148,6 +159,7 @@ export class HomeComponent {
             this.traverseObject(x, level);
             this.htmlString += '</div>';
             this.htmlString += "</div>";
+
         } else {
 
             this.valuesInJson.push(x);
@@ -159,6 +171,10 @@ export class HomeComponent {
             }
         }
     }
+
+
+
+
 
     public get safeHtmlString(): SafeHtml {
         return this._sanitizer.bypassSecurityTrustHtml(this.htmlString);
@@ -175,17 +191,68 @@ export class HomeComponent {
 
     }
 
+
+
+    private sendToServer(): Observable<void>{
+
+        // send to server
+
+        let headers = new Headers();
+
+        headers.append('Content-Type', 'application/json');
+
+
+        let requestOptions = new RequestOptions({
+            method: RequestMethod.Post,
+            url: 'http://localhost:3000/sendJson',
+            headers: headers,
+            body: this.newJsonContent
+        });
+
+
+
+        return this.http.request(new Request(requestOptions))
+            .map((res: Response) => {
+                if (res) {
+                    this.changesMessage = res['_body'];
+                }
+            });
+
+    }
+
     private saveChanges() {
 
         let inputs = document.getElementsByTagName('input');
+
         for ( let index = 0; index < inputs.length; ++index ) {
-            // deal with inputs[index] element.
             this.inputValues.push(inputs[ index ][ 'value' ]);
         }
 
         this.traverse(this.jsonContent, 99);
         this.newJsonContent = this.newJsonContent.substring(0, this.newJsonContent.length - 1);
-        console.log(this.buttonValues);
+
+
+        this.sendToServer().subscribe(
+
+            (data) => {},
+            (err) => console.log(err),
+            () => {}
+
+        );
+
+
+        this.objectId = 0;
+
+        this.htmlString = "";
+
+        this.jsonContent = JSON.parse(this.newJsonContent);
+
+        this.newJsonContent = "";
+
+        this.traverse(this.jsonContent, 2);
+
+
+
 
     }
 

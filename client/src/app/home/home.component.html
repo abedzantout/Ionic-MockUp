@@ -1,6 +1,8 @@
-<div *ngIf="finishedLoading" class="container">
+<div *ngIf="finishedLoading" class="container" >
 
-    <div [innerHTML]="safeHtmlString" ></div>
+    <div [innerHTML]="changesMessage"></div>
+
+    <div [innerHTML]="safeHtmlString" id="jsonEditorContainer"></div>
 
     <button (click)="saveChanges()">Save Changes</button>
 
