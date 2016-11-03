@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, Nav } from 'ionic-angular';
 import { Service } from "../../services/service";
-
+import { HomePage } from '../home/home';
+import { AboutPage } from '../about/about';
 /*
  Generated class for the Feedback page.
 
@@ -13,12 +14,19 @@ import { Service } from "../../services/service";
     templateUrl: 'feedback.html'
 })
 export class FeedbackPage {
+    @ViewChild(Nav) nav: Nav;
+
+    private navPage: string;
+
     fields: Array<{ input: string }> = [];
     private jsonContent: Object;
     title: string;
     buttons: Array<any>;
+    private buttonIndex: number;
 
     constructor( public navCtrl: NavController, private _service: Service ) {
+
+        this.buttonIndex = -1;
 
         this.jsonContent = this._service.getJson().subscribe(
             ( data ) => { this.jsonContent = data; },
@@ -43,6 +51,29 @@ export class FeedbackPage {
         for ( let button of this.buttons ) {
             console.log(button);
         }
+    }
+
+
+    private static mapClick(buttonOnClick){
+
+        let component: Component = null;
+        switch (buttonOnClick) {
+            case "HomePage":
+                component = HomePage;
+                break;
+            case "AboutPage":
+                component = AboutPage;
+                break;
+            default: component = null;
+        }
+
+        return component;
+
+    }
+
+    private openPage( button ) {
+        // this.buttonIndex += 1;
+        this.navCtrl.push(FeedbackPage.mapClick(button['onClick']));
     }
 
     private getDefaultInstance() {

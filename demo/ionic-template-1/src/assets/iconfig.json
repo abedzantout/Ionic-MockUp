@@ -120,16 +120,14 @@
 				],
 				"buttons": [
 				  {
-					"buttonText": "Submit",
-					"value": "submit"
+					"buttonText": "Home",
+					"value": "home",
+					"onClick": "HomePage"
 				  },
 				  {
-					"buttonText": "Cancel",
-					"value": "cancel"
-				  },
-				  {
-					"buttonText": "Abbas",
-					"value": "abbas"
+					"buttonText": "About",
+					"value": "about",
+					"onClick": "AboutPage"
 				  }
 				]
 			  }
