@@ -49,52 +49,107 @@
 		]
 	  },
 	  {
-		"feedback": {
-		  "title": "feedback",
-		  "content": [
-			{
-			  "input": "Full Name"
-			},
-			{
-			  "input": "Email"
-			},
-			{
-			  "input": "notes"
+		"page2": [
+		  {
+			"feedback": {
+			  "title": "feedback",
+			  "content": [
+				{
+				  "input": "Full Name"
+				},
+				{
+				  "input": "Email"
+				},
+				{
+				  "input": "notes"
+				}
+			  ],
+			  "buttons": [
+				{
+				  "buttonText": "Submit",
+				  "value": "submit"
+				},
+				{
+				  "buttonText": "Cancel",
+				  "value": "cancel"
+				}
+			  ]
 			}
-		  ],
-		  "buttons": [
-			{
-			  "buttonText": "Submit",
-			  "value": "submit"
-			},
-			{
-			  "buttonText": "Cancel",
-			  "value": "cancel"
+		  },
+		  {
+			"feedback": {
+			  "title": "feedback",
+			  "content": [
+				{
+				  "input": "Full Name"
+				},
+				{
+				  "input": "Email"
+				},
+				{
+				  "input": "notes"
+				}
+			  ],
+			  "buttons": [
+				{
+				  "buttonText": "Submit",
+				  "value": "submit"
+				},
+				{
+				  "buttonText": "Cancel",
+				  "value": "cancel"
+				}
+			  ]
 			}
-		  ]
-		}
+		  }
+		]
 	  },
 	  {
-		"menu": {
-		  "title": "Menu",
-		  "content": [
-			{
-			  "name": "Lasagne",
-			  "image": "../../assets/images/lasagne.jpg",
-			  "description": "Italian Pasta."
-			},
-			{
-			  "name": "kebab",
-			  "image": "../../assets/images/kebab.jpg",
-			  "description": "Turkish grilled meat."
-			},
-			{
-			  "name": "humus",
-			  "image": "../../assets/images/humus.jpg",
-			  "description": "Lebanese cold starter."
+		"page3": [
+		  {
+			"menu": {
+			  "title": "Menu",
+			  "content": [
+				{
+				  "name": "Lasagne",
+				  "image": "../../assets/images/lasagne.jpg",
+				  "description": "Italian Pasta."
+				},
+				{
+				  "name": "kebab",
+				  "image": "../../assets/images/kebab.jpg",
+				  "description": "Turkish grilled meat."
+				},
+				{
+				  "name": "humus",
+				  "image": "../../assets/images/humus.jpg",
+				  "description": "Lebanese cold starter."
+				}
+			  ]
 			}
-		  ]
-		}
+		  },
+		  {
+			"menu": {
+			  "title": "Menu",
+			  "content": [
+				{
+				  "name": "Lasagne",
+				  "image": "../../assets/images/lasagne.jpg",
+				  "description": "Italian Pasta."
+				},
+				{
+				  "name": "kebab",
+				  "image": "../../assets/images/kebab.jpg",
+				  "description": "Turkish grilled meat."
+				},
+				{
+				  "name": "humus",
+				  "image": "../../assets/images/humus.jpg",
+				  "description": "Lebanese cold starter."
+				}
+			  ]
+			}
+		  }]
 	  },
 	  {
 		"about-us": {
