@@ -15,7 +15,7 @@ import { Service } from "../../services/service";
 @Component({
     selector: 'page-menu',
     templateUrl: 'menu.html',
-    providers: [FoodItemsProvider]
+    providers: [ FoodItemsProvider ]
 })
 
 export class MenuPage {
@@ -24,11 +24,11 @@ export class MenuPage {
     content: Object;
     private jsonContent: Object;
 
-    constructor(private navCtrl: NavController, private _service: Service) {
+    constructor( private navCtrl: NavController, private _service: Service ) {
 
         this.jsonContent = this._service.getJson().subscribe(
-            (data) => { this.jsonContent = data; },
-            (err) => { console.log(err); },
+            ( data ) => { this.jsonContent = data; },
+            ( err ) => { console.log(err); },
             () => {
                 this._service.setJsonContent(this.jsonContent);
                 this.setJsonLocally();
@@ -38,9 +38,9 @@ export class MenuPage {
 
     private setJsonLocally() {
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        let content = this.jsonContent['Application']['pages'][2]['page3'][0]['menu'];
-        this.title = content['title'];
-        this.content = content['content'];
+        let content      = this.jsonContent[ 'Application' ][ 'pages' ][ 2 ][ 'page3' ][ 0 ][ 'menu' ];
+        this.title       = content[ 'title' ];
+        this.content     = content[ 'content' ];
     }
 
 

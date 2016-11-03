@@ -18,11 +18,11 @@ export class FeedbackPage {
     title: string;
     buttons: Array<any>;
 
-    constructor(public navCtrl: NavController, private _service: Service) {
+    constructor( public navCtrl: NavController, private _service: Service ) {
 
         this.jsonContent = this._service.getJson().subscribe(
-            (data) => { this.jsonContent = data; },
-            (err) => { console.log(err); },
+            ( data ) => { this.jsonContent = data; },
+            ( err ) => { console.log(err); },
             () => {
                 this._service.setJsonContent(this.jsonContent);
                 this.setJsonLocally();
@@ -35,17 +35,17 @@ export class FeedbackPage {
     private setJsonLocally() {
 
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        console.log(this.jsonContent['Application']['pages'][1]['page2']['default-instance']);
-        let content = this.jsonContent['Application']['pages'][1]['page2']['instances'][ this.getDefaultInstance()]['feedback'];
-        this.title = content['title'];
-        this.fields = content['content'];
-        this.buttons = content['buttons'];
-        for (let button of this.buttons) {
+        console.log(this.jsonContent[ 'Application' ][ 'pages' ][ 1 ][ 'page2' ][ 'default-instance' ]);
+        let content  = this.jsonContent[ 'Application' ][ 'pages' ][ 1 ][ 'page2' ][ 'instances' ][ this.getDefaultInstance() ][ 'feedback' ];
+        this.title   = content[ 'title' ];
+        this.fields  = content[ 'content' ];
+        this.buttons = content[ 'buttons' ];
+        for ( let button of this.buttons ) {
             console.log(button);
         }
     }
 
     private getDefaultInstance() {
-        return this.jsonContent['Application']['pages'][1]['page2']['default-instance'];
+        return this.jsonContent[ 'Application' ][ 'pages' ][ 1 ][ 'page2' ][ 'default-instance' ];
     }
 }

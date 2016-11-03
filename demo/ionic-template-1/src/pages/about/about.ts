@@ -3,11 +3,11 @@ import { Service } from "../../services/service";
 import { NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'page-about',
-  templateUrl: 'about.html'
+    selector: 'page-about',
+    templateUrl: 'about.html'
 })
 export class AboutPage {
-  private jsonContent: Object;
+    private jsonContent: Object;
             headerText: string;
             image: string;
             description: string;

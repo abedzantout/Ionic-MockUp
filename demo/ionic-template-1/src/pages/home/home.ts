@@ -18,11 +18,11 @@ export class HomePage {
     title: string;
     jsonContent: Object;
 
-    constructor(private navCtrl: NavController, private _service: Service) {
+    constructor( private navCtrl: NavController, private _service: Service ) {
 
         this.jsonContent = this._service.getJson().subscribe(
-            (data) => { this.jsonContent = data; },
-            (err) => { console.log(err); },
+            ( data ) => { this.jsonContent = data; },
+            ( err ) => { console.log(err); },
             () => {
                 this._service.setJsonContent(this.jsonContent);
                 this.setJsonLocally();
@@ -32,18 +32,18 @@ export class HomePage {
 
     private setJsonLocally() {
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        this.title = this.jsonContent['Application']['pages'][0]['page1'][0]['hello-ionic']['title'];
-        this.content = [
+        this.title       = this.jsonContent[ 'Application' ][ 'pages' ][ 0 ][ 'page1' ][ 0 ][ 'hello-ionic' ][ 'title' ];
+        this.content     = [
             {
-                title: this.jsonContent['Application']['pages'][0]['page1'][0]['hello-ionic']['content'][0]['title'],
+                title: this.jsonContent[ 'Application' ][ 'pages' ][ 0 ][ 'page1' ][ 0 ][ 'hello-ionic' ][ 'content' ][ 0 ][ 'title' ],
                 component: MenuPage
             },
             {
-                title: this.jsonContent['Application']['pages'][0]['page1'][0]['hello-ionic']['content'][1]['title'],
+                title: this.jsonContent[ 'Application' ][ 'pages' ][ 0 ][ 'page1' ][ 0 ][ 'hello-ionic' ][ 'content' ][ 1 ][ 'title' ],
                 component: AboutPage
             },
             {
-                title: this.jsonContent['Application']['pages'][0]['page1'][0]['hello-ionic']['content'][2]['title'],
+                title: this.jsonContent[ 'Application' ][ 'pages' ][ 0 ][ 'page1' ][ 0 ][ 'hello-ionic' ][ 'content' ][ 2 ][ 'title' ],
                 component: FeedbackPage
             }
         ]
@@ -54,7 +54,7 @@ export class HomePage {
         return this.jsonContent;
     }
 
-    goToPage(page) {
+    goToPage( page ) {
         this.navCtrl.push(page.component);
     }
 }
