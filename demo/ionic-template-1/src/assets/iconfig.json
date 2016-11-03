@@ -49,60 +49,93 @@
 		]
 	  },
 	  {
-		"page2": [
-		  {
-			"feedback": {
-			  "title": "feedback",
-			  "content": [
-				{
-				  "input": "Full Name"
-				},
-				{
-				  "input": "Email"
-				},
-				{
-				  "input": "notes"
-				}
-			  ],
-			  "buttons": [
-				{
-				  "buttonText": "Submit",
-				  "value": "submit"
-				},
-				{
-				  "buttonText": "Cancel",
-				  "value": "cancel"
-				}
-			  ]
+		"page2": {
+		  "default-instance": 2,
+		  "instances": [
+			{
+			  "feedback": {
+				"title": "feedback",
+				"content": [
+				  {
+					"input": "Full Name"
+				  },
+				  {
+					"input": "Email"
+				  },
+				  {
+					"input": "notes"
+				  }
+				],
+				"buttons": [
+				  {
+					"buttonText": "Submit",
+					"value": "submit"
+				  },
+				  {
+					"buttonText": "Cancel",
+					"value": "cancel"
+				  }
+				]
+			  }
+			},
+			{
+			  "feedback": {
+				"title": "feedback",
+				"content": [
+				  {
+					"input": "Name"
+				  },
+				  {
+					"input": "Address"
+				  },
+				  {
+					"input": "Comments"
+				  }
+				],
+				"buttons": [
+				  {
+					"buttonText": "Submit",
+					"value": "submit"
+				  },
+				  {
+					"buttonText": "Cancel",
+					"value": "cancel"
+				  }
+				]
+			  }
+			},
+			{
+			  "feedback": {
+				"title": "feedback",
+				"content": [
+				  {
+					"input": "Name"
+				  },
+				  {
+					"input": "Address"
+				  },
+				  {
+					"input": "Comments"
+				  }
+				],
+				"buttons": [
+				  {
+					"buttonText": "Submit",
+					"value": "submit"
+				  },
+				  {
+					"buttonText": "Cancel",
+					"value": "cancel"
+				  },
+				  {
+					"buttonText": "Abbas",
+					"value": "abbas"
+				  }
+				]
+			  }
 			}
-		  },
-		  {
-			"feedback": {
-			  "title": "feedback",
-			  "content": [
-				{
-				  "input": "Full Name"
-				},
-				{
-				  "input": "Email"
-				},
-				{
-				  "input": "notes"
-				}
-			  ],
-			  "buttons": [
-				{
-				  "buttonText": "Submit",
-				  "value": "submit"
-				},
-				{
-				  "buttonText": "Cancel",
-				  "value": "cancel"
-				}
-			  ]
-			}
-		  }
-		]
+		  ]
+		}
 	  },
 	  {
 		"page3": [

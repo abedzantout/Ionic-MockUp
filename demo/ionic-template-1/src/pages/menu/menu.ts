@@ -38,7 +38,7 @@ export class MenuPage {
 
     private setJsonLocally() {
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        let content = this.jsonContent['Application']['pages'][1]['page3'][2]['menu'];
+        let content = this.jsonContent['Application']['pages'][2]['page3'][0]['menu'];
         this.title = content['title'];
         this.content = content['content'];
     }
