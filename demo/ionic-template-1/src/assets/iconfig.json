@@ -1,88 +1,166 @@
 {
   "Application": {
-	"title": "Ionic App",
+	"title": "Ionic",
 	"authors": [
 	  "Abbas",
 	  "Abed"
 	],
 	"pages": [
 	  {
-		"hello-ionic": {
-		  "title": "Hello World!",
-		  "content": [
-			{
-			  "title": "Menu",
-			  "component": "MenuPage"
-			},
-			{
-			  "title": "About us",
-			  "component": "AboutUsPage"
-			},
-			{
-			  "title": "feedback",
-			  "component": "FeedbackPage"
+		"page1": [
+		  {
+			"hello-ionic": {
+			  "title": "Hello World!",
+			  "content": [
+				{
+				  "title": "Menu",
+				  "component": "MenuPage"
+				},
+				{
+				  "title": "About us",
+				  "component": "AboutUsPage"
+				},
+				{
+				  "title": "feedback",
+				  "component": "FeedbackPage"
+				}
+			  ]
 			}
-		  ]
-		}
-	  },
-	  {
-		"feedback": {
-		  "title": "feedback",
-		  "content": [
-			{
-			  "input": "Full Name"
-			},
-			{
-			  "input": "Email"
-			},
-			{
-			  "input": "notes"
+		  },
+		  {
+			"hello-ionic": {
+			  "title": "Hello Ionic!",
+			  "content": [
+				{
+				  "title": "Menu",
+				  "component": "MenuPage"
+				},
+				{
+				  "title": "About us",
+				  "component": "AboutUsPage"
+				},
+				{
+				  "title": "feedback",
+				  "component": "FeedbackPage"
+				}
+			  ]
 			}
-		  ],
-		  "buttons": [
-			  {
-				"buttonText": "Submit",
-				"value": "submit"
-			  },
-			  {
-				"buttonText": "Cancel",
-				"value": "cancel"
-			  }
-		  ]
-		}
-	  },
-	  {
-		"menu": {
-		  "title": "Menu",
-		  "content": [
-			{
-			  "name": "Lasagne",
-			  "image": "../../assets/images/lasagne.jpg",
-			  "description": "Italian Pasta."
-			},
-			{
-			  "name": "kebab",
-			  "image": "../../assets/images/kebab.jpg",
-			  "description": "Turkish grilled meat."
-			},
-			{
-			  "name": "humus",
-			  "image": "../../assets/images/humus.jpg",
-			  "description": "Lebanese cold starter."
-			}
-		  ]
-		}
-	  },
-	  {
-		"about-us": {
-		  "title": "About Us",
-		  "content": {
-			"headerText": "Restaurant Name",
-			"image": "../../assets/images/restaurant.jpg",
-			"description": "We are a restaurant in bliss street"
 		  }
-		}
+		]
+	  },
+	  {
+		"page2": [
+		  {
+			"feedback": {
+			  "title": "feedback",
+			  "content": [
+				{
+				  "input": "Full Name"
+				},
+				{
+				  "input": "Email"
+				},
+				{
+				  "input": "notes"
+				}
+			  ],
+			  "buttons": [
+				{
+				  "buttonText": "Submit",
+				  "value": "submit"
+				},
+				{
+				  "buttonText": "Cancel",
+				  "value": "cancel"
+				}
+			  ]
+			}
+		  },
+		  {
+			"feedback": {
+			  "title": "feedback",
+			  "content": [
+				{
+				  "input": "Full Name"
+				},
+				{
+				  "input": "Email"
+				},
+				{
+				  "input": "notes"
+				}
+			  ],
+			  "buttons": [
+				{
+				  "buttonText": "Submit",
+				  "value": "submit"
+				},
+				{
+				  "buttonText": "Cancel",
+				  "value": "cancel"
+				}
+			  ]
+			}
+		  }
+		]
+	  },
+	  {
+		"page3": [
+		  {
+			"menu": {
+			  "title": "Menu",
+			  "content": [
+				{
+				  "name": "Lasagne",
+				  "image": "../../assets/images/lasagne.jpg",
+				  "description": "Italian Pasta."
+				},
+				{
+				  "name": "kebab",
+				  "image": "../../assets/images/kebab.jpg",
+				  "description": "Turkish grilled meat."
+				},
+				{
+				  "name": "humus",
+				  "image": "../../assets/images/humus.jpg",
+				  "description": "Lebanese cold starter."
+				}
+			  ]
+			}
+		  },
+		  {
+			"menu": {
+			  "title": "Menu",
+			  "content": [
+				{
+				  "name": "Lasagne",
+				  "image": "../../assets/images/lasagne.jpg",
+				  "description": "Italian Pasta."
+				},
+				{
+				  "name": "kebab",
+				  "image": "../../assets/images/kebab.jpg",
+				  "description": "Turkish grilled meat."
+				},
+				{
+				  "name": "humus",
+				  "image": "../../assets/images/humus.jpg",
+				  "description": "Lebanese cold starter."
+				}
+			  ]
+			}
+		  }]
+	  },
+		  {
+			"about-us": {
+			  "title": "About Us",
+			  "content": {
+				"headerText": "Restaurant Name",
+				"image": "../../assets/images/restaurant.jpg",
+				"description": "We are a restaurant in bliss street"
+			  }
+			}
+		  }
+		]
 	  }
-	]
-  }
-}
+	}
