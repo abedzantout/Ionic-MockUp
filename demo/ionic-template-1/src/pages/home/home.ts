@@ -40,7 +40,7 @@ export class HomePage {
             },
             {
                 title: this.jsonContent['Application']['pages'][0]['hello-ionic']['content'][1]['title'],
-                component: AboutUsPage
+                component: AboutPage
             },
             {
                 title: this.jsonContent['Application']['pages'][0]['hello-ionic']['content'][2]['title'],
