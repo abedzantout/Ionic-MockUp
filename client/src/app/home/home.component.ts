@@ -1,12 +1,12 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
 
-import {Http, RequestOptions, RequestMethod, Headers, Request, Response} from '@angular/http';
+import { Http, RequestOptions, RequestMethod, Headers, Request, Response } from '@angular/http';
 
 import { AppState } from '../app.service';
 import { Title } from './title';
 import { IconfigGetterService } from '../services/iconfigGetter.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 
 import { JsonEditorComponent, JsonEditorOptions } from 'ng2-jsoneditor';
@@ -33,6 +33,7 @@ export class HomeComponent {
     private newJsonContent: string;
     private objectId: number;
     private buttonValues: Array<string>;
+    private treeJson: string;
 
     private finishedLoading: boolean = false;
 
@@ -47,8 +48,13 @@ export class HomeComponent {
 
     private changesMessage: string;
 
+    private skip: boolean;
 
-    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer, private http: Http, private ngZone: NgZone) {
+    private isInObject: boolean;
+    private isInArray: boolean;
+
+
+    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer, private http: Http, private ngZone: NgZone ) {
 
         this.finishedLoading = false;
         this.htmlString      = "";
@@ -59,7 +65,8 @@ export class HomeComponent {
         this.arrCounter      = 0;
         this.objectId        = 0;
         this.buttonValues    = [];
-        this.changesMessage = "";
+        this.changesMessage  = "";
+        this.skip            = true;
 
 
         this.jsonContent = this._service.getJson().subscribe(
@@ -101,44 +108,46 @@ export class HomeComponent {
 
 
         arr.forEach(( x ) => {
+
             this.traverse(x, level + "  ");
         });
 
+
         if ( level == 99 ) {
             this.newJsonContent += "],";
-        }
-        if ( level == 99 ) {
             this.newJsonContent = this.newJsonContent.replace(",]", "]");
         }
-
-
     }
 
     private traverseObject( obj, level ) {
 
-        if ( level == 99 ) {
-            this.newJsonContent += "{";
-        }
-        for ( var key in obj ) {
 
-            if ( obj.hasOwnProperty(key) ) {
-
-                this.htmlString += key;
-                this.buttonValues.push(key);
-
-                if ( level == 99 ) {
-                    this.newJsonContent += '"' + key + '":';
-                }
-
-                this.traverse(obj[ key ], level + "    ");
-
+        if ( obj !== undefined ) {
+            if ( level == 99 ) {
+                this.newJsonContent += "{";
             }
-        }
-        if ( level == 99 ) {
-            this.newJsonContent += "},";
-        }
-        if ( level == 99 ) {
-            this.newJsonContent = this.newJsonContent.replace(",}", "}");
+            for ( var key in obj ) {
+
+                if ( obj.hasOwnProperty(key) ) {
+                    this.treeJson += '{"name":"' + key + '",';
+                    this.htmlString += key;
+                    this.buttonValues.push(key);
+
+                    if ( level == 99 ) {
+                        this.newJsonContent += '"' + key + '":';
+                    }
+                    this.treeJson += '"children":[';
+                    this.traverse(obj[ key ], level + "    ");
+                    this.treeJson += '],';
+                    this.treeJson += '},';
+                }
+            }
+            if ( level == 99 ) {
+                this.newJsonContent += "},";
+            }
+            if ( level == 99 ) {
+                this.newJsonContent = this.newJsonContent.replace(",}", "}");
+            }
         }
     }
 
@@ -149,14 +158,15 @@ export class HomeComponent {
             this.traverseArray(x, level);
 
         } else if ( (typeof x === 'object') && (x !== null) ) {
-
             this.htmlString += `<button onclick="if(this.innerHTML=='+'){this.innerHTML='-';}else{this.innerHTML='+';}" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample` + this.objectId + `"  
                                 aria-expanded="false" aria-controls="collapseExample` + this.objectId + `">+</button>`;
             this.htmlString += '<div class="form-group collapse" id="collapseExample' + this.objectId + '">';
             this.objectId += 1;
 
             this.htmlString += '<div class="card card-block">';
+
             this.traverseObject(x, level);
+
             this.htmlString += '</div>';
             this.htmlString += "</div>";
 
@@ -165,15 +175,13 @@ export class HomeComponent {
             this.valuesInJson.push(x);
             let inputString = '<input class="form-control" value="' + x + '" size="35" />';
             this.htmlString += inputString;
+            this.treeJson += '{"name":"' + x + '"},';
             if ( level == 99 ) {
                 this.valueID += 1;
                 this.newJsonContent += '"' + this.inputValues[ this.valueID ] + '",';
             }
         }
     }
-
-
-
 
 
     public get safeHtmlString(): SafeHtml {
@@ -189,23 +197,31 @@ export class HomeComponent {
         this.jsonContent = JSON.parse(this._service.getJsonContent());
         this.traverse(this.jsonContent, 2);
 
+        while ( this.treeJson.includes(',]') ) {
+            this.treeJson = this.treeJson.replace(',]', ']');
+        }
+
+        while ( this.treeJson.includes(',}') ) {
+            this.treeJson = this.treeJson.replace(',}', '}');
+        }
+
+        this.treeJson = this.treeJson.substring(0, this.treeJson.length - 1);
     }
 
 
-
-    private sendToServer(): Observable<void>{
+    private sendToServer(): Observable<void> {
 
         // send to server
 
-        let headers      = new Headers; // ... Set content type to JSON
-        headers.append( 'Content-Type', 'application/json' )
-       let options       = new RequestOptions({ headers: headers }); // Create a request option
+        let headers = new Headers; // ... Set content type to JSON
+        headers.append('Content-Type', 'application/json');
+        let options = new RequestOptions({ headers: headers }); // Create a request option
 
 
-        return this.http.post('/sendJson', this.newJsonContent, options).map((res: Response) => {
+        return this.http.post('/sendJson', this.newJsonContent, options).map(( res: Response ) => {
 
-            if (res) {
-                this.changesMessage = res['_body'];
+            if ( res ) {
+                this.changesMessage = res[ '_body' ];
             }
 
         });
@@ -218,6 +234,10 @@ export class HomeComponent {
         //         }
         //     });
 
+    }
+
+    private log() {
+        console.log(this.treeJson);
     }
 
     private saveChanges() {
@@ -233,11 +253,9 @@ export class HomeComponent {
 
 
         this.sendToServer().subscribe(
-
-            (data) => {},
-            (err) => console.log(err),
+            ( data ) => {},
+            ( err ) => console.log(err),
             () => {}
-
         );
 
 
@@ -250,8 +268,6 @@ export class HomeComponent {
         this.newJsonContent = "";
 
         this.traverse(this.jsonContent, 2);
-
-
 
 
     }
