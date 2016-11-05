@@ -103,12 +103,12 @@ export class HomeComponent {
         if ( level == 99 ) {
             this.newJsonContent += "[";
         }
+
         this.arrCounter = arr.length;
         let counter     = 0;
 
 
         arr.forEach(( x ) => {
-
             this.traverse(x, level + "  ");
         });
 
@@ -121,14 +121,11 @@ export class HomeComponent {
 
     private traverseObject( obj, level ) {
 
-
-        if ( obj !== undefined ) {
             if ( level == 99 ) {
                 this.newJsonContent += "{";
             }
             for ( var key in obj ) {
-
-                if ( obj.hasOwnProperty(key) ) {
+               if ( obj.hasOwnProperty(key) ) {
                     this.treeJson += '{"name":"' + key + '",';
                     this.htmlString += key;
                     this.buttonValues.push(key);
@@ -140,7 +137,7 @@ export class HomeComponent {
                     this.traverse(obj[ key ], level + "    ");
                     this.treeJson += '],';
                     this.treeJson += '},';
-                }
+               }
             }
             if ( level == 99 ) {
                 this.newJsonContent += "},";
@@ -148,7 +145,7 @@ export class HomeComponent {
             if ( level == 99 ) {
                 this.newJsonContent = this.newJsonContent.replace(",}", "}");
             }
-        }
+
     }
 
 
@@ -189,7 +186,7 @@ export class HomeComponent {
     }
 
     private getStringifiedContent() {
-        return JSON.stringify(this.jsonContent, null, "<br/>");
+        return JSON.stringify(this.jsonContent);
     }
 
     private setJsonLocally() {
@@ -204,8 +201,9 @@ export class HomeComponent {
         while ( this.treeJson.includes(',}') ) {
             this.treeJson = this.treeJson.replace(',}', '}');
         }
-
-        this.treeJson = this.treeJson.substring(0, this.treeJson.length - 1);
+        this.treeJson = this.treeJson.substring(9, this.treeJson.length - 1);
+        this.treeJson = '{"name":"Application","children":[' + this.treeJson;
+        this.treeJson = this.treeJson + ']}';
     }
 
 
