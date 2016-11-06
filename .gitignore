@@ -21,3 +21,5 @@ gulpfile.js
 test.json
 typings.json
 typings/
+/server/node_modules/
+/client/dist/

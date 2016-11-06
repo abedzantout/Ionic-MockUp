@@ -1,4 +1,6 @@
-import { Component, ViewChild, NgZone } from '@angular/core';
+import {
+    Component, ViewChild, ElementRef, Renderer, Injector, ViewContainerRef
+} from '@angular/core';
 
 import { Http, RequestOptions, RequestMethod, Headers, Request, Response } from '@angular/http';
 
@@ -6,8 +8,8 @@ import { AppState } from '../app.service';
 import { Title } from './title';
 import { IconfigGetterService } from '../services/iconfigGetter.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
 import { Observable } from 'rxjs/Rx';
-
 
 import { JsonEditorComponent, JsonEditorOptions } from 'ng2-jsoneditor';
 @Component({
@@ -18,7 +20,8 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ng2-jsoneditor';
     // We need to tell Angular's Dependency Injection which providers are in our app.
     providers: [
         Title,
-        IconfigGetterService
+        IconfigGetterService,
+        BrowserDomAdapter
     ],
     // Our list of styles in our component. We may add more to compose many styles together
     styleUrls: [ './home.component.css' ],
@@ -34,6 +37,7 @@ export class HomeComponent {
     private objectId: number;
     private buttonValues: Array<string>;
     private treeJson: string;
+    @ViewChild('jsonEditorContainer', {read: ViewContainerRef}) jsonContainer;
 
     private finishedLoading: boolean = false;
 
@@ -52,9 +56,12 @@ export class HomeComponent {
 
     private isInObject: boolean;
     private isInArray: boolean;
+            domAdapter: BrowserDomAdapter;
 
 
-    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer, private http: Http, private ngZone: NgZone ) {
+    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer, private http: Http, private elementRef: ElementRef, private renderer: Renderer, injector: Injector) {
+
+        this.domAdapter = new BrowserDomAdapter();
 
         this.finishedLoading = false;
         this.htmlString      = "";
@@ -81,15 +88,26 @@ export class HomeComponent {
                 this.setJsonLocally();
 
                 this.finishedLoading = true;
+
+                let button = this.domAdapter.createElement('button');
+                this.domAdapter.setInnerHTML(button, 'Test');
+                this.domAdapter.on(button, 'click', () => {console.log('works')});
+                // this.domAdapter.appendChild(this.elementRef.nativeElement.childNodes[0].childNodes[1], button);
+
             }
         );
 
     }
 
+
     ngOnInit() {
 
         // this.title.getData().subscribe(data => this.data = data);
 
+    }
+
+    ngAfterViewInit() {
+        console.log(this.elementRef.nativeElement.childNodes.item(0).nextSibling);
     }
 
 
@@ -121,30 +139,30 @@ export class HomeComponent {
 
     private traverseObject( obj, level ) {
 
-            if ( level == 99 ) {
-                this.newJsonContent += "{";
-            }
-            for ( var key in obj ) {
-               if ( obj.hasOwnProperty(key) ) {
-                    this.treeJson += '{"name":"' + key + '",';
-                    this.htmlString += key;
-                    this.buttonValues.push(key);
+        if ( level == 99 ) {
+            this.newJsonContent += "{";
+        }
+        for ( var key in obj ) {
+            if ( obj.hasOwnProperty(key) ) {
+                this.treeJson += '{"name":"' + key + '",';
+                this.htmlString += '<strong>' + key + '</strong>';
+                this.buttonValues.push(key);
 
-                    if ( level == 99 ) {
-                        this.newJsonContent += '"' + key + '":';
-                    }
-                    this.treeJson += '"children":[';
-                    this.traverse(obj[ key ], level + "    ");
-                    this.treeJson += '],';
-                    this.treeJson += '},';
-               }
+                if ( level == 99 ) {
+                    this.newJsonContent += '"' + key + '":';
+                }
+                this.treeJson += '"children":[';
+                this.traverse(obj[ key ], level + "    ");
+                this.treeJson += '],';
+                this.treeJson += '},';
             }
-            if ( level == 99 ) {
-                this.newJsonContent += "},";
-            }
-            if ( level == 99 ) {
-                this.newJsonContent = this.newJsonContent.replace(",}", "}");
-            }
+        }
+        if ( level == 99 ) {
+            this.newJsonContent += "},";
+        }
+        if ( level == 99 ) {
+            this.newJsonContent = this.newJsonContent.replace(",}", "}");
+        }
 
     }
 
@@ -155,12 +173,17 @@ export class HomeComponent {
             this.traverseArray(x, level);
 
         } else if ( (typeof x === 'object') && (x !== null) ) {
-            this.htmlString += `<button onclick="if(this.innerHTML=='+'){this.innerHTML='-';}else{this.innerHTML='+';}" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample` + this.objectId + `"  
+            this.htmlString += '<div class="btn-group" role="group" style="margin-left: 10px">';
+
+
+            this.htmlString += `<button onclick="if(this.innerHTML=='+'){this.innerHTML='-';}else{this.innerHTML='+';}" class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample` + this.objectId + `"  
                                 aria-expanded="false" aria-controls="collapseExample` + this.objectId + `">+</button>`;
-            this.htmlString += '<div class="form-group collapse" id="collapseExample' + this.objectId + '">';
+
+            this.htmlString += '</div>';
+            this.htmlString += '<div class="row collapse" id="collapseExample' + this.objectId + '" style="margin: 7px">';
             this.objectId += 1;
 
-            this.htmlString += '<div class="card card-block">';
+            this.htmlString += '<div class="card card-block form-group">';
 
             this.traverseObject(x, level);
 
@@ -170,7 +193,7 @@ export class HomeComponent {
         } else {
 
             this.valuesInJson.push(x);
-            let inputString = '<input class="form-control" value="' + x + '" size="35" />';
+            let inputString = '<input class="form-control" value="' + x + '" size="35" style="margin-bottom: 15px;"/>';
             this.htmlString += inputString;
             this.treeJson += '{"name":"' + x + '"},';
             if ( level == 99 ) {
@@ -187,6 +210,11 @@ export class HomeComponent {
 
     private getStringifiedContent() {
         return JSON.stringify(this.jsonContent);
+    }
+
+    private alert() {
+        window.alert('hi');
+        console.log('fuck you abbas')
     }
 
     private setJsonLocally() {
