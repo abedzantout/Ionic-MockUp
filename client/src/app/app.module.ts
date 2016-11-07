@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import { TreeModule } from 'angular2-tree-component';
 
 
 /*
@@ -47,6 +48,7 @@ type StoreType = {
         BrowserModule,
         FormsModule,
         HttpModule,
+        TreeModule,
         RouterModule.forRoot(ROUTES, { useHash: true })
     ],
     providers: [ // expose our Services and Providers into Angular's dependency injection

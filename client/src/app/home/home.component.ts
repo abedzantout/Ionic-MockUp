@@ -1,5 +1,5 @@
 import {
-    Component, ViewChild, ElementRef, Renderer, Injector, ViewContainerRef
+    Component, ViewChild, ElementRef, Renderer, Injector, ViewContainerRef, AfterContentInit
 } from '@angular/core';
 
 import { Http, RequestOptions, RequestMethod, Headers, Request, Response } from '@angular/http';
@@ -10,8 +10,8 @@ import { IconfigGetterService } from '../services/iconfigGetter.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
 import { Observable } from 'rxjs/Rx';
+import preventExtensions = Reflect.preventExtensions;
 
-import { JsonEditorComponent, JsonEditorOptions } from 'ng2-jsoneditor';
 @Component({
     // The selector is what angular internally uses
     // for `document.querySelectorAll(selector)` in our index.html
@@ -30,7 +30,7 @@ import { JsonEditorComponent, JsonEditorOptions } from 'ng2-jsoneditor';
 })
 
 
-export class HomeComponent {
+export class HomeComponent{
 
     private jsonContent: Object;
     private newJsonContent: string;
@@ -52,14 +52,24 @@ export class HomeComponent {
 
     private changesMessage: string;
 
-    private skip: boolean;
-
     private isInObject: boolean;
     private isInArray: boolean;
-            domAdapter: BrowserDomAdapter;
+    private domAdapter: BrowserDomAdapter;
+
+    private button: HTMLElement;
+    private buttonGroup: HTMLElement;
+    private collapsibleDiv: HTMLElement;
+    private cardBlock: HTMLElement;
+
+    private nodes: any;
+
+    private jsonEditorContainer: HTMLElement;
+
+    private nodeId: number;
 
 
-    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer, private http: Http, private elementRef: ElementRef, private renderer: Renderer, injector: Injector) {
+
+    constructor( public appState: AppState, public title: Title, private _service: IconfigGetterService, private _sanitizer: DomSanitizer, private http: Http, private elementRef: ElementRef) {
 
         this.domAdapter = new BrowserDomAdapter();
 
@@ -73,7 +83,9 @@ export class HomeComponent {
         this.objectId        = 0;
         this.buttonValues    = [];
         this.changesMessage  = "";
-        this.skip            = true;
+        this.nodeId = 1;
+
+
 
 
         this.jsonContent = this._service.getJson().subscribe(
@@ -87,15 +99,58 @@ export class HomeComponent {
                 this._service.setJsonContent(this.jsonContent);
                 this.setJsonLocally();
 
+                this.nodes = [JSON.parse(this.treeJson)];
+
                 this.finishedLoading = true;
 
-                let button = this.domAdapter.createElement('button');
-                this.domAdapter.setInnerHTML(button, 'Test');
-                this.domAdapter.on(button, 'click', () => {console.log('works')});
-                // this.domAdapter.appendChild(this.elementRef.nativeElement.childNodes[0].childNodes[1], button);
 
             }
         );
+
+    }
+
+
+
+    private searchById(root, id){
+
+
+        if (root['id'] == id) return root;
+        if (typeof root !== 'object') return null;
+        var key, val;
+        for (key in root) {
+            val = this.searchById(root[key], id);
+            if (val != null) return val;
+        }
+        return null;
+
+    }
+
+
+    // TODO: Add and delete nodes functionality
+
+
+    private save(event, node){
+
+        let input = event['srcElement']['parentElement']['children'][1];
+
+        if(input['value'].trim() !== "") {
+
+            if (node['isLeaf']) {
+
+                node['data']['name'] = input['value'];
+                input['value'] = "";
+
+                // this.nodes is already modifed accordingly
+                // convert this.nodes back into regular JSON format
+                // upload this object back to the server
+
+            }
+
+        }else{
+
+            input['placeholder'] = "Please enter something";
+
+        }
 
     }
 
@@ -107,7 +162,6 @@ export class HomeComponent {
     }
 
     ngAfterViewInit() {
-        console.log(this.elementRef.nativeElement.childNodes.item(0).nextSibling);
     }
 
 
@@ -142,10 +196,17 @@ export class HomeComponent {
         if ( level == 99 ) {
             this.newJsonContent += "{";
         }
+
         for ( var key in obj ) {
+
             if ( obj.hasOwnProperty(key) ) {
-                this.treeJson += '{"name":"' + key + '",';
+                this.treeJson += '{"id": '+(this.nodeId)+',"name":"' + key + '",';
+                this.nodeId += 1;
                 this.htmlString += '<strong>' + key + '</strong>';
+
+                //this.domAdapter.setInnerHTML(cardBlock, '<strong>'+key+'</strong>');
+               // this.cardBlock.innerHTML = '<strong>'+key+'</strong>';
+
                 this.buttonValues.push(key);
 
                 if ( level == 99 ) {
@@ -173,30 +234,84 @@ export class HomeComponent {
             this.traverseArray(x, level);
 
         } else if ( (typeof x === 'object') && (x !== null) ) {
-            this.htmlString += '<div class="btn-group" role="group" style="margin-left: 10px">';
+
+            // this.cardBlock = this.domAdapter.createElement('div');
+            // this.domAdapter.setAttribute(this.cardBlock, 'class', 'card card-block form-group');
+
+            this.htmlString += '<div class="btn-group" role="group" style="margin-left: 10px">'
+
+            // this.buttonGroup = this.domAdapter.createElement('div');
+            // this.domAdapter.setAttribute(this.buttonGroup, 'class', 'btn-group');
+            // this.domAdapter.setAttribute(this.buttonGroup, 'role', 'group');
+            // this.domAdapter.setAttribute(this.buttonGroup, 'style', 'margin-left: 10px;');
 
 
-            this.htmlString += `<button onclick="if(this.innerHTML=='+'){this.innerHTML='-';}else{this.innerHTML='+';}" class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample` + this.objectId + `"  
+
+            this.htmlString += `<button onclick="if(this.innerHTML=='+'){this.innerHTML='-';}else{this.innerHTML='+';}" class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample` + this.objectId + `"
                                 aria-expanded="false" aria-controls="collapseExample` + this.objectId + `">+</button>`;
 
-            this.htmlString += '</div>';
+            // this.button = this.domAdapter.createElement('button');
+            // this.domAdapter.setInnerHTML(this.button, '+');
+            // this.domAdapter.on(this.button, 'click', ()=>{
+            //     if(this.domAdapter.getInnerHTML(this.button) == '+'){
+            //         this.domAdapter.setInnerHTML(this.button, '-');
+            //     }else{
+            //         this.domAdapter.setInnerHTML(this.button, '+');
+            //     }
+            // });
+            // this.domAdapter.setAttribute(this.button, 'class', 'btn btn-secondary');
+            // this.domAdapter.setAttribute(this.button, 'type', 'button');
+            // this.domAdapter.setAttribute(this.button, 'data-toggle', 'collapse');
+            // this.domAdapter.setAttribute(this.button, 'data-target', '#collapse'+this.objectId);
+            // this.domAdapter.setAttribute(this.button, 'aria-expanded', 'false');
+            // this.domAdapter.setAttribute(this.button, 'aria-controls', 'collapse'+this.objectId);
+
+
+                       this.htmlString += '</div>';
+
             this.htmlString += '<div class="row collapse" id="collapseExample' + this.objectId + '" style="margin: 7px">';
+
+            // this.collapsibleDiv = this.domAdapter.createElement('div');
+            // this.domAdapter.setAttribute(this.collapsibleDiv, 'class', 'row collapse');
+            // this.domAdapter.setAttribute(this.collapsibleDiv, 'id', 'collapse'+this.objectId);
+            // this.domAdapter.setAttribute(this.collapsibleDiv, 'style', 'margin: 7px;');
+
             this.objectId += 1;
 
             this.htmlString += '<div class="card card-block form-group">';
 
+
+
             this.traverseObject(x, level);
+
 
             this.htmlString += '</div>';
             this.htmlString += "</div>";
 
+
+
         } else {
 
             this.valuesInJson.push(x);
+
             let inputString = '<input class="form-control" value="' + x + '" size="35" style="margin-bottom: 15px;"/>';
             this.htmlString += inputString;
-            this.treeJson += '{"name":"' + x + '"},';
+
+            //
+            // let input = this.domAdapter.createElement('input');
+            // this.domAdapter.setAttribute(input, 'class', 'form-control');
+            // this.domAdapter.setAttribute(input, 'value', x);
+            // this.domAdapter.setAttribute(input, 'size', '30');
+            // this.domAdapter.setAttribute(input, 'style', 'margin-bottom: 15px;');
+
+            //this.jsonEditorContainer.appendChild(input);
+
+
+            this.treeJson += '{"id": '+(this.nodeId)+', "name":"' + x + '"},';
+            this.nodeId +=1;
+
             if ( level == 99 ) {
+
                 this.valueID += 1;
                 this.newJsonContent += '"' + this.inputValues[ this.valueID ] + '",';
             }
@@ -212,14 +327,15 @@ export class HomeComponent {
         return JSON.stringify(this.jsonContent);
     }
 
-    private alert() {
-        window.alert('hi');
-        console.log('fuck you abbas')
-    }
 
     private setJsonLocally() {
 
         this.jsonContent = JSON.parse(this._service.getJsonContent());
+
+        // let containerDiv = this.domAdapter.createElement('div');
+        // this.domAdapter.appendChild(this.elementRef.nativeElement, containerDiv);
+        // this.jsonEditorContainer = containerDiv;
+
         this.traverse(this.jsonContent, 2);
 
         while ( this.treeJson.includes(',]') ) {
@@ -230,8 +346,11 @@ export class HomeComponent {
             this.treeJson = this.treeJson.replace(',}', '}');
         }
         this.treeJson = this.treeJson.substring(9, this.treeJson.length - 1);
-        this.treeJson = '{"name":"Application","children":[' + this.treeJson;
+        this.treeJson = '{"id": 1, "name":"Application","children":[' + this.treeJson;
         this.treeJson = this.treeJson + ']}';
+
+
+
     }
 
 

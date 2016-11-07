@@ -2,7 +2,16 @@
 
     <div [innerHTML]="changesMessage"></div>
 
-    <div [innerHTML]="safeHtmlString" id="jsonEditorContainer"></div>
+
+    <Tree #tree [nodes]="nodes">
+
+        <template #treeNodeTemplate let-node>
+            <span>{{ node.data.name }}</span>
+            <input [id]="node.data.id" type="text" *ngIf="node.isLeaf"/>
+            &nbsp;&nbsp;&nbsp;<button (click)="save($event, node)" *ngIf="node.isLeaf">save</button>&nbsp;&nbsp;
+        </template>
+
+    </Tree>
 
     <button (click)="saveChanges()">Save Changes</button>
     <button (click)= "log()">log</button>
