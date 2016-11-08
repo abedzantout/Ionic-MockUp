@@ -1,18 +1,21 @@
-<div *ngIf="finishedLoading" class="container" >
-
-    <div [innerHTML]="changesMessage"></div>
+<div *ngIf="finishedLoading" class="container">
 
 
     <Tree #tree [nodes]="nodes">
 
+
         <template #treeNodeTemplate let-node>
-            <span>{{ node.data.name }}</span>
-            <input [id]="node.data.id" type="text" *ngIf="node.isLeaf"/>
-            &nbsp;&nbsp;&nbsp;<button (click)="save($event, node)" *ngIf="node.isLeaf">save</button>&nbsp;&nbsp;
+
+             <label [id]="node.data.id">{{ node.data.name }}</label>
+            <input type="text" (focus)="clearPlaceholder($event)" *ngIf="node.isLeaf"/>
+
+            <button (click)="removeInstance(node)" *ngIf="(node.level==5) && (node.parent.children.length > 1) && !(node.displayField == 'default-instance')">Remove Instance</button>
+            <button (click)="addInstance(node)" *ngIf="(!node.isLeaf) && ( (node.displayField.indexOf('page') !== -1) && !(node.displayField == 'pages') && !(node.displayField == 'default-instance') )">Add Instance</button>
+            <button (click)="save($event, node)" *ngIf="node.isLeaf" class="btn btn-secondary">save</button>
+
         </template>
 
     </Tree>
 
-    <button (click)="saveChanges()">Save Changes</button>
-    <button (click)= "log()">log</button>
+
 </div>
