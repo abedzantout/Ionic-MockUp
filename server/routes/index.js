@@ -10,10 +10,30 @@ router.get('/getIconfig', function (req, res, next) {
         res.send(data);
     });
 });
+
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 router.post('/sendJson', function (req, res, next) {
-    fs.writeFile('iconfig.json', JSON.stringify(req[ 'body' ]), function (err) {
-        console.log(err);
-    });
-    res.send("Changes saved.");
+
+    if(isJson(JSON.stringify(req['body']))) {
+
+        fs.writeFile('iconfig.json', JSON.stringify(req['body']), function (err) {
+            console.log(err);
+        });
+
+        res.send("Changes saved.");
+
+    }else{
+
+        res.send("invalid");
+
+    }
 });
 module.exports = router;
