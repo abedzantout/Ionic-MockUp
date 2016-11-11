@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FoodItemsProvider } from '../../providers/food-items-provider';
-import { foodItem } from '../foodItem';
 import { Service } from "../../services/service";
 
 /*
@@ -38,7 +37,8 @@ export class MenuPage {
 
     private setJsonLocally() {
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        let content      = this.jsonContent[ 'Application' ][ 'pages' ][ 2 ][ 'page3' ][ 0 ][ 'menu' ];
+        console.log(this.jsonContent[ 'Application' ][ 'page' ][ 2 ][ 'page3' ]['instance'][0]['instance1']['menu'])
+        let content      = this.jsonContent[ 'Application' ][ 'page' ][ 2 ][ 'page3' ]['instance'][0]['instance1']['menu'];
         this.title       = content[ 'title' ];
         this.content     = content[ 'content' ];
     }

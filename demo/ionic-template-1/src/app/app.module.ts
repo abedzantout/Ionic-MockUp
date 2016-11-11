@@ -8,25 +8,25 @@ import { FeedbackPage } from '../pages/feedback/feedback';
 import { Service } from "../services/service";
 
 @NgModule({
-    declarations: [
-        MyApp,
-        HomePage,
-        MenuPage,
-        AboutPage,
-        FeedbackPage
-    ],
-    imports: [
-        IonicModule.forRoot(MyApp)
-    ],
-    bootstrap: [ IonicApp ],
-    entryComponents: [
-        MyApp,
-        HomePage,
-        MenuPage,
-        AboutPage,
-        FeedbackPage
-    ],
-    providers: [ Service ]
+  declarations: [
+    MyApp,
+    HomePage,
+    MenuPage,
+    AboutPage,
+    FeedbackPage
+  ],
+  imports: [
+    IonicModule.forRoot(MyApp)
+  ],
+  bootstrap: [ IonicApp ],
+  entryComponents: [
+    MyApp,
+    HomePage,
+    MenuPage,
+    AboutPage,
+    FeedbackPage
+  ],
+  providers: [ Service ]
 })
 export class AppModule {
 }

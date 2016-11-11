@@ -28,6 +28,10 @@ router.post('/sendJson', function (req, res, next) {
             console.log(err);
         });
 
+        fs.writeFile('../demo/ionic-template-1/src/assets/iconfig.json', JSON.stringify(req['body']), function (err) {
+            console.log(err);
+        });
+
         res.send("Changes saved.");
 
     }else{

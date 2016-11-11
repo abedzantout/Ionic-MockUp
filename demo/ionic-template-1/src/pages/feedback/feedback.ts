@@ -43,8 +43,8 @@ export class FeedbackPage {
     private setJsonLocally() {
 
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        console.log(this.jsonContent[ 'Application' ][ 'pages' ][ 1 ][ 'page2' ][ 'default-instance' ]);
-        let content  = this.jsonContent[ 'Application' ][ 'pages' ][ 1 ][ 'page2' ][ 'instances' ][ this.getDefaultInstance() ][ 'feedback' ];
+        console.log(this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page2' ]);
+        let content  = this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page2' ][ 'instance' ][ this.getDefaultInstance() ]['instance3'][ 'feedback' ];
         this.title   = content[ 'title' ];
         this.fields  = content[ 'content' ];
         this.buttons = content[ 'buttons' ];
@@ -77,6 +77,6 @@ export class FeedbackPage {
     }
 
     private getDefaultInstance() {
-        return this.jsonContent[ 'Application' ][ 'pages' ][ 1 ][ 'page2' ][ 'default-instance' ];
+        return this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page2' ][ 'default-instance' ];
     }
 }
