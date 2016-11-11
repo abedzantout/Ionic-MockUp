@@ -125,22 +125,14 @@ export class HomeComponent {
 
     private isInArray(node){
 
-
-
         if(node['parent']['displayField'] != undefined && node['displayField'] != undefined) {
 
             if(!(node['parent']['displayField'] == 'page')) {
 
-
-                return node['displayField'] === node['parent']['displayField'].substring(0, node['parent']['displayField'].length - 1);
-
+                return node['displayField'].substring(0, node['displayField'].length-1) === node['parent']['displayField'];
             }
-
-
         }
-
         return false;
-
     }
 
 
