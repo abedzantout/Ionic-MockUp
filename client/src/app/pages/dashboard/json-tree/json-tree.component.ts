@@ -4,6 +4,7 @@ import {
 
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 
+declare var require: any;
 // import { AppState } from '../app.service';
 import { IconfigGetterService } from '../../../services/iconfigGetter.service';
 import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
@@ -21,7 +22,7 @@ import * as _ from 'lodash';
         BrowserDomAdapter
     ],
     encapsulation: ViewEncapsulation.None,
-    styles: [require('./json-tree.component.scss')],
+    styles: [ require('./json-tree.component.scss') ],
     template: require('./json-tree.component.html')
 })
 
@@ -374,7 +375,6 @@ export class JsonTreeComponent {
 
         this.originalJsonFormat = "";
         this.infoArrayIndex     = -1;
-
 
         let traverse = ( x, parentIsArray ) => {
 

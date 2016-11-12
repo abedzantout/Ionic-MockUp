@@ -11,15 +11,15 @@
 
             <input type="text" (focus)="clearPlaceholder($event)" *ngIf="node.isLeaf"/>
 
-            <button class="btn btn-secondary" (click)="removeInstance(node)"
+            <button class="btn btn-default" (click)="removeInstance(node)"
                     *ngIf="( isInArray(node) && (node.parent.children.length > 1) )">
                 Remove Instance
             </button>
-            <button class="btn btn-secondary" (click)="addInstance(node)"
+            <button class="btn btn-default" (click)="addInstance(node)"
                     *ngIf="( ( node.data.type.includes('array') ) && !( node.displayField.includes('authors') ) && !( node.displayField.includes('page') )  || ( (!node.isLeaf) &&  (node.displayField.indexOf('instances') !== -1) && !(node.displayField == 'page') && !(node.displayField == 'default-instance') )  )">
                 Add Instance
             </button>
-            <button class="btn btn-primary" (click)="save($event, node)" *ngIf="node.isLeaf">save</button>
+            <button class="btn btn-default" (click)="save($event, node)" *ngIf="node.isLeaf">save</button>
 
         </template>
 

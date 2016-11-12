@@ -3,22 +3,26 @@ html, body {
   font-family: Arial, Helvetica, sans-serif
 }
 
-span.active {
-  background-color: gray;
-}
+//span.active {
+//  background-color: gray;
+//}
 
 .container {
   width: 100%;
 }
-:host > > > .tree-node-expanded {
 
-}
-
-:host > > > .toggle-children {
-
+.toggle-children {
   display: none;
-
 }
+
 ion-frame {
   float: right;
+}
+
+.node-content-wrapper {
+  color: #000 !important;
+}
+
+.tree-node:hover {
+  background-color: darkgrey;
 }
