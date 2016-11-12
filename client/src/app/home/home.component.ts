@@ -154,7 +154,6 @@ export class HomeComponent {
 
         if ( node[ 'displayField' ].includes('instances') ) {
 
-            console.log(node);
 
             let child = HomeComponent.clone(node[ 'data' ][ 'children' ][ 0 ]);
 
@@ -178,8 +177,6 @@ export class HomeComponent {
             child[ 'id' ] = this.nodeId;
 
             child[ 'name' ] = nodeDisplayFeild;
-
-            console.log(child);
 
             node[ 'data' ][ 'children' ].push(child);
 
@@ -217,9 +214,6 @@ export class HomeComponent {
 
 
     private save( event, node ) {
-
-        console.log(node);
-        console.log(this.treeJson);
 
 
         let input = event[ 'srcElement' ][ 'parentElement' ][ 'children' ][ 1 ];
@@ -458,9 +452,12 @@ export class HomeComponent {
 
         };
 
+
+
         traverse(this.nodes[ 0 ], false);
 
         while ( this.originalJsonFormat.includes(',]') ) {
+            this.originalJsonFormat = this.originalJsonFormat.replace(',]', ']');
             this.originalJsonFormat = this.originalJsonFormat.replace(',]', ']');
         }
 
@@ -488,12 +485,12 @@ export class HomeComponent {
     private sendToServer(): Observable<void> {
 
         // send to server
-        let headers = new Headers; // ... Set content type to JSON
+        let headers = new Headers(); // ... Set content type to JSON
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
 
-        return this.http.post('/sendJson', this.originalJsonFormat, options).map(( res: Response ) => {
+        return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
 
             if ( res ) {
                 console.log(res[ '_body' ]);

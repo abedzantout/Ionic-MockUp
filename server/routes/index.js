@@ -22,6 +22,7 @@ function isJson(str) {
 
 router.post('/sendJson', function (req, res, next) {
 
+
     if(isJson(JSON.stringify(req['body']))) {
 
         fs.writeFile('iconfig.json', JSON.stringify(req['body']), function (err) {
@@ -29,6 +30,9 @@ router.post('/sendJson', function (req, res, next) {
         });
 
         fs.writeFile('../demo/ionic-template-1/src/assets/iconfig.json', JSON.stringify(req['body']), function (err) {
+            console.log(err);
+        });
+        fs.writeFile('../demo/ionic-template-1/www/assets/iconfig.json', JSON.stringify(req['body']), function (err) {
             console.log(err);
         });
 
