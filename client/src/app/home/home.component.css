@@ -6,3 +6,17 @@ html, body {
 span.active {
     background-color: gray;
 }
+
+
+:host >>>.tree-node-expanded{
+
+
+}
+
+
+
+:host >>> .toggle-children{
+
+    display: none;
+
+}
