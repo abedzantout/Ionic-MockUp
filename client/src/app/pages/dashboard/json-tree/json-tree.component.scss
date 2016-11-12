@@ -1,0 +1,18 @@
+html, body {
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+span.active {
+  background-color: gray;
+}
+
+:host > > > .tree-node-expanded {
+
+}
+
+:host > > > .toggle-children {
+
+  display: none;
+
+}
