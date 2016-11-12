@@ -1,18 +1,5 @@
 
-/client/node_modules/
-.DS_Store
-.idea/jsLibraryMappings.xml
-.idea/workspace.xml
-client/node_modules/angular-in-memory-web-api/bundles/
-client/node_modules/fsevents/
-client/node_modules/nan/
-client/node_modules/normalize-package-data/test/normalize.js~
 /.idea/
-/client/typings/
-.gitignore
-gulpfile.js
-test.json
-typings.json
-typings/
-/server/node_modules/
 /client/dist/
+/client/node_modules/
+/server/node_modules/
