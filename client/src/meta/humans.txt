@@ -3,15 +3,15 @@
 
 # TEAM
 
-  <name> -- <role> -- <twitter>
+  iEdit Team
 
 # THANKS
 
   <name>
-  PatrickJS -- @gdi2290
-  AngularClass -- @AngularClass
+  Akveo Team
+  iEdit Team
 
 # TECHNOLOGY COLOPHON
 
-  HTML5, CSS3
+  HTML5, CSS3, Bootstrap
   Angular2, TypeScript, Webpack

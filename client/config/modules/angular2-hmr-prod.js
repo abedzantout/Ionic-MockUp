@@ -1,2 +1,2 @@
-exports.HmrState = function () {
+exports.HmrState = function() {
 };

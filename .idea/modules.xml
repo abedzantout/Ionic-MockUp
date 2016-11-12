@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Ionic-MockUp.iml" filepath="$PROJECT_DIR$/.idea/Ionic-MockUp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module/iEdit.iml" filepath="$PROJECT_DIR$/module/iEdit.iml" />
     </modules>
   </component>
 </project>

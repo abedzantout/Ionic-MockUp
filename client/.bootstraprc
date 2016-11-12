@@ -12,6 +12,7 @@ useFlexbox: false
 styleLoaders:
   - style
   - css
+  - postcss
   - sass
 
 # Extract styles to stand-alone css file
@@ -78,7 +79,6 @@ styles:
   card: true
   breadcrumb: true
   pagination: true
-  tags: true
   jumbotron: true
   alert: true
   progress: true
@@ -86,6 +86,7 @@ styles:
   list-group: true
   responsive-embed: true
   close: true
+  tags: true
 
   # Components w/ JavaScript
   modal: true
