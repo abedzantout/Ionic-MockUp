@@ -1,0 +1,7 @@
+@import "../../../theme/sass/device_emulator";
+
+iframe {
+  width: inherit;
+  height: inherit;
+  z-index: 10000 !important;
+}

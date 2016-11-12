@@ -7,6 +7,7 @@ import { Dashboard } from './dashboard.component';
 import { routing }       from './dashboard.routing';
 import { JsonTreeComponent } from "./json-tree/json-tree.component";
 import { TreeModule } from "angular2-tree-component";
+import { IonicFrame } from "./ionic-frame/ionic-frame.component";
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { TreeModule } from "angular2-tree-component";
     ],
     declarations: [
         Dashboard,
-        JsonTreeComponent
+        JsonTreeComponent,
+        IonicFrame
     ],
     providers: []
 })

@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-
+declare var require: any;
 @Component({
   selector: 'dashboard',
   encapsulation: ViewEncapsulation.None,

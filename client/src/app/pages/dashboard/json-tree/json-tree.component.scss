@@ -7,6 +7,9 @@ span.active {
   background-color: gray;
 }
 
+.container {
+  width: 100%;
+}
 :host > > > .tree-node-expanded {
 
 }
@@ -15,4 +18,7 @@ span.active {
 
   display: none;
 
+}
+ion-frame {
+  float: right;
 }
