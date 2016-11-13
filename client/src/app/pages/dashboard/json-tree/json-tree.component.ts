@@ -196,7 +196,49 @@ export class JsonTreeComponent {
 
     private removeInstance( node ) {
 
+        let parent = node['parent'];
+
+        let arrived = false;
+
+        for(let i=0;i<parent['children'].length;i++){
+
+            if(arrived){
+
+                let name = parent['children'][i]['displayField'];
+
+                let partBeforeNum = "";
+                let num = "";
+
+                for(let x=0;x<name.length;x++){
+
+                    if(isNaN(parseInt(name[x]))){
+                        partBeforeNum += name[x];
+                    }else{
+                        num += name[x];
+                    }
+
+                }
+
+
+                let newName = partBeforeNum+( (parseInt(num)-1).toString() );
+
+                parent['children'][i]['data']['name'] = newName;
+
+
+            }
+
+
+             if(parent['children'][i]['displayField'] === node['displayField']){
+                 arrived = true;
+             }
+
+
+
+        }
+
         this.removeNode(this.tree.treeModel.getNodeById(node[ 'data' ][ 'id' ]));
+
+
         this.tree.treeModel.update();
         this.convertToInitialJson();
 
@@ -479,7 +521,7 @@ export class JsonTreeComponent {
 
         return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
             if ( res ) {
-                console.log(res[ '_body' ]);
+
             }
         });
     }

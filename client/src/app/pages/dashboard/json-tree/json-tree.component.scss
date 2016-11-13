@@ -11,9 +11,9 @@ html, body {
   width: 100%;
 }
 
-.toggle-children {
-  display: none;
-}
+//.toggle-children {
+//  display: none;
+//}
 
 ion-frame {
   float: right;
@@ -21,8 +21,4 @@ ion-frame {
 
 .node-content-wrapper {
   color: #000 !important;
-}
-
-.tree-node:hover {
-  background-color: darkgrey;
 }
