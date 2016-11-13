@@ -523,6 +523,7 @@ export class JsonTreeComponent {
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
+        //noinspection TypeScriptUnresolvedFunction
         return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
             if ( res ) {
 
