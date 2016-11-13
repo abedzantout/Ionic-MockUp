@@ -11,7 +11,11 @@ import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser
 import { Observable } from 'rxjs/Rx';
 // import preventExtensions = Reflect.preventExtensions;
 
-import { TreeComponent, TreeNode } from 'angular2-tree-component';
+// import { TreeComponent, TreeNode } from 'angular2-tree-component';
+
+import {TreeComponent} from '../../../angular2-tree/lib/components/tree.component';
+import {TreeNode} from '../../../angular2-tree/lib/models/tree-node.model';
+
 import * as _ from 'lodash';
 
 
