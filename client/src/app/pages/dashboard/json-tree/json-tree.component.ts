@@ -530,4 +530,28 @@ export class JsonTreeComponent {
             }
         });
     }
+
+
+    private download(): Observable<void>{
+
+        return this.http.get('/downloadApk').map((res: Response) => {
+            if(res){
+                console.log(res);
+            }
+        });
+
+    }
+
+
+    private downloadApk(){
+
+        this.download().subscribe(
+
+        (data) => {console.log(data);},
+        (err) => {console.log(err);},
+        () => {console.log("done");}
+
+        );
+
+    }
 }
