@@ -10,3 +10,8 @@
 /demo/ionic-template-2/www/build/
 /demo/ionic-template-2/www/index.html
 /demo/ionic-template-2/www/service-worker.js
+*DS_store
+/demo/ionic-template-2/node_modules/
+/demo/ionic-template-2/platforms/
+/demo/ionic-template-2/plugins/
+/module/
