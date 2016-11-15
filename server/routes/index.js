@@ -28,6 +28,8 @@ router.post('/sendJson', function (req, res, next) {
         res.send("invalid");
     }
 });
+
+
 router.get('/downloadApk', function (req, res, next) {
     ionicBuildApk();
     next();

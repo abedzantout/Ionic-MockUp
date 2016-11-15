@@ -6,6 +6,8 @@ import { EmailValidator, EqualPasswordsValidator } from '../../theme/validators'
 import { BaThemeConfigProvider } from "../../theme/theme.configProvider";
 
 import { Router } from "@angular/router";
+import {Observable} from "rxjs";
+import {RequestOptions, Headers} from "@angular/http";
 declare var require: any;
 
 @Component({
@@ -49,5 +51,56 @@ export class apkForm {
         this.stateName          = this.form.controls[ 'stateName' ];
         this.countryCode        = this.form.controls[ 'countryCode' ];
     }
+
+
+    private sendObject(obj): Observable<void>{
+
+        let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+
+
+        return this.http.post('/downloadApk', obj,options).map((res: Response) => {
+
+            if(res){
+                console.log(res);
+            }
+
+        });
+
+    }
+
+
+    private onSubmit(values: Object): void{
+
+
+        let object = {
+
+            keyPassword: values['keyPassword'],
+            authorsName: values['authorsName'],
+            organizationalUnit: values['organizationalUnit'],
+            organizationName: values['organizationName'],
+            cityName: values['cityName'],
+            stateName: values['stateName'],
+            countryCode: values['countryCode']
+
+        };
+
+        this.sendObject(obj).subscribe(
+
+            (data) => {console.log(data);},
+            (err) => {console.log(err);},
+            () => console.log("finished.");
+
+        );
+
+
+    }
+
+
+
+
+
+
 
 }
