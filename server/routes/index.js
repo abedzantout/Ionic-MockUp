@@ -4,7 +4,7 @@ var fs      = require('fs');
 /* GET home page. */
 var util    = require('util');
 var spawn   = require('child_process').spawn;
-var suppose = require('suppose'), assert = require('assert');
+
 router.get('/', function (req, res, next) {
     res.render('../../client/dist/index.html');
 });
@@ -29,6 +29,9 @@ router.post('/sendJson', function (req, res, next) {
         res.send("invalid");
     }
 });
+
+
+
 router.get('/downloadApk', function (req, res, next) {
     ionicBuildApk();
     next();
@@ -36,6 +39,8 @@ router.get('/downloadApk', function (req, res, next) {
     res.send('android build in progress....');
     res.end('ended')
 });
+
+
 function ionicBuildApk() {
     var ionicbuild = spawn('ionic', [ 'build', '--release', 'android' ], {
         cwd     : '../demo/ionic-template-1/',
@@ -99,12 +104,12 @@ function keytool() {
         console.log("STDERR: " + data.toString());
         var dataToString = data.toString();
         stringArray.push(dataToString);
-        console.log(stringArray);
+
         if ( dataToString == stringArray[ 0 ] ) {
             keytool.stdin.write('123456789\n');
-            console.log("WHYYYY");
+
         } else if ( dataToString == stringArray[ 1 ] ) {
-            console.log("fuck you");
+
             keytool.stdin.write('123456789\n');
         } else if ( dataToString == stringArray[ 2 ] ) {
             keytool.stdin.write('Abbas Baydoun\n');

@@ -1,0 +1,42 @@
+<div class="auth-main">
+    <div class="auth-block">
+
+        <h1>Please enter relative APK information</h1>
+
+        <a routerLink="/pages" class="auth-link">Want to edit your future app? Go back!</a>
+
+
+        <form [formGroup]="form" class="form-horizontal">
+
+            <div class="form-group row" [ngClass]="{'has-error': (!keyPassword.valid && keyPassword.touched), 'has-success': (keyPassword.valid && keyPassword.touched)}">
+                <label for="inputName3" class="col-sm-3" style="color: #ffffff;">Key password</label>
+
+                <div class="col-sm-9">
+                    <input [formControl]="keyPassword" type="text" class="form-control" id="inputName3"
+                           placeholder="Key password">
+                    <span *ngIf="(!keyPassword.valid && keyPassword.touched)">Key password is invalid</span>
+                </div>
+            </div>
+
+
+
+            <div class="form-group row" [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}">
+                <label for="inputName4" class="col-sm-3" style="color: #ffffff;">Name</label>
+
+                <div class="col-sm-9">
+                    <input [formControl]="name" type="text" class="form-control" id="inputName4"
+                           placeholder="Key password">
+                    <span *ngIf="(!name.valid && name.touched)">Name is invalid</span>
+                </div>
+            </div>
+
+
+
+
+        </form>
+
+
+
+    </div>
+
+</div>

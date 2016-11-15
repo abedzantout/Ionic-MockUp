@@ -10,6 +10,12 @@ const routes: Routes = [
   //   path: 'register',
   //   loadChildren: () => System.import('./register/register.module')
   // },
+
+  {
+    path: 'apkForm',
+    loadChildren: () => System.import('./apkForm/apkForm.module')
+  },
+
   {
     path: 'pages',
     component: Pages,

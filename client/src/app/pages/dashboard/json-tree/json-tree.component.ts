@@ -18,6 +18,8 @@ import {TreeNode} from '../../../angular2-tree/lib/models/tree-node.model';
 
 import * as _ from 'lodash';
 
+import {Router} from '@angular/router';
+
 
 @Component({
     selector: '<json-tree>',
@@ -64,7 +66,7 @@ export class JsonTreeComponent {
     private infoArrayIndex: number;
 
 
-    constructor( private _service: IconfigGetterService, private http: Http, private elementRef: ElementRef ) {
+    constructor(private router: Router, private _service: IconfigGetterService, private http: Http, private elementRef: ElementRef ) {
 
         this.domAdapter = new BrowserDomAdapter();
 
@@ -543,15 +545,7 @@ export class JsonTreeComponent {
     }
 
 
-    private downloadApk(){
-
-        this.download().subscribe(
-
-        (data) => {console.log(data);},
-        (err) => {console.log(err);},
-        () => {console.log("done");}
-
-        );
-
+   private goToApkForm(){
+       this.router.navigate(['apkForm']);
     }
 }
