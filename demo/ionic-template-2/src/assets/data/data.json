@@ -1,0 +1,307 @@
+{
+  "schedule": [
+	{
+	  "date": "2016-11-13",
+	  "groups": [
+		{
+		  "time": "3:00 pm",
+		  "sessions": [
+			{
+			  "name": "Breakfast Club",
+			  "timeStart": "3:00 pm",
+			  "timeEnd": "4:30 pm",
+			  "location": "Theatre 6",
+			  "description": "There's a right way to be single, a wrong way to be single, and then...there's Alice. And Robin. Lucy. Meg. Tom. David. New York City is full of lonely hearts seeking the right match, be it a love connection, a hook-up, or something in the middle. And somewhere between the teasing texts and one-night stands, what these unmarrieds all have in common is the need to learn how to be single in a world filled with ever-evolving definitions of love. Sleeping around in the city that never sleeps was never so much fun.",
+			  "imageUrl": "assets/img/breakfastclub.jpg",
+			  "tracks": [
+				"Drama film"
+			  ]
+			}
+		  ]
+		},
+		{
+		  "time": "5:00 pm",
+		  "sessions": [
+			{
+			  "name": "How To Be Single",
+			  "location": "Theatre 2",
+			  "description": "There's a right way to be single, a wrong way to be single, and then...there's Alice. And Robin. Lucy. Meg. Tom. David. New York City is full of lonely hearts seeking the right match, be it a love connection, a hook-up, or something in the middle. And somewhere between the teasing texts and one-night stands, what these unmarrieds all have in common is the need to learn how to be single in a world filled with ever-evolving definitions of love. Sleeping around in the city that never sleeps was never so much fun.",
+			  "speakerNames": [
+				"Christian Ditter"
+			  ],
+			  "timeStart": "5:00 pm",
+			  "timeEnd": "6:30 pm",
+			  "imageUrl": "assets/img/howtobesingle.jpg",
+			  "tracks": [
+				"Comedy-drama"
+			  ]
+			},
+			{
+			  "name": "Hacksaw Ridge",
+			  "location": "Theatre 3",
+			  "description": "WWII American Army Medic Desmond T. Doss, who served during the Battle of Okinawa, refuses to kill people and becomes the first Conscientious Objector in American history to be awarded the Medal of Honor.",
+			  "speakerNames": [
+				"Mel Gibson"
+			  ],
+			  "timeStart": "5:00 pm",
+			  "timeEnd": "6:45 pm",
+			  "imageUrl": "assets/img/hacksaw.jpg",
+			  "tracks": [
+				"Action - Drama"
+			  ]
+			},
+			{
+			  "name": "The Accountant",
+			  "location": "Theater 1",
+			  "description": "As a math savant uncooks the books for a new client, the Treasury Department closes in on his activities and the body count starts to rise..",
+			  "speakerNames": [
+				"Gavin O'Connor"
+			  ],
+			  "timeStart": "5:00 pm",
+			  "imageUrl": "assets/img/accountant.jpg",
+			  "timeEnd": "7:00 pm",
+			  "tracks": [
+				"Action, Crime, Drama"
+			  ]
+			}
+		  ]
+		},
+		{
+		  "time": "8:00 pm",
+		  "sessions": [
+			{
+			  "name": "Swiss Army Man",
+			  "location": "Theatre 5",
+			  "description": "A hopeless man stranded on a deserted island befriends a dead body and together they go on a surreal journey to get home.",
+			  "speakerNames": [
+				"Dan Kwan",
+				"Daniel Scheinert"
+			  ],
+			  "timeStart": "8:00 pm",
+			  "timeEnd": "10:15 pm",
+			  "imageUrl": "assets/img/swissarmy.png",
+			  "tracks": [
+				"Adventure, Crime, Drama"
+			  ]
+			},
+			{
+			  "name": "Storks",
+			  "location": "Theatre 8",
+			  "description": "Storks have moved on from delivering babies to packages. But when an order for a baby appears, the best delivery stork must scramble to fix the error by delivering the baby.",
+			  "speakerNames": [
+				"Nicholas Stoller",
+				"Doug Sweetland"
+			  ],
+			  "timeStart": "8:15 pm",
+			  "timeEnd": "10:30 pm",
+			  "imageUrl": "assets/img/storks.jpg",
+			  "tracks": [
+				"Animation, Adventure, Comedy"
+			  ]
+			},
+			{
+			  "name": "The Girl on the Train",
+			  "location": "Room 2202",
+			  "description": "A divorcee becomes entangled in a missing persons investigation that promises to send shockwaves throughout her life..",
+			  "speakerNames": [
+				"Tate Taylor"
+			  ],
+			  "timeStart": "8:30 pm",
+			  "timeEnd": "11:00 pm",
+			  "imageUrl": "assets/img/girltrain.jpg",
+			  "tracks": [
+				"Drama, Mystery, Thriller "
+			  ]
+			}
+		  ]
+		},
+		{
+		  "time": "10:00 pm",
+		  "sessions": [
+			{
+			  "name": "Inferno",
+			  "location": "Theatre 3",
+			  "description": "When Robert Langdon wakes up in an Italian hospital with amnesia, he teams up with Dr. Sienna Brooks, and together they must race across Europe against the clock to foil a deadly global plot.",
+			  "speakerNames": [
+				"Ron Howard",
+				" Dan Brown"
+			  ],
+			  "timeStart": "10:00 pm",
+			  "timeEnd": "11:45 pm",
+			  "imageUrl": "assets/img/inferno.jpg",
+			  "tracks": [
+				"Action, Adventure, Crime"
+			  ]
+			},
+			{
+			  "name": "Shut In",
+			  "location": "Theatre 6",
+			  "description": "A heart-pounding thriller about a widowed child psychologist who lives in an isolated existence in rural New England. Caught in a deadly winter storm, she must find a way to rescue a young boy before he disappears forever.",
+			  "speakerNames": [
+				"Lionel Lion",
+				"Gino Giraffe"
+			  ],
+			  "timeStart": "10:30 pm",
+			  "timeEnd": "11:50 pm",
+			  "imageUrl": "assets/img/shutin.jpg",
+			  "tracks": [
+				"Drama, Thriller "
+			  ]
+			},
+			{
+			  "name": "Ouija: Origin of Evil",
+			  "location": "Theatre 8",
+			  "description": "In 1965 Los Angeles, a widowed mother and her two daughters add a new stunt to bolster their seance scam business and unwittingly invite authentic evil into their home. When the youngest daughter is overtaken by a merciless spirit, the family confronts unthinkable fears to save her and send her possessor back to the other side.",
+			  "speakerNames": [
+				"Mike Flanagan",
+				"Mike Flanagan"
+			  ],
+			  "timeStart": "10:30 pm",
+			  "timeEnd": "12:15 pm",
+			  "imageUrl": "assets/img/ouija.jpg",
+			  "tracks": [
+				"Horror, Thriller"
+			  ]
+			}
+		  ]
+		},
+		{
+		  "time": "12:00 am",
+		  "sessions": [
+			{
+			  "name": "Doctor Strange",
+			  "location": "Theatre 1",
+			  "description": "A former neurosurgeon embarks on a journey of healing only to be drawn into the world of the mystic arts.",
+			  "timeStart": "12:00 am",
+			  "timeEnd": "1:30 am",
+			  "imageUrl": "assets/img/doctorstrange.jpg",
+			  "tracks": [
+				" Action, Adventure, Fantasy"
+			  ]
+			}
+		  ]
+		},
+		{
+		  "time": "1:00 am",
+		  "sessions": [
+			{
+			  "name": "Doctor Strange",
+			  "location": "Theatre 1",
+			  "description": "A former neurosurgeon embarks on a journey of healing only to be drawn into the world of the mystic arts.",
+			  "timeStart": "1:00 am",
+			  "timeEnd": "2:30 am",
+			  "imageUrl": "assets/img/doctorstrange.jpg",
+			  "tracks": [
+				" Action, Adventure, Fantasy"
+			  ]
+			}
+		  ]
+		}
+	  ]
+	}
+  ],
+  "directors": [
+	{
+	  "name": "Martin Scorsese",
+	  "profilePic": "assets/img/speakers/martinscorsese.jpg",
+	  "twitter": "Martin Scorsese",
+	  "about": "Martin Scorsese famous director",
+	  "location": "Everywhere",
+	  "email": "Martinscorsese@example.com",
+	  "phone": "+1-541-754-3010"
+	},
+	{
+	  "name": "Steven Spielberg",
+	  "profilePic": "assets/img/speakers/StevenSpielberg.jpg",
+	  "twitter": "Steven Spielberg",
+	  "about": "Steven Spielberg famous director",
+	  "location": "Everywhere",
+	  "email": "StevenSpielberg@example.com",
+	  "phone": "+1-541-754-3010"
+	},
+	{
+	  "name": "Quentin Tarantino",
+	  "profilePic": "assets/img/speakers/QuentinTarantino.jpg",
+	  "twitter": "Quentin Tarantino",
+	  "about": "Quentin Tarantino famous director",
+	  "location": "Everywhere",
+	  "email": "QuentinTarantino@example.com",
+	  "phone": "+1-541-754-3010"
+	},
+	{
+	  "name": "Wes Anderson",
+	  "profilePic": "assets/img/speakers/WesAnderson.jpeg",
+	  "twitter": "Wes Anderson",
+	  "about": "Wes Anderson Famous Director",
+	  "location": "Everywhere",
+	  "email": "WesAnderson@example.com",
+	  "phone": "+1-541-754-3010"
+	},
+	{
+	  "name": "Stanley Kubrick",
+	  "profilePic": "assets/img/speakers/StanleyKubrick.jpg",
+	  "twitter": "Stanley Kubrick",
+	  "about": "Stanley Kubrick famous director",
+	  "location": "Everywhere",
+	  "email": "StanleyKubrick@example.com",
+	  "phone": "+1-541-754-3010"
+	},
+	{
+	  "name": "David Lynch",
+	  "profilePic": "assets/img/speakers/DavidLynch.jpg",
+	  "twitter": "David Lynch",
+	  "about": "David Lynch Famous Director",
+	  "location": "Everywhere",
+	  "email": "DavidLynch@example.com",
+	  "phone": "+1-541-754-3010"
+	},
+	{
+	  "name": "David Fincher",
+	  "profilePic": "assets/img/speakers/DavidFincher.jpg",
+	  "twitter": "ionicframework",
+	  "about": "David Fincher Famous Director",
+	  "location": "Everywhere",
+	  "email": "DavidFincher@example.com",
+	  "phone": "+1-541-754-3010"
+	},
+	{
+	  "name": "James Cameron",
+	  "profilePic": "assets/img/speakers/JamesCameron.jpg",
+	  "twitter": "ionicframework",
+	  "about": "James Cameron Famous Director",
+	  "location": "Everywhere",
+	  "email": "JamesCameron@example.com",
+	  "phone": "+1-541-754-3010"
+	}
+  ],
+  "map": [
+	{
+	  "name": "ABC Achrafieh",
+	  "lat": 33.8894,
+	  "lng": 35.5206,
+	  "center": true
+	},
+	{
+	  "name": "LE MALL ",
+	  "lat": 33.9296,
+	  "lng": 35.5892
+	},
+	{
+	  "name": "BEIRUT SOUKS",
+	  "lat": 33.8956,
+	  "lng": 35.5039
+	}
+  ],
+  "slides": [
+	{
+	  "title": "Welcome to Movies Guide",
+	  "description": "Discover awesome movies/tv shows from friends reviews and add them to watchlist",
+	  "imageUrl": "assets/img/pop1.png"
+	},
+	{
+	  "title": "What's New",
+	  "description": "Read the latest Movie Reviews, Critic Scores, Readers Score, Show times and Movie Trailers",
+	  "imageUrl": "assets/img/pop2.png"
+	}
+  ]
+}

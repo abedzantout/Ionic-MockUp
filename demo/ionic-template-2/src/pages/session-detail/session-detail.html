@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Session</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card padding>
+    <img src="{{session.imageUrl}}" width="250" height="350" />
+    <ion-card-title>
+      <br>
+      <h1>{{session.name}}</h1>
+    </ion-card-title>
+    <br>
+    <h4 *ngFor="let speaker of session.speakers">
+      {{speaker.name}}
+    </h4>
+    <br>
+    <p>
+      {{session.timeStart}} - {{session.timeEnd}}
+    </p>
+
+    <p>{{session.location}}</p>
+
+    <p>{{session.description}}</p>
+  </ion-card>
+</ion-content>
