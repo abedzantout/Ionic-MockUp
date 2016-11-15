@@ -1,13 +1,13 @@
 import { Component, ViewEncapsulation, NgZone } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { EmailValidator, EqualPasswordsValidator } from '../../theme/validators';
+import { Http, Response } from '@angular/http';
 
 
 import { BaThemeConfigProvider } from "../../theme/theme.configProvider";
 
 import { Router } from "@angular/router";
-import {Observable} from "rxjs";
-import {RequestOptions, Headers} from "@angular/http";
+import { Observable } from "rxjs";
+import { RequestOptions, Headers } from "@angular/http";
 declare var require: any;
 
 @Component({
@@ -19,10 +19,7 @@ declare var require: any;
 
 
 export class apkForm {
-
-
     public form: FormGroup;
-
     public keyPassword: AbstractControl;
     public authorsName: AbstractControl;
     public organizationalUnit: AbstractControl;
@@ -31,7 +28,7 @@ export class apkForm {
     public stateName: AbstractControl;
     public countryCode: AbstractControl;
 
-    constructor( fb: FormBuilder, private router: Router, private _baConfig: BaThemeConfigProvider, private ngZone: NgZone ) {
+    constructor( fb: FormBuilder, private router: Router, private _baConfig: BaThemeConfigProvider, private ngZone: NgZone, private http: Http ) {
 
         this.form = fb.group({
             'keyPassword': [ '', Validators.compose([ Validators.required, Validators.minLength(2) ]) ],
@@ -53,16 +50,15 @@ export class apkForm {
     }
 
 
-    private sendObject(obj): Observable<void>{
+    private sendObject( obj ): Observable<void> {
 
-        let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-        let options       = new RequestOptions({ headers: headers }); // Create a request option
+        let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options = new RequestOptions({ headers: headers }); // Create a request option
 
 
+        return this.http.post('/downloadApk', obj, options).map(( res: Response ) => {
 
-        return this.http.post('/downloadApk', obj,options).map((res: Response) => {
-
-            if(res){
+            if ( res ) {
                 console.log(res);
             }
 
@@ -71,36 +67,29 @@ export class apkForm {
     }
 
 
-    private onSubmit(values: Object): void{
+    private onSubmit( values: Object ): void {
 
 
         let object = {
 
-            keyPassword: values['keyPassword'],
-            authorsName: values['authorsName'],
-            organizationalUnit: values['organizationalUnit'],
-            organizationName: values['organizationName'],
-            cityName: values['cityName'],
-            stateName: values['stateName'],
-            countryCode: values['countryCode']
+            keyPassword: values[ 'keyPassword' ],
+            authorsName: values[ 'authorsName' ],
+            organizationalUnit: values[ 'organizationalUnit' ],
+            organizationName: values[ 'organizationName' ],
+            cityName: values[ 'cityName' ],
+            stateName: values[ 'stateName' ],
+            countryCode: values[ 'countryCode' ]
 
         };
 
-        this.sendObject(obj).subscribe(
-
-            (data) => {console.log(data);},
-            (err) => {console.log(err);},
-            () => console.log("finished.");
-
+        this.sendObject(object).subscribe(
+            ( data ) => {console.log(data);},
+            ( err ) => {console.log(err);},
+            () => console.log("finished.")
         );
 
 
     }
-
-
-
-
-
 
 
 }

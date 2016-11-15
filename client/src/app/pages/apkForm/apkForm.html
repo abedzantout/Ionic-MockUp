@@ -5,7 +5,7 @@
 
         <a routerLink="/pages" class="auth-link">Want to edit your future app? Go back!</a>
 
-        <form [formGroup]="form" class="form-horizontal">
+        <form [formGroup]="form" class="form-horizontal" (ngSubmit)="onSubmit(form.value)">
 
             <div class="form-group row"
                  [ngClass]="{'has-error': (!keyPassword.valid && keyPassword.touched), 'has-success': (keyPassword.valid && keyPassword.touched)}">
@@ -65,7 +65,7 @@
                        placeholder="Country code ">
                 <span *ngIf="(!countryCode.valid && countryCode.touched)">Country code is invalid</span>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
         </form>
 
     </div>

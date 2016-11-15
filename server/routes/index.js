@@ -28,16 +28,27 @@ router.post('/sendJson', function (req, res, next) {
         res.send("invalid");
     }
 });
-
-
-router.get('/downloadApk', function (req, res, next) {
-    ionicBuildApk();
+router.post('/downloadApk', function (req, res, next) {
+    console.log(req[ 'body' ]);
+    var keyPassword        = req[ 'body' ][ 'keyPassword' ];
+    var authorsName        = req[ 'body' ][ 'authorsName' ];
+    var organizationalUnit = req[ 'body' ][ 'organizationalUnit' ];
+    var organizationName   = req[ 'body' ][ 'organizationName' ];
+    var cityName           = req[ 'body' ][ 'cityName' ];
+    var stateName          = req[ 'body' ][ 'stateName' ];
+    var countryCode        = req[ 'body' ][ 'countryCode' ];
+    // keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode,  () =>{
+    ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, () => {
+        res.setHeader('Content-disposition', 'attachment; filename=AndroidRelease.apk');
+        res.download('../demo/ionic-template-1/platforms/android/build/outputs/apk/AndroidRelease.apk', 'AndroidRelease.apk');
+        // res.send('success');
+    });
     next();
 }, function (req, res, next) {
-    res.send('android build in progress....');
-    res.end('ended')
+    // res.send('android build in progress....');
+    // res.end('ended')
 });
-function ionicBuildApk() {
+function ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, ionicBuildCallback) {
     var ionicbuild = spawn('ionic', [ 'build', '--release', 'android' ], {
         cwd     : '../demo/ionic-template-1/',
         detached: true
@@ -51,14 +62,16 @@ function ionicBuildApk() {
     ionicbuild.stdin.on('data', function (data) {
         console.log('ionicbuild STDIN: ' + data.toString());
     });
-    ionicbuild.on('exit', (code) => {
+    ionicbuild.on('close', (code) => {
         console.log('ionic build finished');
         ionicbuild.stdin.end();
         ionicbuild.stdout.end();
-        keytool();
+        keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, () => {
+            ionicBuildCallback();
+        });
     });
 }
-function jarSigner() {
+function jarSigner(keyPassword, jarSignerCallback) {
     var jarSignerArray = [];
     var jarsigner      = spawn('jarsigner', [ '-verbose', '-sigalg', 'SHA1withRSA', '-digestalg', 'SHA1', '-keystore', 'newrel.keystore', 'android-release-unsigned.apk', 'newalias' ], {
         cwd     : '../demo/ionic-template-1/platforms/android/build/outputs/apk',
@@ -72,19 +85,21 @@ function jarSigner() {
         console.log('JARSIGNER STDERR: ' + data.toString());
         jarSignerArray.push(jarsignerToArray);
         if ( jarsignerToArray == jarSignerArray[ 0 ] ) {
-            jarsigner.stdin.write('123456789\n');
+            jarsigner.stdin.write(keyPassword + '\n');
             // setTimeout(zipalign, 6000);
         }
     });
     jarsigner.stdin.on('data', function (data) {
         console.log('JARSIGNER STDIN: ' + data.toString());
     });
-    jarsigner.on('exit', (code) => {
+    jarsigner.on('close', (code) => {
         console.log('jarsigner ended');
-        zipalign();
+        zipalign(() => {
+            jarSignerCallback();
+        });
     })
 }
-function keytool() {
+function keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, keytoolCallback) {
     var stringArray = [];
     var keytool     = spawn('keytool', [ '-genkey', '-v', '-keystore', 'newrel.keystore', '-alias', 'newalias', '-keyalg', 'RSA', '-keysize', '2048', '-validity', '10000' ], {
         cwd     : '../demo/ionic-template-1/platforms/android/build/outputs/apk',
@@ -119,38 +134,42 @@ function keytool() {
         var dataToString = data.toString();
         stringArray.push(dataToString);
         if ( dataToString == stringArray[ 0 ] ) {
-            keytool.stdin.write('123456789\n');
+            console.log('at 0' + dataToString);
+            keytool.stdin.write(keyPassword + '\n');
         } else if ( dataToString == stringArray[ 1 ] ) {
-            keytool.stdin.write('123456789\n');
+            keytool.stdin.write(keyPassword + '\n');
         } else if ( dataToString == stringArray[ 2 ] ) {
-            keytool.stdin.write('Abbas Baydoun\n');
+            keytool.stdin.write(authorsName + '\n');
         } else if ( dataToString == stringArray[ 3 ] ) {
-            keytool.stdin.write('A TEAM\n');
+            keytool.stdin.write(organizationalUnit + '\n');
         } else if ( dataToString == stringArray[ 4 ] ) {
-            keytool.stdin.write('AUB\n');
+            keytool.stdin.write(organizationName + '\n');
         } else if ( dataToString == stringArray[ 5 ] ) {
-            keytool.stdin.write('Beirut\n');
+            keytool.stdin.write(cityName + '\n');
         } else if ( dataToString == stringArray[ 6 ] ) {
-            keytool.stdin.write('Beirut\n');
+            keytool.stdin.write(stateName + '\n');
         } else if ( dataToString == stringArray[ 7 ] ) {
-            keytool.stdin.write('LB\n');
+            keytool.stdin.write(countryCode + '\n');
         } else if ( dataToString == stringArray[ 8 ] ) {
             keytool.stdin.write('yes\n');
         } else if ( dataToString == stringArray[ 9 ] ) {
-            keytool.stdin.write('123456789\n');
+            setTimeout(() => {keytool.stdin.write(keyPassword + '\n');}, 600);
         } else if ( dataToString == stringArray[ 10 ] ) {
-            keytool.stdin.write('123456789\n');
+            console.log('AT 100000000000' + dataToString);
+            setTimeout(() => {keytool.stdin.write(keyPassword + '\n');}, 600);
             // setTimeout(jarSigner, 3000);
         }
     });
-    keytool.on('exit', (code) => {
+    keytool.on('close', (code) => {
         console.log('keytool end');
         keytool.stdin.end();
         keytool.stdout.end();
-        jarSigner();
+        jarSigner(keyPassword, () => {
+            keytoolCallback();
+        });
     });
 }
-function zipalign() {
+function zipalign(callback) {
     var zipalignArray = [];
     console.log('started zipalign');
     var zipalign = spawn('/Users/abedzantout/Library/Android/sdk/build-tools/25.0.0/zipalign', [ '-v', '4', 'android-release-unsigned.apk', 'AndroidRelease.apk' ], {
@@ -164,15 +183,14 @@ function zipalign() {
         var jarsignerToArray = data.toString();
         console.log('zipalign STDERR: ' + data.toString());
         zipalignArray.push(jarsignerToArray);
-        // if ( jarsignerToArray == zipalign[ 0 ] ) {
-        //     zipalign.stdin.write('123456789\n');
-        // }
     });
     zipalign.stdin.on('data', function (data) {
         console.log('zipalign STDIN: ' + data.toString());
     });
     zipalign.on('close', () => {
         zipalign.stdin.end();
+        callback();
+        // res.sendFile('../demo/ionic-template-1/platforms/android/build/outputs/apk/AndroidRelease.apk');
     })
 }
 function puts(error, stdout, stderr) {
