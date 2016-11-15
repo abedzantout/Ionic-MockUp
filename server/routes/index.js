@@ -2,9 +2,8 @@ var express = require('express');
 var router  = express.Router();
 var fs      = require('fs');
 /* GET home page. */
-var util    = require('util');
-var spawn   = require('child_process').spawn;
-
+var util  = require('util');
+var spawn = require('child_process').spawn;
 router.get('/', function (req, res, next) {
     res.render('../../client/dist/index.html');
 });
@@ -29,9 +28,6 @@ router.post('/sendJson', function (req, res, next) {
         res.send("invalid");
     }
 });
-
-
-
 router.get('/downloadApk', function (req, res, next) {
     ionicBuildApk();
     next();
@@ -39,8 +35,6 @@ router.get('/downloadApk', function (req, res, next) {
     res.send('android build in progress....');
     res.end('ended')
 });
-
-
 function ionicBuildApk() {
     var ionicbuild = spawn('ionic', [ 'build', '--release', 'android' ], {
         cwd     : '../demo/ionic-template-1/',
@@ -100,16 +94,31 @@ function keytool() {
     keytool.stdin.on('data', function (data) {
         console.log('stdin keytool: ' + data.toString());
     });
+    /**
+     * Enters the user information
+     * @param: 0- Enter keystore password?
+     * @param: 1- Re-enter new password?
+     * @param: 2-  What is your first and last name?
+     * @param: 3- What is the name of your organizational unit?
+     * @param: 4- What is the name of your organization?
+     * @param: 5- What is the name of your City or Locality?
+     * @param: 6- What is the name of your State or Province?
+     * @param: 7- What is the two-letter country code for this unit?
+     *
+     * @param: 8- (CN= param2, OU=param3, O=param4, L=param5, ST=param6, C=param7 correct)? yes: no? proceed: repeat
+     *
+     * @returns: Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 10,000 days for: CN= param2, OU=param3, O=param4, L=param5, ST=param6 C=param7
+     *
+     * @param: 9- Enter key password for <appliaction_name>
+     * @param: 10- ReEnter password
+     */
     keytool.stderr.on('data', function (data) {
         console.log("STDERR: " + data.toString());
         var dataToString = data.toString();
         stringArray.push(dataToString);
-
         if ( dataToString == stringArray[ 0 ] ) {
             keytool.stdin.write('123456789\n');
-
         } else if ( dataToString == stringArray[ 1 ] ) {
-
             keytool.stdin.write('123456789\n');
         } else if ( dataToString == stringArray[ 2 ] ) {
             keytool.stdin.write('Abbas Baydoun\n');
