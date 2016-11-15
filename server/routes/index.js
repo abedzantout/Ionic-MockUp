@@ -31,7 +31,10 @@ router.post('/sendJson', function (req, res, next) {
 });
 router.get('/downloadApk', function (req, res, next) {
     ionicBuildApk();
-    res.send('executed.');
+    next();
+}, function (req, res, next) {
+    res.send('android build in progress....');
+    res.end('ended')
 });
 function ionicBuildApk() {
     var ionicbuild = spawn('ionic', [ 'build', '--release', 'android' ], {
