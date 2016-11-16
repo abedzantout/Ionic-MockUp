@@ -1,13 +1,18 @@
-import {Pipe} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'mapToIterable'
+    name: 'keys'
 })
-export class MapToIterable {
-    transform(map: {}, args: any[] = null): any {
-        if (!map)
-            return null;
-        return Object.keys(map)
-                     .map((key) => ({ 'key': key, 'value': map[key] }));
+export class MapToIterable implements PipeTransform {
+    transform(value, args:string[]) : any {
+        if (!value) {
+            return value;
+        }
+
+        let keys = [];
+        for (let key in value) {
+            keys.push({key: key, value: value[key]});
+        }
+        return keys;
     }
 }

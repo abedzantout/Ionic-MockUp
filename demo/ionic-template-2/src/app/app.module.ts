@@ -17,6 +17,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 import { iConfigProvider } from "../providers/iconfig.provider";
+import { MapToIterable } from "../pipes/toarray.pipe";
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { iConfigProvider } from "../providers/iconfig.provider";
         DirectorDetailPage,
         DirectorListPage,
         TabsPage,
-        TutorialPage
+        TutorialPage,
+        MapToIterable
     ],
     imports: [
         IonicModule.forRoot(ConferenceApp)

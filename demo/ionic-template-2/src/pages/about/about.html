@@ -30,9 +30,13 @@
                 <ion-item>
                     <ion-icon name="pin" item-left></ion-icon>
                     <ion-label>Location</ion-label>
+
                     <ion-select>
 
-                        <ion-option *ngFor="let location of locations" [value]="location.value">{{location.text}}
+                        <ion-option [selected]="location.value['location'+location.key]['value'] == defaultSelect ? true: null"
+                                    *ngFor="let location of locations | keys"
+                                    [value]="location.value['location'+location.key]['value']">
+                            {{ location.value["location"+location.key]['text']}}
                         </ion-option>
                         <!--<ion-option value="madison" selected>Beirut Souks</ion-option>-->
                         <!--<ion-option value="austin">ABC Ascharafieh</ion-option>-->
@@ -60,5 +64,4 @@
             </p>
         </ion-card>
     </div>
-
 </ion-content>

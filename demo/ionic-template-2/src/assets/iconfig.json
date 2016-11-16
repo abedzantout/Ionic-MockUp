@@ -14,6 +14,7 @@
 		  "instance": [
 			{
 			  "instance0": {
+				"default-location": 0,
 				"title": "about",
 				"movieDate": "2016-05-17",
 				"location": [
