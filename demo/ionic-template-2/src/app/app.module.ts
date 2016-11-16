@@ -16,43 +16,45 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
+import { iConfigProvider } from "../providers/iconfig.provider";
 
 
 @NgModule({
-  declarations: [
-    ConferenceApp,
-    AboutPage,
-    AccountPage,
-    LoginPage,
-    MapPage,
-    SchedulePage,
-    ScheduleFilterPage,
-    SessionDetailPage,
-    SignupPage,
-    DirectorDetailPage,
-    DirectorListPage,
-    TabsPage,
-    TutorialPage
-  ],
-  imports: [
-    IonicModule.forRoot(ConferenceApp)
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    ConferenceApp,
-    AboutPage,
-    AccountPage,
-    LoginPage,
-    MapPage,
-    SchedulePage,
-    ScheduleFilterPage,
-    SessionDetailPage,
-    SignupPage,
-    DirectorDetailPage,
-    DirectorListPage,
-    TabsPage,
-    TutorialPage
-  ],
-  providers: [ConferenceData, UserData, Storage]
+    declarations: [
+        ConferenceApp,
+        AboutPage,
+        AccountPage,
+        LoginPage,
+        MapPage,
+        SchedulePage,
+        ScheduleFilterPage,
+        SessionDetailPage,
+        SignupPage,
+        DirectorDetailPage,
+        DirectorListPage,
+        TabsPage,
+        TutorialPage
+    ],
+    imports: [
+        IonicModule.forRoot(ConferenceApp)
+    ],
+    bootstrap: [ IonicApp ],
+    entryComponents: [
+        ConferenceApp,
+        AboutPage,
+        AccountPage,
+        LoginPage,
+        MapPage,
+        SchedulePage,
+        ScheduleFilterPage,
+        SessionDetailPage,
+        SignupPage,
+        DirectorDetailPage,
+        DirectorListPage,
+        TabsPage,
+        TutorialPage
+    ],
+    providers: [ ConferenceData, UserData, Storage, iConfigProvider ]
 })
-export class AppModule {}
+export class AppModule {
+}

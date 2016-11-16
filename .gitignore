@@ -4,14 +4,11 @@
 /client/node_modules/
 /server/node_modules/
 /demo/ionic-template-2/.tmp/
-/demo/ionic-template-2/www/assets/
-/demo/ionic-template-2/www/.gitignore
-/demo/ionic-template-2/www/manifest.json
-/demo/ionic-template-2/www/build/
-/demo/ionic-template-2/www/index.html
-/demo/ionic-template-2/www/service-worker.js
+/demo/ionic-template-2/www/
 *DS_store
 /demo/ionic-template-2/node_modules/
 /demo/ionic-template-2/platforms/
 /demo/ionic-template-2/plugins/
 /module/
+/demo/ionic-template-1/www/
+
