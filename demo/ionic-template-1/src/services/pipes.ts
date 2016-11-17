@@ -4,12 +4,12 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'keys'
 })
 export class MapToIterable implements PipeTransform {
-    transform( value, args: string[] ): any {
+    transform( value): any {
         if ( !value ) {
             return value;
         }
 
-        let keys = [];
+        let keys: any = [];
         for ( let key in value ) {
             keys.push({ key: key, value: value[ key ] });
         }

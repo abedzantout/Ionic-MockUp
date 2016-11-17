@@ -30,7 +30,6 @@ export class MenuPage {
     private setJsonLocally() {
         this.jsonContent  = JSON.parse(this._service.getJsonContent());
         let parentContent = this.jsonContent[ 'Application' ][ 'page' ][ 2 ][ 'page2' ];
-        console.log(parentContent);
         let defaultInstance = parentContent[ 'default-instance' ];
         this.contents       = parentContent[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'content' ];
     }

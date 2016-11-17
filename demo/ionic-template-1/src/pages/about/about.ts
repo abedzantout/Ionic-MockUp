@@ -36,6 +36,10 @@ export class AboutPage {
         this.image       = content[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'content' ][ 0 ][ 'content0' ][ 'image' ];
         this.description = content[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'content' ][ 0 ][ 'content0' ][ 'description' ];
         this.title       = content[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'title' ];
+        console.log(this.headerText);
+        console.log(this.image);
+        console.log(this.description);
+        console.log(this.title);
     }
 
     ionViewDidLoad() {}
