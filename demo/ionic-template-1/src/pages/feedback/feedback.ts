@@ -43,18 +43,15 @@ export class FeedbackPage {
     private setJsonLocally() {
 
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        console.log(this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page2' ]);
-        let content  = this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page2' ][ 'instance' ][ this.getDefaultInstance() ]['instance3'][ 'feedback' ];
+        console.log(this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page1' ][ 'instance' ][ this.getDefaultInstance() ][ 'instance' + this.getDefaultInstance() ]);
+        let content  = this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page1' ][ 'instance' ][ this.getDefaultInstance() ][ 'instance' + this.getDefaultInstance() ];
         this.title   = content[ 'title' ];
         this.fields  = content[ 'content' ];
         this.buttons = content[ 'buttons' ];
-        for ( let button of this.buttons ) {
-            console.log(button);
-        }
     }
 
 
-    private static mapClick(buttonOnClick){
+    private static mapClick( buttonOnClick ) {
 
         let component: Component = null;
         switch (buttonOnClick) {
@@ -64,7 +61,8 @@ export class FeedbackPage {
             case "AboutPage":
                 component = AboutPage;
                 break;
-            default: component = null;
+            default:
+                component = null;
         }
 
         return component;
@@ -73,10 +71,10 @@ export class FeedbackPage {
 
     private openPage( button ) {
         // this.buttonIndex += 1;
-        this.navCtrl.push(FeedbackPage.mapClick(button['onClick']));
+        this.navCtrl.push(FeedbackPage.mapClick(button[ 'onClick' ]));
     }
 
     private getDefaultInstance() {
-        return this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page2' ][ 'default-instance' ];
+        return this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page1' ][ 'default-instance' ];
     }
 }

@@ -17,6 +17,7 @@ export class HomePage {
     content: Array<{ title: string, component: any }>;
     title: string;
     jsonContent: Object;
+    contents: Object;
 
     constructor( private navCtrl: NavController, private _service: Service ) {
 
@@ -31,19 +32,21 @@ export class HomePage {
     }
 
     private setJsonLocally() {
-        this.jsonContent = JSON.parse(this._service.getJsonContent());
-        this.title       = this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'page1' ][ 'instance' ][0]['instance1'][ 'title' ];
-        this.content     = [
+        this.jsonContent    = JSON.parse(this._service.getJsonContent());
+        let defaultInstance = this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'page0' ][ 'default-instance' ];
+        this.contents       = this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'page0' ][ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ];
+        this.title          = this.contents[ 'title' ];
+        this.content = [
             {
-                title:  this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'page1' ]['instance'][0]['instance1']['content'][0]['content1']['title'],
+                title: this.contents[ 'content' ][ 0 ][ 'content0' ][ 'title' ],
                 component: MenuPage
             },
             {
-                title:  this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'page1' ]['instance'][0]['instance1']['content'][1]['content2']['title'],
+                title: this.contents[ 'content' ][ 1 ][ 'content1' ][ 'title' ],
                 component: AboutPage
             },
             {
-                title: this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'page1' ]['instance'][0]['instance1']['content'][2]['content3']['title'],
+                title: this.contents[ 'content' ][ 2 ][ 'content2' ][ 'title' ],
                 component: FeedbackPage
             }
         ]

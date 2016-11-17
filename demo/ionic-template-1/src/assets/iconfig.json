@@ -7,28 +7,53 @@
 	],
 	"page": [
 	  {
-		"page1": {
+		"page0": {
 		  "page-name": "app",
-		  "default-instance": "2",
+		  "default-instance": "0",
 		  "instance": [
 			{
-			  "instance1": {
+			  "instance0": {
 				"title": "scdce",
 				"content": [
 				  {
-					"content1": {
-					  "title": "Menu title",
+					"content0": {
+					  "title": "Menu",
 					  "component": "MenuPage"
 					}
 				  },
 				  {
-					"content2": {
+					"content1": {
 					  "title": "About us",
 					  "component": "AboutUsPage"
 					}
 				  },
 				  {
-					"content3": {
+					"content2": {
+					  "title": "feedback",
+					  "component": "FeedbackPage"
+					}
+				  }
+				]
+			  }
+			},
+			{
+			  "instance1": {
+				"title": "scdce",
+				"content": [
+				  {
+					"content0": {
+					  "title": "Menu title",
+					  "component": "MenuPage"
+					}
+				  },
+				  {
+					"content1": {
+					  "title": "About us",
+					  "component": "AboutUsPage"
+					}
+				  },
+				  {
+					"content2": {
 					  "title": "feedback",
 					  "component": "FeedbackPage"
 					}
@@ -41,44 +66,19 @@
 				"title": "scdce",
 				"content": [
 				  {
-					"content1": {
+					"content0": {
 					  "title": "Menu title",
 					  "component": "MenuPage"
 					}
 				  },
 				  {
-					"content2": {
-					  "title": "About us",
-					  "component": "AboutUsPage"
-					}
-				  },
-				  {
-					"content3": {
-					  "title": "feedback",
-					  "component": "FeedbackPage"
-					}
-				  }
-				]
-			  }
-			},
-			{
-			  "instance3": {
-				"title": "scdce",
-				"content": [
-				  {
 					"content1": {
-					  "title": "Menu title",
-					  "component": "MenuPage"
-					}
-				  },
-				  {
-					"content2": {
 					  "title": "About us",
 					  "component": "AboutUsPage"
 					}
 				  },
 				  {
-					"content3": {
+					"content2": {
 					  "title": "feedback",
 					  "component": "FeedbackPage"
 					}
@@ -90,16 +90,16 @@
 		}
 	  },
 	  {
-		"page2": {
+		"page1": {
 		  "page-name": "feedback",
-		  "default-instance": "2",
+		  "default-instance": "1",
 		  "instance": [
 			{
-			  "instance1": {
+			  "instance0": {
 				"title": "feedback",
 				"content": [
 				  {
-					"input1": {
+					"input0": {
 					  "input": "Full Name"
 					}
 				  },
@@ -109,14 +109,50 @@
 					}
 				  },
 				  {
-					"input1": {
+					"input2": {
 					  "input": "notes"
 					}
 				  }
 				],
 				"buttons": [
 				  {
+					"button0": {
+					  "buttonText": "Submit",
+					  "value": "submit"
+					}
+				  },
+				  {
 					"button1": {
+					  "buttonText": "Cancel",
+					  "value": "cancel"
+					}
+				  }
+				]
+			  }
+			},
+			{
+			  "instance1": {
+				"title": "feedback",
+				"content": [
+				  {
+					"input0": {
+					  "input": "Full Name"
+					}
+				  },
+				  {
+					"input1": {
+					  "input": "Email"
+					}
+				  },
+				  {
+					"input2": {
+					  "input": "notes"
+					}
+				  }
+				],
+				"buttons": [
+				  {
+					"button0": {
 					  "buttonText": "Submit",
 					  "value": "submit"
 					}
@@ -135,7 +171,7 @@
 				"title": "feedback",
 				"content": [
 				  {
-					"input1": {
+					"input0": {
 					  "input": "Full Name"
 					}
 				  },
@@ -145,50 +181,14 @@
 					}
 				  },
 				  {
-					"input1": {
+					"input2": {
 					  "input": "notes"
 					}
 				  }
 				],
 				"buttons": [
 				  {
-					"button1": {
-					  "buttonText": "Submit",
-					  "value": "submit"
-					}
-				  },
-				  {
-					"button1": {
-					  "buttonText": "Cancel",
-					  "value": "cancel"
-					}
-				  }
-				]
-			  }
-			},
-			{
-			  "instance3": {
-				"title": "feedback",
-				"content": [
-				  {
-					"input1": {
-					  "input": "Full Name"
-					}
-				  },
-				  {
-					"input1": {
-					  "input": "Email"
-					}
-				  },
-				  {
-					"input1": {
-					  "input": "notes"
-					}
-				  }
-				],
-				"buttons": [
-				  {
-					"button1": {
+					"button0": {
 					  "buttonText": "Submit",
 					  "value": "submit"
 					}
@@ -207,7 +207,7 @@
 				"title": "feedback",
 				"content": [
 				  {
-					"input1": {
+					"input0": {
 					  "input": "Full Name"
 					}
 				  },
@@ -217,7 +217,7 @@
 					}
 				  },
 				  {
-					"input1": {
+					"input2": {
 					  "input": "notes"
 					}
 				  }
@@ -242,16 +242,16 @@
 		}
 	  },
 	  {
-		"page3": {
+		"page2": {
 		  "page-name": "Menu",
-		  "default-instance": "1",
+		  "default-instance": "0",
 		  "instance": [
 			{
-			  "instance1": {
+			  "instance0": {
 				"title": "Menu",
 				"content": [
 				  {
-					"content1": {
+					"content0": {
 					  "name": "Lasagne",
 					  "image": "../../assets/images/lasagne.jpg",
 					  "description": "Italian Pasta."
@@ -265,7 +265,7 @@
 					}
 				  },
 				  {
-					"content1": {
+					"content2": {
 					  "name": "humus",
 					  "image": "../../assets/images/humus.jpg",
 					  "description": "Lebanese cold starter."
@@ -275,11 +275,11 @@
 			  }
 			},
 			{
-			  "instance2": {
+			  "instance1": {
 				"title": "Menu",
 				"content": [
 				  {
-					"content1": {
+					"content0": {
 					  "name": "Lasagne",
 					  "image": "../../assets/images/lasagne.jpg",
 					  "description": "Italian Pasta."
@@ -293,7 +293,7 @@
 					}
 				  },
 				  {
-					"content1": {
+					"content2": {
 					  "name": "humus",
 					  "image": "../../assets/images/humus.jpg",
 					  "description": "Lebanese cold starter."
@@ -306,16 +306,16 @@
 		}
 	  },
 	  {
-		"page4": {
-		  "page-name": "About Us",
+		"page3": {
+		  "page-name": "about",
 		  "default-instance": "0",
 		  "instance": [
 			{
-			  "instance1": {
+			  "instance0": {
 				"title": "About Us",
 				"content": [
 				  {
-					"content1": {
+					"content0": {
 					  "headerText": "Restaurant Name",
 					  "image": "../../assets/images/restaurant.jpg",
 					  "description": "We are a restaurant in bliss street"

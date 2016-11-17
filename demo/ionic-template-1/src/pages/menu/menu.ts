@@ -1,15 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { FoodItemsProvider } from '../../providers/food-items-provider';
 import { Service } from "../../services/service";
-
-/*
- Generated class for the Menu page.
-
- See http://ionicframework.com/docs/v2/components/#navigation for more info on
- Ionic pages and navigation.
- */
-
 
 @Component({
     selector: 'page-menu',
@@ -20,10 +12,10 @@ import { Service } from "../../services/service";
 export class MenuPage {
 
     title: string;
-    content: Object;
+    contents: Object;
     private jsonContent: Object;
 
-    constructor( private navCtrl: NavController, private _service: Service ) {
+    constructor( private _service: Service ) {
 
         this.jsonContent = this._service.getJson().subscribe(
             ( data ) => { this.jsonContent = data; },
@@ -36,12 +28,11 @@ export class MenuPage {
     }
 
     private setJsonLocally() {
-        this.jsonContent = JSON.parse(this._service.getJsonContent());
-        console.log(this.jsonContent[ 'Application' ][ 'page' ][ 2 ][ 'page3' ]['instance'][0]['instance1']['menu'])
-        let content      = this.jsonContent[ 'Application' ][ 'page' ][ 2 ][ 'page3' ]['instance'][0]['instance1']['menu'];
-        this.title       = content[ 'title' ];
-        this.content     = content[ 'content' ];
+        this.jsonContent  = JSON.parse(this._service.getJsonContent());
+        let parentContent = this.jsonContent[ 'Application' ][ 'page' ][ 2 ][ 'page2' ];
+        console.log(parentContent);
+        let defaultInstance = parentContent[ 'default-instance' ];
+        this.contents       = parentContent[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'content' ];
     }
-
 
 }
