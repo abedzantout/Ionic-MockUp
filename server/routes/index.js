@@ -153,10 +153,10 @@ function keytool(keyPassword, authorsName, organizationalUnit, organizationName,
         } else if ( dataToString == stringArray[ 8 ] ) {
             keytool.stdin.write('yes\n');
         } else if ( dataToString == stringArray[ 9 ] ) {
-            setTimeout(() => {keytool.stdin.write(keyPassword + '\n');}, 600);
+            setTimeout(() => {keytool.stdin.write(keyPassword + '\n');}, 2000);
         } else if ( dataToString == stringArray[ 10 ] ) {
             console.log('AT 100000000000' + dataToString);
-            setTimeout(() => {keytool.stdin.write(keyPassword + '\n');}, 600);
+            setTimeout(() => {keytool.stdin.write(keyPassword + '\n');}, 2000);
             // setTimeout(jarSigner, 3000);
         }
     });

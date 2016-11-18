@@ -28,11 +28,18 @@ export class AboutPage {
 
     private setJsonLocally() {
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        let content      = this.jsonContent[ 'Application' ][ 'pages' ][ 3 ] [ 'about-us' ];
-        this.headerText  = content[ 'content' ][ 'headerText' ];
-        this.image       = content[ 'content' ][ 'image' ];
-        this.description = content[ 'content' ][ 'description' ];
-        this.title       = content[ 'title' ];
+
+        let content         = this.jsonContent[ 'Application' ][ 'page' ][ 3 ][ 'page3' ];
+        let defaultInstance = content[ 'default-instance' ];
+        console.log(content);
+        this.headerText  = content[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'content' ][ 0 ][ 'content0' ][ 'headerText' ];
+        this.image       = content[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'content' ][ 0 ][ 'content0' ][ 'image' ];
+        this.description = content[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'content' ][ 0 ][ 'content0' ][ 'description' ];
+        this.title       = content[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'title' ];
+        console.log(this.headerText);
+        console.log(this.image);
+        console.log(this.description);
+        console.log(this.title);
     }
 
     ionViewDidLoad() {}

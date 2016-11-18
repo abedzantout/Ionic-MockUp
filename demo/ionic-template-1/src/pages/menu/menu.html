@@ -6,29 +6,29 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>{{title}}</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{title}}</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
-
-
 <ion-content padding>
-  <ion-card *ngFor="let FI of content">
-    <img src="{{FI.image}}"/>
-    <ion-card-content>
-      <ion-card-title>
-        {{FI.name}}
-      </ion-card-title>
-      <p>
-        {{FI.description}}
-      </p>
-    </ion-card-content>
-  </ion-card>
+
+    <ion-card *ngFor="let content of contents | keys">
+
+        <img [src]="content.value['content'+content.key]['image']"/>
+        <ion-card-content>
+            <ion-card-title>
+                {{content.value['content'+content.key]['name']}}
+            </ion-card-title>
+            <p>
+                {{content.value['content'+content.key]['description']}}
+            </p>
+        </ion-card-content>
+    </ion-card>
 
 </ion-content>
