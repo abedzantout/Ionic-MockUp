@@ -50,6 +50,12 @@ export class apkForm {
     }
 
 
+    private download(): Observable<any> {
+
+        return this.http.get('/downloadApk');
+
+    }
+
     private sendObject( obj ): Observable<void> {
 
         let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
@@ -58,8 +64,12 @@ export class apkForm {
 
         return this.http.post('/downloadApk', obj, options).map(( res: Response ) => {
 
-            if ( res ) {
-                console.log(res);
+            if ( res[ '_body' ] === 'success' ) {
+                this.download().subscribe(
+                    ( data ) => {console.log(data);},
+                    ( err ) => {console.log(err);},
+                    () => {console.log("DONE!!!");}
+                );
             }
 
         });

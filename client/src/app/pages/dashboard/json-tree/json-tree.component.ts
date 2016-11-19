@@ -13,12 +13,12 @@ import { Observable } from 'rxjs/Rx';
 
 // import { TreeComponent, TreeNode } from 'angular2-tree-component';
 
-import {TreeComponent} from '../../../angular2-tree/lib/components/tree.component';
-import {TreeNode} from '../../../angular2-tree/lib/models/tree-node.model';
+import { TreeComponent } from '../../../angular2-tree/lib/components/tree.component';
+import { TreeNode } from '../../../angular2-tree/lib/models/tree-node.model';
 
 import * as _ from 'lodash';
 
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -66,7 +66,7 @@ export class JsonTreeComponent {
     private infoArrayIndex: number;
 
 
-    constructor(private router: Router, private _service: IconfigGetterService, private http: Http, private elementRef: ElementRef ) {
+    constructor( private router: Router, private _service: IconfigGetterService, private http: Http, private elementRef: ElementRef ) {
 
         this.domAdapter = new BrowserDomAdapter();
 
@@ -94,21 +94,13 @@ export class JsonTreeComponent {
             () => {
                 this._service.setJsonContent(this.jsonContent);
                 this.setJsonLocally();
-
                 this.nodes = [ JSON.parse(this.treeJson) ];
-
                 this.finishedLoading = true;
-
-
             }
         );
-
     }
 
-
     private searchById( root, id ) {
-
-
         if ( root[ 'id' ] == id ) return root;
         if ( typeof root !== 'object' ) return null;
         var key, val;
@@ -123,18 +115,16 @@ export class JsonTreeComponent {
 
     private isInArray( node ) {
 
-        let fetchedNode = this.searchById(JSON.parse(this.treeJson), node['parent']['data']['id']);
+        let fetchedNode = this.searchById(JSON.parse(this.treeJson), node[ 'parent' ][ 'data' ][ 'id' ]);
 
         if ( node[ 'parent' ][ 'displayField' ] != undefined && node[ 'displayField' ] != undefined ) {
 
-            if ( !(node[ 'parent' ][ 'displayField' ] == 'page') && (node['parent']['displayField'] != 'authors') ) {
+            if ( !(node[ 'parent' ][ 'displayField' ] == 'page') && (node[ 'parent' ][ 'displayField' ] != 'authors') ) {
 
 
-                if(fetchedNode !== null && fetchedNode['type'].includes('array')){
+                if ( fetchedNode !== null && fetchedNode[ 'type' ].includes('array') ) {
                     return true;
                 }
-
-                // return node[ 'displayField' ].substring(0, node[ 'displayField' ].length - 1) === node[ 'parent' ][ 'displayField' ];
             }
         }
         return false;
@@ -160,27 +150,17 @@ export class JsonTreeComponent {
 
         let newNodeName = prompt("Enter field name:", "");
 
-            // node is regular array
-            // let length = node[ 'children' ].length;
+        let child = JsonTreeComponent.clone(node[ 'data' ][ 'children' ][ 0 ]);
 
-            let child = JsonTreeComponent.clone(node[ 'data' ][ 'children' ][ 0 ]);
+        this.nodeId += 1;
+        child[ 'id' ] = this.nodeId;
 
-            this.nodeId += 1;
-            child[ 'id' ] = this.nodeId;
+        child[ 'name' ] = newNodeName;
 
-            child[ 'name' ] = newNodeName;
-
-            node[ 'data' ][ 'children' ].push(child);
-
-
-            // child['data']['name'] = nodeDisplayFeild;
-
+        node[ 'data' ][ 'children' ].push(child);
         this.tree.treeModel.update();
         this.convertToInitialJson();
-
-
     }
-
 
     removeNode( node: TreeNode ) {
         let parentNode = node.realParent
@@ -194,99 +174,39 @@ export class JsonTreeComponent {
 
     private removeInstance( node ) {
 
-       // let parent = node['parent'];
-
-        // let arrived = false;
-
-        // for(let i=0;i<parent['children'].length;i++){
-        //
-        //     if(arrived){
-        //
-        //         let name = parent['children'][i]['displayField'];
-        //
-        //         let partBeforeNum = "";
-        //         let num = "";
-        //
-        //         for(let x=0;x<name.length;x++){
-        //
-        //             if(isNaN(parseInt(name[x]))){
-        //                 partBeforeNum += name[x];
-        //             }else{
-        //                 num += name[x];
-        //             }
-        //
-        //         }
-        //
-        //
-        //         let newName = partBeforeNum+( (parseInt(num)-1).toString() );
-        //
-        //         parent['children'][i]['data']['name'] = newName;
-        //
-        //
-        //     }
-        //
-        //
-        //      if(parent['children'][i]['displayField'] === node['displayField']){
-        //          arrived = true;
-        //      }
-        //
-        //
-        //
-        // }
-
         this.removeNode(this.tree.treeModel.getNodeById(node[ 'data' ][ 'id' ]));
-
         this.tree.treeModel.update();
         this.convertToInitialJson();
-
-
     }
 
-
     private save( event, node ) {
-
-
         let input = event[ 'srcElement' ][ 'parentElement' ][ 'children' ][ 1 ];
-
         if ( input[ 'value' ].trim() !== "" ) {
 
             if ( node[ 'isLeaf' ] ) {
-
                 node[ 'data' ][ 'name' ] = input[ 'value' ];
                 input[ 'value' ]         = "";
-
                 this.convertToInitialJson();
-
             }
-
         } else {
-
             input[ 'placeholder' ] = "Please enter something";
-
         }
-
-
     }
 
     private isArray( o ) {
         return Object.prototype.toString.call(o) === '[object Array]';
     }
 
-
     private traverseArray( arr, level ) {
-
         if ( level == 99 ) {
             this.newJsonContent += "[";
         }
 
-
         this.arrCounter = arr.length;
-
 
         arr.forEach(( x ) => {
             this.traverse(x, level + "  ");
         });
-
 
         if ( level == 99 ) {
             this.newJsonContent += "],";
@@ -294,37 +214,23 @@ export class JsonTreeComponent {
         }
     }
 
-
     private traverseObject( obj, level ) {
-
         if ( level == 99 ) {
             this.newJsonContent += "{";
         }
-
         for ( var key in obj ) {
 
             if ( obj.hasOwnProperty(key) ) {
-
-
                 if ( level != 69 ) {
-
                     this.infoArrayIndex += 1;
-
-
                     this.infoArray.push({ name: key, type: null });
-
                     if ( this.isArray(obj[ key ]) ) {
-
                         this.infoArray[ this.infoArrayIndex ][ 'type' ] = 'array';
-
                     } else if ( (typeof obj[ key ] === 'object') && (obj[ key ] !== null) ) {
-
                         this.infoArray[ this.infoArrayIndex ][ 'type' ] = 'object';
-
                     } else {
                         this.infoArray[ this.infoArrayIndex ][ 'type' ] = 'string';
                     }
-
                 }
 
                 this.treeJson += '{"id": ' + (this.nodeId) + ', "type":" ' + this.infoArray[ this.infoArrayIndex ][ 'type' ] + '","name":"' + key + '",';
@@ -334,7 +240,6 @@ export class JsonTreeComponent {
                 if ( level == 99 ) {
                     this.newJsonContent += '"' + key + '":';
                 }
-
 
                 this.treeJson += '"children":[';
                 this.traverse(obj[ key ], level + "    ");
@@ -356,19 +261,12 @@ export class JsonTreeComponent {
     private traverse( x, level ) {
 
         if ( this.isArray(x) ) {
-
             this.traverseArray(x, level);
-
         } else if ( (typeof x === 'object') && (x !== null) ) {
-
             this.objectId += 1;
-
             this.traverseObject(x, level);
-
         } else {
-
             this.valuesInJson.push(x);
-
             this.treeJson += '{"id": ' + (this.nodeId) + ', "name":"' + x + '", "type":"string"},';
             this.nodeId += 1;
 
@@ -389,14 +287,11 @@ export class JsonTreeComponent {
     private setJsonLocally() {
 
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-
         this.traverse(this.jsonContent, 2);
-
         //noinspection TypeScriptUnresolvedFunction
         while ( this.treeJson.includes(',]') ) {
             this.treeJson = this.treeJson.replace(',]', ']');
         }
-
         //noinspection TypeScriptUnresolvedFunction
         while ( this.treeJson.includes(',}') ) {
             this.treeJson = this.treeJson.replace(',}', '}');
@@ -406,21 +301,15 @@ export class JsonTreeComponent {
         this.treeJson = '{"id": 1, "name":"Application","type":"object","children":[' + this.treeJson;
         this.treeJson = this.treeJson + ']}';
 
-
     }
 
-
     private convertToInitialJson() {
-
         this.originalJsonFormat = "";
         this.infoArrayIndex     = -1;
 
         let traverse = ( x, parentIsArray ) => {
-
             if ( this.isArray(x) ) {
-
                 x.forEach(( a ) => {
-
                     if ( a[ 'type' ] == 'array' ) {
                         traverse(a, true);
                     } else {
@@ -430,9 +319,7 @@ export class JsonTreeComponent {
                 });
 
             } else if ( (typeof x === 'object') && (x !== null) ) {
-
                 if ( x[ 'type' ].includes('object') ) {
-
                     this.originalJsonFormat += '{"' + x[ 'name' ] + '":{';
                     traverse(x[ 'children' ], false);
                     this.originalJsonFormat += '}},';
@@ -457,31 +344,18 @@ export class JsonTreeComponent {
                 } else if ( x[ 'type' ].includes('string') ) {
 
                     if ( x[ 'children' ] !== undefined ) {
-
                         if ( parentIsArray ) {
-
                             this.originalJsonFormat += '{"' + x[ 'name' ] + '":' + '"' + x[ 'children' ][ 0 ][ 'name' ] + '"},';
-
                         }
-
                         else {
-
                             this.originalJsonFormat += '"' + x[ 'name' ] + '":' + '"' + x[ 'children' ][ 0 ][ 'name' ] + '",';
-
                         }
-
                     } else {
-
                         this.originalJsonFormat += '"' + x[ 'name' ] + '",';
-
-
                     }
-
                 }
-
             }
         };
-
 
         traverse(this.nodes[ 0 ], false);
         //noinspection TypeScriptUnresolvedFunction
@@ -494,18 +368,11 @@ export class JsonTreeComponent {
             this.originalJsonFormat = this.originalJsonFormat.replace(',}', '}');
         }
 
-
         this.originalJsonFormat = this.originalJsonFormat.substring(16, this.originalJsonFormat.length - 3);
-
         this.sendToServer().subscribe(
-            ( data ) => {
-            },
-            ( err ) => {
-                console.log(err);
-            },
-            () => {
-
-            }
+            ( data ) => {},
+            ( err ) => {console.log(err);},
+            () => {}
         );
     }
 
@@ -518,25 +385,18 @@ export class JsonTreeComponent {
 
         //noinspection TypeScriptUnresolvedFunction
         return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
-            if ( res ) {
-
-            }
+            if ( res ) {}
         });
     }
 
+    private download(): Observable<void> {
 
-    private download(): Observable<void>{
-
-        return this.http.get('/downloadApk').map((res: Response) => {
-            if(res){
-                console.log(res);
-            }
+        return this.http.get('/downloadApk').map(( res: Response ) => {
+            if ( res ) {console.log(res);}
         });
-
     }
 
-
-   private goToApkForm(){
-       this.router.navigate(['apkForm']);
+    private goToApkForm() {
+        this.router.navigate([ 'apkForm' ]);
     }
 }
