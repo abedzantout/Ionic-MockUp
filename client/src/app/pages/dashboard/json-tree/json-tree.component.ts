@@ -123,11 +123,18 @@ export class JsonTreeComponent {
 
     private isInArray( node ) {
 
+        let fetchedNode = this.searchById(JSON.parse(this.treeJson), node['parent']['data']['id']);
+
         if ( node[ 'parent' ][ 'displayField' ] != undefined && node[ 'displayField' ] != undefined ) {
 
-            if ( !(node[ 'parent' ][ 'displayField' ] == 'page') ) {
+            if ( !(node[ 'parent' ][ 'displayField' ] == 'page') && (node['parent']['displayField'] != 'authors') ) {
 
-                return node[ 'displayField' ].substring(0, node[ 'displayField' ].length - 1) === node[ 'parent' ][ 'displayField' ];
+
+                if(fetchedNode !== null && fetchedNode['type'].includes('array')){
+                    return true;
+                }
+
+                // return node[ 'displayField' ].substring(0, node[ 'displayField' ].length - 1) === node[ 'parent' ][ 'displayField' ];
             }
         }
         return false;
@@ -151,37 +158,22 @@ export class JsonTreeComponent {
 
     private addInstance( node ) {
 
+        let newNodeName = prompt("Enter field name:", "");
 
-        if ( node[ 'displayField' ].includes('instances') ) {
-
-
-            let child = JsonTreeComponent.clone(node[ 'data' ][ 'children' ][ 0 ]);
-
-            this.nodeId += 1;
-            child[ 'id' ] = this.nodeId;
-
-            node[ 'data' ][ 'children' ].push(child);
-
-        } else {
             // node is regular array
-            let length = node[ 'children' ].length;
-
-            let nodeDisplayFeild = node[ 'displayField' ] + (length + 1);
+            // let length = node[ 'children' ].length;
 
             let child = JsonTreeComponent.clone(node[ 'data' ][ 'children' ][ 0 ]);
 
             this.nodeId += 1;
             child[ 'id' ] = this.nodeId;
 
-            child[ 'name' ] = nodeDisplayFeild;
+            child[ 'name' ] = newNodeName;
 
             node[ 'data' ][ 'children' ].push(child);
 
 
             // child['data']['name'] = nodeDisplayFeild;
-
-
-        }
 
         this.tree.treeModel.update();
         this.convertToInitialJson();
@@ -202,48 +194,47 @@ export class JsonTreeComponent {
 
     private removeInstance( node ) {
 
-        let parent = node['parent'];
+       // let parent = node['parent'];
 
-        let arrived = false;
+        // let arrived = false;
 
-        for(let i=0;i<parent['children'].length;i++){
-
-            if(arrived){
-
-                let name = parent['children'][i]['displayField'];
-
-                let partBeforeNum = "";
-                let num = "";
-
-                for(let x=0;x<name.length;x++){
-
-                    if(isNaN(parseInt(name[x]))){
-                        partBeforeNum += name[x];
-                    }else{
-                        num += name[x];
-                    }
-
-                }
-
-
-                let newName = partBeforeNum+( (parseInt(num)-1).toString() );
-
-                parent['children'][i]['data']['name'] = newName;
-
-
-            }
-
-
-             if(parent['children'][i]['displayField'] === node['displayField']){
-                 arrived = true;
-             }
-
-
-
-        }
+        // for(let i=0;i<parent['children'].length;i++){
+        //
+        //     if(arrived){
+        //
+        //         let name = parent['children'][i]['displayField'];
+        //
+        //         let partBeforeNum = "";
+        //         let num = "";
+        //
+        //         for(let x=0;x<name.length;x++){
+        //
+        //             if(isNaN(parseInt(name[x]))){
+        //                 partBeforeNum += name[x];
+        //             }else{
+        //                 num += name[x];
+        //             }
+        //
+        //         }
+        //
+        //
+        //         let newName = partBeforeNum+( (parseInt(num)-1).toString() );
+        //
+        //         parent['children'][i]['data']['name'] = newName;
+        //
+        //
+        //     }
+        //
+        //
+        //      if(parent['children'][i]['displayField'] === node['displayField']){
+        //          arrived = true;
+        //      }
+        //
+        //
+        //
+        // }
 
         this.removeNode(this.tree.treeModel.getNodeById(node[ 'data' ][ 'id' ]));
-
 
         this.tree.treeModel.update();
         this.convertToInitialJson();
