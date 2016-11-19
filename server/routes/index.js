@@ -1,3 +1,27 @@
+/**
+ .".".".
+ (`       `)               _.-=-.
+ '._.--.-;             .-`  -'  '.
+ .-'`.o )  \           /  .-_.--'  `\
+ `;---) \    ;         /  / ;' _-_.-' `
+ `;"`  ;    \        ; .  .'   _-' \
+ (    )    |        |  / .-.-'    -`
+ '-.-'     \       | .' ` '.-'-\`
+ /_./\_.|\_\      ;  ' .'-'.-.
+ /         '-._    \` /  _;-,
+ |         .-=-.;-._ \  -'-,
+ \        /      `";`-`,-"`)
+ \       \     '-- `\.\
+ '.      '._ '-- '--'/
+ `-._     `'----'`;
+ `"""--.____,/
+ \\  \
+ // /`
+ ___// /__
+ (`(`(---"-`)
+
+ */
+
 var express = require('express');
 var router  = express.Router();
 var fs      = require('fs');
@@ -39,14 +63,20 @@ router.post('/downloadApk', function (req, res, next) {
     var countryCode        = req[ 'body' ][ 'countryCode' ];
     // keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode,  () =>{
     ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, () => {
-        res.setHeader('Content-disposition', 'attachment; filename=AndroidRelease.apk');
-        res.download('../demo/ionic-template-1/platforms/android/build/outputs/apk/AndroidRelease.apk', 'AndroidRelease.apk');
-        // res.send('success');
+        // res.set('Content-disposition', 'attachment; filename=AndroidRelease.apk');
+        // res.set('Content-Type', 'application/octet-stream');
+        // res.download('../demo/ionic-template-1/platforms/android/build/outputs/apk/AndroidRelease.apk', 'AndroidRelease.apk');
+        res.send('success');
     });
     next();
 }, function (req, res, next) {
     // res.send('android build in progress....');
     // res.end('ended')
+});
+router.get('/downloadApk', function (req, res, next) {
+    res.set('Content-disposition', 'attachment; filename=AndroidRelease.apk');
+    res.set('Content-Type', 'application/vnd.android.package-archive');
+    res.download('../demo/ionic-template-1/platforms/android/build/outputs/apk/AndroidRelease.apk', 'AndroidRelease.apk');
 });
 function ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, ionicBuildCallback) {
     var ionicbuild = spawn('ionic', [ 'build', '--release', 'android' ], {
@@ -99,6 +129,25 @@ function jarSigner(keyPassword, jarSignerCallback) {
         });
     })
 }
+/**
+ *
+OH LOOOKKKKK IM RUNNINNGGGGG!!!!
+
+                  ,.
+                 (\(\)
+ ,_              ;  o >
+ {`-.          /  (_)
+ `={\`-._____/`   |
+  `-{ /    -=`\   |
+   `={  -= = _/   /
+      `\  .-'   /`
+       {`-,__.'===,_
+       //`        `\\
+      //
+     `\=
+
+BIATCH
+*/
 function keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, keytoolCallback) {
     var stringArray = [];
     var keytool     = spawn('keytool', [ '-genkey', '-v', '-keystore', 'newrel.keystore', '-alias', 'newalias', '-keyalg', 'RSA', '-keysize', '2048', '-validity', '10000' ], {
@@ -108,6 +157,7 @@ function keytool(keyPassword, authorsName, organizationalUnit, organizationName,
     keytool.stdout.on('data', function (data) {
         console.log('stdout keytool: ' + data.toString());
     });
+
     keytool.stdin.on('data', function (data) {
         console.log('stdin keytool: ' + data.toString());
     });
@@ -209,3 +259,4 @@ function isJson(str) {
     return true;
 }
 module.exports = router;
+
