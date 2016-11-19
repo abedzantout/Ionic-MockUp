@@ -46,6 +46,10 @@ export class JsonTreeComponent {
     private valuesInJson: Array<string>;
     private inputValues: Array<string>;
 
+
+    private bracketPosition: number;
+    private openBr: number;
+
     private valueID: number;
 
     private arrCounter: number;
@@ -82,6 +86,8 @@ export class JsonTreeComponent {
         this.originalJsonFormat = "";
         this.infoArray          = [];
         this.infoArrayIndex     = -1;
+        this.bracketPosition    = 0;
+        this.openBr             = 0;
 
 
         this.jsonContent = this._service.getJson().subscribe(
@@ -94,7 +100,7 @@ export class JsonTreeComponent {
             () => {
                 this._service.setJsonContent(this.jsonContent);
                 this.setJsonLocally();
-                this.nodes = [ JSON.parse(this.treeJson) ];
+                this.nodes           = [ JSON.parse(this.treeJson) ];
                 this.finishedLoading = true;
             }
         );
@@ -112,16 +118,11 @@ export class JsonTreeComponent {
 
     }
 
-
     private isInArray( node ) {
 
         let fetchedNode = this.searchById(JSON.parse(this.treeJson), node[ 'parent' ][ 'data' ][ 'id' ]);
-
         if ( node[ 'parent' ][ 'displayField' ] != undefined && node[ 'displayField' ] != undefined ) {
-
             if ( !(node[ 'parent' ][ 'displayField' ] == 'page') && (node[ 'parent' ][ 'displayField' ] != 'authors') ) {
-
-
                 if ( fetchedNode !== null && fetchedNode[ 'type' ].includes('array') ) {
                     return true;
                 }
@@ -130,11 +131,9 @@ export class JsonTreeComponent {
         return false;
     }
 
-
     private clearPlaceholder( e ) {
         e[ 'srcElement' ][ 'placeholder' ] = "";
     }
-
 
     private static clone( obj ) {
         if ( null == obj || "object" != typeof obj ) return obj;
@@ -145,18 +144,22 @@ export class JsonTreeComponent {
         return copy;
     }
 
-
     private addInstance( node ) {
 
-        let newNodeName = prompt("Enter field name:", "");
-
-        let child = JsonTreeComponent.clone(node[ 'data' ][ 'children' ][ 0 ]);
+        let newNodeName   = prompt("Enter field name:", "");
+        let parentNode    = node[ 'parent' ];
+        let child: Object = null;
+        //
+        for ( let i = 0; i < parentNode[ 'children' ].length; i++ ) {
+            if ( parentNode[ 'children' ][ i ][ 'data' ][ 'name' ] === 'default-instance' ) {
+                child = JsonTreeComponent.clone(parentNode[ 'data' ][ 'children' ][ i ]);
+            }
+        }
 
         this.nodeId += 1;
         child[ 'id' ] = this.nodeId;
 
         child[ 'name' ] = newNodeName;
-
         node[ 'data' ][ 'children' ].push(child);
         this.tree.treeModel.update();
         this.convertToInitialJson();
@@ -257,7 +260,6 @@ export class JsonTreeComponent {
 
     }
 
-
     private traverse( x, level ) {
 
         if ( this.isArray(x) ) {
@@ -271,7 +273,6 @@ export class JsonTreeComponent {
             this.nodeId += 1;
 
             if ( level == 99 ) {
-
                 this.valueID += 1;
                 this.newJsonContent += '"' + this.inputValues[ this.valueID ] + '",';
             }
@@ -304,8 +305,11 @@ export class JsonTreeComponent {
     }
 
     private convertToInitialJson() {
+
         this.originalJsonFormat = "";
         this.infoArrayIndex     = -1;
+
+        let entered: boolean = false;
 
         let traverse = ( x, parentIsArray ) => {
             if ( this.isArray(x) ) {
@@ -319,15 +323,25 @@ export class JsonTreeComponent {
                 });
 
             } else if ( (typeof x === 'object') && (x !== null) ) {
-                if ( x[ 'type' ].includes('object') ) {
-                    this.originalJsonFormat += '{"' + x[ 'name' ] + '":{';
-                    traverse(x[ 'children' ], false);
-                    this.originalJsonFormat += '}},';
 
+                if ( x[ 'type' ].includes('object') ) {
+
+                    if ( entered ) {
+                        this.originalJsonFormat += '"' + x[ 'name' ] + '":{';
+                        traverse(x[ 'children' ], false);
+                        this.originalJsonFormat += '},';
+                        entered = false;
+                    } else {
+                        this.originalJsonFormat += '{"' + x[ 'name' ] + '":{';
+                        entered = true;
+                        traverse(x[ 'children' ], false);
+                        this.originalJsonFormat += '}},';
+                        entered = false;
+                    }
                 } else if ( x[ 'type' ].includes('array') ) {
 
+                    entered = false;
                     if ( parentIsArray ) {
-
                         this.originalJsonFormat += '{"' + x[ 'name' ] + '":[';
                         traverse(x[ 'children' ], true);
                         this.originalJsonFormat += ']},';
@@ -368,13 +382,18 @@ export class JsonTreeComponent {
             this.originalJsonFormat = this.originalJsonFormat.replace(',}', '}');
         }
 
+        this.originalJsonFormat = '{'+this.originalJsonFormat+'}';
+
         this.originalJsonFormat = this.originalJsonFormat.substring(16, this.originalJsonFormat.length - 3);
+
         this.sendToServer().subscribe(
             ( data ) => {},
             ( err ) => {console.log(err);},
             () => {}
         );
     }
+
+
 
     private sendToServer(): Observable<void> {
 
@@ -385,14 +404,18 @@ export class JsonTreeComponent {
 
         //noinspection TypeScriptUnresolvedFunction
         return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
-            if ( res ) {}
+            if ( res ) {
+                console.log(res['_body']);
+            }
         });
     }
 
     private download(): Observable<void> {
 
         return this.http.get('/downloadApk').map(( res: Response ) => {
-            if ( res ) {console.log(res);}
+            if ( res ) {
+                console.log(res);
+            }
         });
     }
 
