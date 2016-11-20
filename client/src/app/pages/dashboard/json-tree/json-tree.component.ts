@@ -144,23 +144,46 @@ export class JsonTreeComponent {
 
     private addInstance( node ) {
 
+
         let newNodeName   = prompt("Enter field name:", "");
-        let parentNode    = node[ 'parent' ];
-        let child: Object = null;
-        //
-        for ( let i = 0; i < parentNode[ 'children' ].length; i++ ) {
-            if ( parentNode[ 'children' ][ i ][ 'data' ][ 'name' ] === 'default-instance' ) {
-                child = JsonTreeComponent.clone(parentNode[ 'data' ][ 'children' ][ i ]);
+
+        if(newNodeName !== "" && newNodeName !== null) {
+
+            if ( node[ 'displayField' ] == 'instance' ) {
+
+                let parentNode    = node[ 'parent' ];
+                let child: Object = null;
+                //
+                for ( let i = 0; i < parentNode[ 'children' ].length; i++ ) {
+                    if ( parentNode[ 'children' ][ i ][ 'data' ][ 'name' ] === 'default-instance' ) {
+                        child = JsonTreeComponent.clone(parentNode[ 'data' ][ 'children' ][ i ]);
+                    }
+                }
+
+                this.nodeId += 1;
+                child[ 'id' ] = this.nodeId;
+
+                child[ 'name' ] = newNodeName;
+                node[ 'data' ][ 'children' ].push(child);
+
+
+            } else {
+
+                let child = JsonTreeComponent.clone(node[ 'children' ][ 0 ][ 'data' ]);
+
+                this.nodeId += 1;
+                child[ 'id' ] = this.nodeId;
+                child[ 'name' ] = newNodeName;
+
+                node[ 'data' ][ 'children' ].push(child);
+
             }
+
+            this.tree.treeModel.update();
+            this.convertToInitialJson();
+
         }
 
-        this.nodeId += 1;
-        child[ 'id' ] = this.nodeId;
-
-        child[ 'name' ] = newNodeName;
-        node[ 'data' ][ 'children' ].push(child);
-        this.tree.treeModel.update();
-        this.convertToInitialJson();
     }
 
     removeNode( node: TreeNode ) {
@@ -402,7 +425,7 @@ export class JsonTreeComponent {
         //noinspection TypeScriptUnresolvedFunction
         return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
             if ( res ) {
-                console.log(res['_body']);
+                console.log(res[ '_body' ]);
             }
         });
     }
