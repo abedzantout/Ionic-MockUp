@@ -11,8 +11,6 @@ import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser
 import { Observable } from 'rxjs/Rx';
 // import preventExtensions = Reflect.preventExtensions;
 
-// import { TreeComponent, TreeNode } from 'angular2-tree-component';
-
 import { TreeComponent } from '../../../angular2-tree/lib/components/tree.component';
 import { TreeNode } from '../../../angular2-tree/lib/models/tree-node.model';
 
@@ -382,7 +380,7 @@ export class JsonTreeComponent {
             this.originalJsonFormat = this.originalJsonFormat.replace(',}', '}');
         }
 
-        this.originalJsonFormat = '{'+this.originalJsonFormat+'}';
+        this.originalJsonFormat = '{' + this.originalJsonFormat + '}';
 
         this.originalJsonFormat = this.originalJsonFormat.substring(16, this.originalJsonFormat.length - 3);
 
@@ -392,7 +390,6 @@ export class JsonTreeComponent {
             () => {}
         );
     }
-
 
 
     private sendToServer(): Observable<void> {
