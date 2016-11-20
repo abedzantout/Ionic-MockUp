@@ -2,7 +2,10 @@
 /www/assets/
 /www/index.html
 /www/manifest.json
-/www/build/
+/www/build/main.css
+/www/build/main.js
+/www/build/polyfills.js
+
 /www/service-worker.js
 /.tmp/
 /node_modules/
