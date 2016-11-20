@@ -145,9 +145,9 @@ export class JsonTreeComponent {
     private addInstance( node ) {
 
 
-        let newNodeName   = prompt("Enter field name:", "");
+        let newNodeName = prompt("Enter field name:", "");
 
-        if(newNodeName !== "" && newNodeName !== null) {
+        if ( newNodeName !== "" && newNodeName !== null ) {
 
             if ( node[ 'displayField' ] == 'instance' ) {
 
@@ -172,7 +172,7 @@ export class JsonTreeComponent {
                 let child = JsonTreeComponent.clone(node[ 'children' ][ 0 ][ 'data' ]);
 
                 this.nodeId += 1;
-                child[ 'id' ] = this.nodeId;
+                child[ 'id' ]   = this.nodeId;
                 child[ 'name' ] = newNodeName;
 
                 node[ 'data' ][ 'children' ].push(child);
@@ -416,7 +416,6 @@ export class JsonTreeComponent {
 
 
     private sendToServer(): Observable<void> {
-
         // send to server
         let headers = new Headers(); // ... Set content type to JSON
         headers.append('Content-Type', 'application/json');
@@ -426,6 +425,7 @@ export class JsonTreeComponent {
         return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
             if ( res ) {
                 console.log(res[ '_body' ]);
+                document.getElementById('ionic-frame')[ 'src' ] = 'http://localhost:8100';
             }
         });
     }
