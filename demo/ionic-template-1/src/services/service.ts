@@ -10,8 +10,10 @@ import 'rxjs/add/operator/map';
 export class Service {
 
     private jsonContent: Object;
+    private defaultInstance: number;
 
     constructor( private http: Http ) {
+        this.setDefaultInstance(0);
         this.getJson();
     }
 
@@ -26,5 +28,14 @@ export class Service {
     getJsonContent() {
         return this.jsonContent[ "_body" ];
     }
+
+    setDefaultInstance( defaultInstance ) {
+        this.defaultInstance = defaultInstance;
+    }
+
+    getDefaultInstance() {
+        return this.defaultInstance;
+    }
+
 
 }

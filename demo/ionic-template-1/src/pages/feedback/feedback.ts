@@ -3,6 +3,7 @@ import { NavController, Nav } from 'ionic-angular';
 import { Service } from "../../services/service";
 import { HomePage } from '../home/home';
 import { AboutPage } from '../about/about';
+import { MenuPage } from "../../pages/menu/menu";
 /*
  Generated class for the Feedback page.
 
@@ -43,38 +44,42 @@ export class FeedbackPage {
     private setJsonLocally() {
 
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        console.log(this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page1' ][ 'instance' ][ this.getDefaultInstance() ][ 'instance' + this.getDefaultInstance() ]);
-        let content  = this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page1' ][ 'instance' ][ this.getDefaultInstance() ][ 'instance' + this.getDefaultInstance() ];
+        console.log(this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'feedback' ][ 'default-instance' ]);
+        let content  = this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'feedback' ][ 'default-instance' ];
         this.title   = content[ 'title' ];
         this.fields  = content[ 'content' ];
         this.buttons = content[ 'buttons' ];
     }
 
 
-    private static mapClick( buttonOnClick ) {
-
+    private mapClick( buttonOnClick ) {
         let component: Component = null;
-        switch (buttonOnClick) {
-            case "HomePage":
+
+        let linksTo = buttonOnClick[ 'linksTo' ];
+
+        let page = parseInt(linksTo[1]);
+        let instance = parseInt(linksTo[3]);
+
+        switch (page) {
+            case 0: {
                 component = HomePage;
+                this._service.setDefaultInstance(instance);
                 break;
-            case "AboutPage":
-                component = AboutPage;
+            }
+            case 1: {
+                component = FeedbackPage;
                 break;
+            }
             default:
                 component = null;
         }
+
 
         return component;
 
     }
 
     private openPage( button ) {
-        // this.buttonIndex += 1;
-        this.navCtrl.push(FeedbackPage.mapClick(button[ 'onClick' ]));
-    }
-
-    private getDefaultInstance() {
-        return this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'page1' ][ 'default-instance' ];
+        this.navCtrl.push(this.mapClick(button));
     }
 }

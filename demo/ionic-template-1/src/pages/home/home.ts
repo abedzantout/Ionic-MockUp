@@ -33,9 +33,15 @@ export class HomePage {
 
     private setJsonLocally() {
         this.jsonContent    = JSON.parse(this._service.getJsonContent());
-        let defaultInstance = this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'page0' ][ 'default-instance' ];
-        this.contents       = this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'page0' ][ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ];
-        this.title          = this.contents[ 'title' ];
+        let defaultInstance = this._service.getDefaultInstance();
+
+        let ObjectArray = this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'home' ][ 'instance' ];
+        let valuesArray = ObjectArray.map(d => {
+            return String(Object.keys(d));
+        });
+        this.contents   = this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'home' ][ 'instance' ][ defaultInstance ][ valuesArray[ defaultInstance ] ];
+
+        this.title   = this.contents[ 'title' ];
         this.content = [
             {
                 title: this.contents[ 'content' ][ 0 ][ 'content0' ][ 'title' ],
@@ -50,7 +56,6 @@ export class HomePage {
                 component: FeedbackPage
             }
         ]
-
     }
 
     private getLocalContent() {
