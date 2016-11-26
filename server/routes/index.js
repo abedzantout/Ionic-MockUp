@@ -1,27 +1,3 @@
-/**
- .".".".
- (`       `)               _.-=-.
- '._.--.-;             .-`  -'  '.
- .-'`.o )  \           /  .-_.--'  `\
- `;---) \    ;         /  / ;' _-_.-' `
- `;"`  ;    \        ; .  .'   _-' \
- (    )    |        |  / .-.-'    -`
- '-.-'     \       | .' ` '.-'-\`
- /_./\_.|\_\      ;  ' .'-'.-.
- /         '-._    \` /  _;-,
- |         .-=-.;-._ \  -'-,
- \        /      `";`-`,-"`)
- \       \     '-- `\.\
- '.      '._ '-- '--'/
- `-._     `'----'`;
- `"""--.____,/
- \\  \
- // /`
- ___// /__
- (`(`(---"-`)
-
- */
-
 var express = require('express');
 var router  = express.Router();
 var fs      = require('fs');
@@ -129,25 +105,6 @@ function jarSigner(keyPassword, jarSignerCallback) {
         });
     })
 }
-/**
- *
-OH LOOOKKKKK IM RUNNINNGGGGG!!!!
-
-                  ,.
-                 (\(\)
- ,_              ;  o >
- {`-.          /  (_)
- `={\`-._____/`   |
-  `-{ /    -=`\   |
-   `={  -= = _/   /
-      `\  .-'   /`
-       {`-,__.'===,_
-       //`        `\\
-      //
-     `\=
-
-BIATCH
-*/
 function keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, keytoolCallback) {
     var stringArray = [];
     var keytool     = spawn('keytool', [ '-genkey', '-v', '-keystore', 'newrel.keystore', '-alias', 'newalias', '-keyalg', 'RSA', '-keysize', '2048', '-validity', '10000' ], {
@@ -157,7 +114,6 @@ function keytool(keyPassword, authorsName, organizationalUnit, organizationName,
     keytool.stdout.on('data', function (data) {
         console.log('stdout keytool: ' + data.toString());
     });
-
     keytool.stdin.on('data', function (data) {
         console.log('stdin keytool: ' + data.toString());
     });
@@ -258,60 +214,5 @@ function isJson(str) {
     }
     return true;
 }
-/**
- *
- *
- * Thank you for reading my code
-
-
- ,--.       ,--.
- ,"    ",   ,"    ",
- "      "  "      " ,""",
- "      "."      ","     ",
- `,             `      ,"
- `\                ,"
- /`               :
- /              (o)  \_
- /                        \_
- /                          o \_
- /                       ........\
- :                    /"  ",
- :                    / "    "
- :                   :  `.  ,"
- :                     :   `'
- :                       :
- :                        :
- :                         :
- :                          :
- /                             :
- .;;;;         /                                :
- ,"`     `:     /                                   :
- ,"          :   /                                    :
- ,"            :  /                                     :
- "             /  /                                    ,"
- \/                                    ,"
- ,"
- ,"
- ,"
- ;,,...---,,,                        ,"
- ; "            ",                    ,"
- ,; "                 :                ,"
- "                      :            ,"
- :           :
- :          :
- :         ,"
- :        ,"
- :       ;"
- :      :
- :     :
- :    :
- :   :
- :   :
- :   :
- :    :
- :    :
-
-
- */
 module.exports = router;
 
