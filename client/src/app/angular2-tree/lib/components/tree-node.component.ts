@@ -13,16 +13,26 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
       border-radius: 2px;
       transition: background-color .15s,box-shadow .15s;
     }`,
-        '.tree-node-active > .node-content-wrapper { background: #beebff }',
-        '.tree-node-active.tree-node-focused > .node-content-wrapper { background: #beebff }',
-        '.tree-node-focused > .node-content-wrapper { background: #2dacd1 }',
+        `.tree-node {
+            border: 1px solid #ddd;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        }
+        .tree-node:hover {
+             box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            }
+        `,
+        '.node-wrapper {display: flex; align-items: flex-start;}',
+        '.tree-node-active > .node-wrapper > .node-content-wrapper { background: #beebff }',
+        '.tree-node-active.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #beebff }',
+        '.tree-node-focused > .node-wrapper > .node-content-wrapper { background: #2dacd1 }',
         //'.node-content-wrapper:hover { background: #f7fbff }',
-        '.tree-node-active > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999; }',
+        '.tree-node-active > .node-wrapper > .node-content-wrapper, .tree-node-focused > .node-content-wrapper, .node-content-wrapper:hover { box-shadow: inset 0 0 1px #999;}',
         '.node-content-wrapper.is-dragging-over { background: #ddffee; box-shadow: inset 0 0 1px #999; }',
-        '.tree-node-expanded > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
-        '.tree-node-collapsed > .toggle-children-wrapper > .toggle-children { transform: rotate(0); }',
+        '.tree-node-expanded > .node-wrapper > .toggle-children-wrapper > .toggle-children { transform: rotate(90deg) }',
+        '.tree-node-collapsed > .node-wrapper > .toggle-children-wrapper > .toggle-children { transform: rotate(0deg); }',
         `.toggle-children-wrapper {
-      padding: 5px 0 5px 1px;
+                padding: 2px 3px 5px 1px;
     }`,
         `.toggle-children {
         font-size: 20px;
@@ -40,12 +50,13 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
         width: 10px;
         position: relative;
         top: 1px;
+        padding-right: 5px;
     }`
     ],
     template: `
     <div
       *ngIf="!node.isHidden"
-      class="tree-node tree-node-level-{{ node.level }}"
+      class="card card-block tree-node tree-node-level-{{ node.level }}"
       [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
       [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
       [class.tree-node-leaf]="node.isLeaf"
@@ -58,33 +69,34 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
         [node]="node.parent"
         ></TreeNodeDropSlot>
 
-      <span
-        *ngIf="node.hasChildren"
-        class="toggle-children-wrapper"
-        (click)="node.mouseAction('expanderClick', $event)">
-
-        <span class="toggle-children ion-android-arrow-dropright-circle"></span>
-      </span>
-      <span
-        *ngIf="!node.hasChildren"
-        class="toggle-children-placeholder">
-      </span>
-      <div class="node-content-wrapper"
-        #nodeContentWrapper
-        [class.is-dragging-over]="node.treeModel.isDraggingOver(this)"
-        (click)="node.mouseAction('click', $event)"
-        (dblclick)="node.mouseAction('dblClick', $event)"
-        (contextmenu)="node.mouseAction('contextMenu', $event)"
-        [draggable]="node.allowDrag()"
-        (dragstart)="onDragStart($event)"
-        (drop)="onDrop($event)"
-        (dragend)="onDragEnd()"
-        (dragover)="onDragOver($event)"
-        (dragleave)="onDragLeave(nodeContentWrapper, $event)"
-        >
-
-        <TreeNodeContent [node]="node" [treeNodeContentTemplate]="treeNodeContentTemplate"></TreeNodeContent>
-      </div>
+<div class="node-wrapper">
+          <span
+            *ngIf="node.hasChildren"
+            class="toggle-children-wrapper"
+            (click)="node.mouseAction('expanderClick', $event)">
+    
+            <span class="toggle-children ion-android-arrow-dropright-circle"></span>
+          </span>
+          <span
+            *ngIf="!node.hasChildren"
+            class="toggle-children-placeholder">
+          </span>
+          <div class="node-content-wrapper"
+            #nodeContentWrapper
+            [class.is-dragging-over]="node.treeModel.isDraggingOver(this)"
+            (click)="node.mouseAction('click', $event)"
+            (dblclick)="node.mouseAction('dblClick', $event)"
+            (contextmenu)="node.mouseAction('contextMenu', $event)"
+            [draggable]="node.allowDrag()"
+            (dragstart)="onDragStart($event)"
+            (drop)="onDrop($event)"
+            (dragend)="onDragEnd()"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave(nodeContentWrapper, $event)"
+            >
+            <TreeNodeContent [node]="node" [treeNodeContentTemplate]="treeNodeContentTemplate"></TreeNodeContent>
+          </div>
+        </div>
 
       <div class="tree-children" *ngIf="node.isExpanded">
         <div *ngIf="node.children">
