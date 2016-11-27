@@ -8,9 +8,13 @@ declare const require: any;
 })
 export class StoreComponent {
 
-    private countCards: Array<number>;
+    private countCards: Array<string>;
+
     constructor() {
-        this.countCards = Array(10).fill(10).map((x,i)=>i);
+        this.countCards = [ 'assets/app-icons/classic-diner-icon.jpg',
+            'assets/app-icons/conference-icon.jpg',
+            'assets/app-icons/mean-critique-icon.jpg',
+            'assets/app-icons/Ticket-Vender-icon.jpg' ]
     }
 
 }

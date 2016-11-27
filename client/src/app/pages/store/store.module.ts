@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 import { StoreComponent } from "./store.component";
 import { routing } from "./store.routing";
+import { ApplicationProfileComponent } from "./application-profile/application-profile.component";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { routing } from "./store.routing";
         routing
     ],
     declarations: [
-        StoreComponent
+        StoreComponent,
+        ApplicationProfileComponent
     ],
     providers: []
 })
