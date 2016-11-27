@@ -8,6 +8,7 @@ declare const require: any;
 })
 export class StoreComponent {
 
+    private appName: string;
     private countCards: Array<Object>;
 
     constructor() {
@@ -34,4 +35,7 @@ export class StoreComponent {
             } ]
     }
 
+    private clickEvent( appName ) {
+        this.appName = appName;
+    }
 }
