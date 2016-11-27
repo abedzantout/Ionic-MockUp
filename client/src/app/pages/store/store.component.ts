@@ -10,7 +10,7 @@ export class StoreComponent {
 
     private countCards: Array<number>;
     constructor() {
-        this.countCards = Array(6).fill(6).map((x,i)=>i);
+        this.countCards = Array(10).fill(10).map((x,i)=>i);
     }
 
 }
