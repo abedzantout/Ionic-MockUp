@@ -1,6 +1,6 @@
 import {
     Component, ViewEncapsulation, trigger, state,
-    style, transition, animate, Input, OnChanges
+    style, transition, animate, Input, OnChanges, OnInit
 } from '@angular/core';
 declare const require: any;
 @Component({
@@ -21,16 +21,20 @@ declare const require: any;
         ]),
     ]
 })
-export class ApplicationProfileComponent implements OnChanges {
+export class ApplicationProfileComponent implements OnChanges, OnInit {
     @Input() input;
              menuState: string = 'out';
 
     constructor() {
-
+        this.slideOut();
     }
 
     private clickEvent() {
         this.menuState = this.menuState === 'out' ? 'in' : 'out';
+    }
+
+    ngOnInit() {
+        this.slideOut();
     }
 
     ngOnChanges() {
@@ -45,5 +49,6 @@ export class ApplicationProfileComponent implements OnChanges {
     private slideIn(): void {
         this.menuState = 'in';
     }
+
 
 }
