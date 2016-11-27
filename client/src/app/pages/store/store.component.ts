@@ -8,6 +8,9 @@ declare const require: any;
 })
 export class StoreComponent {
 
-    constructor() {}
+    private countCards: Array<number>;
+    constructor() {
+        this.countCards = Array(6).fill(6).map((x,i)=>i);
+    }
 
 }
