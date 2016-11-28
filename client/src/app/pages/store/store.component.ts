@@ -1,5 +1,6 @@
-import {Component, ViewEncapsulation, ElementRef} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 declare const require: any;
+import * as _ from 'lodash'
 @Component({
     selector: 'store',
     encapsulation: ViewEncapsulation.None,

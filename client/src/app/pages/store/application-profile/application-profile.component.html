@@ -1,9 +1,7 @@
 <div [@slideInOut]="menuState" class="container">
     <button (click)="slideOut()" id="collapse">collapse</button>
     <div class="profile-container">
-        <ba-card class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" baCardClass="with-scroll">
-            <ba-card class="col-xl-6 col-lg-8 col-md-8 col-sm-12 col-xs-12 row carousel-container" >
-            <div class="marvel-device iphone6 black">
+           <div class="marvel-device iphone6 black">
                 <div class="top-bar"></div>
                 <div class="sleep"></div>
                 <div class="volume"></div>
@@ -11,7 +9,7 @@
                 <div class="sensor"></div>
                 <div class="speaker"></div>
 
-                <div id="application-carousel" class="carousel slide" data-ride="carousel">
+                <div id="application-carousel" class="carousel slide carousel-container" data-ride="carousel">
                     <div class="carousel-inner" role="listbox">
                         <div class="carousel-item active">
                             <img src="assets/app-screenshot/About Page.png" alt="First slide">
@@ -36,13 +34,9 @@
                 <div class="home"></div>
                 <div class="bottom-bar"></div>
             </div>
-            </ba-card>
 
-            <ba-card class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 row">
-            </ba-card>
-
-
-
-        </ba-card>
     </div>
+
+    <ba-card class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 row">
+    </ba-card>
 </div>

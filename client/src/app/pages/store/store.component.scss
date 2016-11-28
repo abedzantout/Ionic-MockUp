@@ -2,29 +2,29 @@
   display: flex;
   margin: 0 auto;
   ba-card {
-    top: 80px;
-    display: flex;
-    margin: 0 auto;
+	top: 80px;
+	display: flex;
+	margin: 0 auto;
   }
   .card-body {
-    padding: 0 0;
+	padding: 0 0;
   }
 
   .card > .card-body {
-    padding: 0 0;
-    height: 100%;
+	padding: 0 0;
+	height: 100%;
   }
   .carousel-indicators {
-    top: 1.5rem;
-    right: 1.5rem;
-    bottom: auto;
-    left: auto;
-    width: 1rem;
-    margin-left: 0;
+	top: 1.5rem;
+	right: 1.5rem;
+	bottom: auto;
+	left: auto;
+	width: 1rem;
+	margin-left: 0;
   }
 
   .carousel-indicators > li {
-    margin-bottom: .25rem;
+	margin-bottom: .25rem;
   }
 }
 
@@ -52,7 +52,7 @@
   }
 
   .card {
-    width: 100%;
+    width: auto;
     &:hover {
       cursor: pointer;
     }
