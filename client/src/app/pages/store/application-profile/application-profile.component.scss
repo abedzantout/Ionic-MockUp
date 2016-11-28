@@ -11,73 +11,78 @@
   width: 20%;
   min-width: 100%;
   z-index: 9999;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 18px;
   line-height: 3;
   font-weight: 400;
   padding-top: 50px;
-  list-style: none;
 
-}
-
-.profile-container {
-  display: flex;
-  margin: 0 auto;
-  ba-card {
+  .profile-container {
     display: flex;
     margin: 0 auto;
-  }
-  .card-body {
-    padding: 0 0;
-  }
+    ba-card {
+      display: flex;
+      margin: 0 auto;
+    }
+    .card-body {
+      padding: 0 0;
+    }
 
-  .card > .card-body {
-    padding: 0 0;
-    height: 100%;
-  }
+    .card > .card-body {
+      padding: 0 0;
+      height: 100%;
+    }
 
-  .marvel-device {
-    height: 480px;
-    width: 320px;
-  }
-  #application-carousel {
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    max-width: 100%;
-    z-index: 100 !important;
-    .carousel-inner {
-      width: inherit;
-      height: inherit;
+    .marvel-device {
+      height: 480px;
+      width: 320px;
+      .carousel-container {
+        .card-body {
+          padding: 0 0;
+        }
+
+        .card > .card-body {
+          padding: 0 0;
+          height: 100%;
+        }
+        #application-carousel {
+          width: 100%;
+          height: 100%;
+          max-height: 100%;
+          max-width: 100%;
+          z-index: 100 !important;
+          .carousel-inner {
+            width: inherit;
+            height: inherit;
+          }
+          .carousel-inner .active.left {
+            left: -25%;
+          }
+          .carousel-inner .next {
+            left: 25%;
+          }
+          .carousel-inner .prev {
+            left: -25%;
+          }
+          .carousel-control {
+            width: 4%;
+          }
+          .carousel-control.left, .carousel-control.right {
+            margin-left: 15px;
+            background-image: none;
+          }
+          .carousel-control {
+            padding-top: 25px;
+            color: #333;
+          }
+          .carousel-control.left,
+          .carousel-control.right {
+            background-image: none;
+          }
+
+        }
+      }
     }
   }
-
-  .carousel-inner .active.left {
-    left: -25%;
-  }
-  .carousel-inner .next {
-    left: 25%;
-  }
-  .carousel-inner .prev {
-    left: -25%;
-  }
-  .carousel-control {
-    width: 4%;
-  }
-  .carousel-control.left, .carousel-control.right {
-    margin-left: 15px;
-    background-image: none;
-  }
-}
-
-.carousel-control {
-  padding-top: 25px;
-  color: #333;
-}
-
-.carousel-control.left,
-.carousel-control.right {
-  background-image: none;
 }
 
 #collapse {

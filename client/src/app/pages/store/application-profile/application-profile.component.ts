@@ -43,6 +43,7 @@ export class ApplicationProfileComponent implements OnChanges, OnInit {
     }
 
     private slideOut(): void {
+        console.log('slide out called');
         this.menuState = 'out';
     }
 
