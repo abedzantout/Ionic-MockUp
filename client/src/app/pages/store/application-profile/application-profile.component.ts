@@ -1,6 +1,6 @@
 import {
     Component, ViewEncapsulation, trigger, state,
-    style, transition, animate, Input, OnChanges, OnInit
+    style, transition, animate, Input, OnChanges, OnInit, Output, EventEmitter
 } from '@angular/core';
 declare const require: any;
 @Component({
@@ -23,32 +23,29 @@ declare const require: any;
 })
 export class ApplicationProfileComponent implements OnChanges, OnInit {
     @Input() input;
-             menuState: string = 'out';
+    private menuState: string;
+    @Output() resetAppName = new EventEmitter<string>();
 
     constructor() {
-        this.slideOut();
-    }
-
-    private clickEvent() {
-        this.menuState = this.menuState === 'out' ? 'in' : 'out';
     }
 
     ngOnInit() {
-        this.slideOut();
     }
 
     ngOnChanges() {
-        console.log(this.input);
-        this.slideIn();
+
+        if(this.input != '') {
+            this.menuState = this.menuState === 'out' ? 'in' : 'out';
+            if (this.menuState == undefined) {
+                this.menuState = 'out';
+            }
+        }
     }
 
     private slideOut(): void {
-        console.log('slide out called');
         this.menuState = 'out';
-    }
+        this.resetAppName.emit(null);
 
-    private slideIn(): void {
-        this.menuState = 'in';
     }
 
 

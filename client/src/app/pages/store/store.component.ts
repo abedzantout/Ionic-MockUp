@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
+import {Component, ViewEncapsulation, ElementRef} from '@angular/core';
 declare const require: any;
 @Component({
     selector: 'store',
@@ -36,6 +36,11 @@ export class StoreComponent {
     }
 
     private clickEvent( appName ) {
-        this.appName = appName;
+            this.appName = appName;
     }
+
+    private resetAppName(event){
+        this.appName = '';
+    }
+
 }
