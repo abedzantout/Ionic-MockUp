@@ -2,8 +2,9 @@ var express = require('express');
 var router  = express.Router();
 var fs      = require('fs');
 /* GET home page. */
-var util  = require('util');
-var spawn = require('child_process').spawn;
+var util     = require('util');
+var spawn    = require('child_process').spawn;
+var terminal = require('child_process').spawn('bash');
 router.get('/', function (req, res, next) {
     res.render('../../client/dist/index.html');
 });
@@ -11,10 +12,20 @@ router.get('/getIconfig/:templateName', function (req, res, next) {
     let templateName = req.params[ 'templateName' ];
     fs.readFile('mapping.json', 'utf8', function (err, data) {
         let obj = JSON.parse(data);
-        let id = obj[ templateName ][ 'id' ];
-        fs.readFile('../ionic-templates/' + id + '/application/src/assets/iconfig.json', 'utf8', function (err, data) {
-            res.send(data);
+        let id  = obj[ templateName ][ 'id' ];
+        terminal.stdout.on('data', function (data) {
+            console.log('STDOUT: ' + data);
+            if ( data.includes('dev server running: http://localhost:8100/') ) {
+                let id = obj[ templateName ][ 'id' ];
+                fs.readFile('../ionic-templates/' + id + '/application/src/assets/iconfig.json', 'utf8', function (err, data) {
+                    res.send(data);
+                });
+            }
         });
+        terminal.stderr.on('data', function (data) {
+            console.log('STDERR: ' + data);
+        });
+        terminal.stdin.write("cd ../ionic-templates/" + id + "/application && ionic serve\n");
     });
 });
 router.post('/sendJson', function (req, res, next) {
