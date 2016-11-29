@@ -2,14 +2,14 @@ import { Routes, RouterModule }  from '@angular/router';
 import { Pages } from './pages.component';
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
-    // {
-    //   path: 'login',
-    //   loadChildren: () => System.import('./login/login.module')
-    // },
-    // {
-    //   path: 'register',
-    //   loadChildren: () => System.import('./register/register.module')
-    // },
+    {
+      path: 'login',
+      loadChildren: () => System.import('./login/login.module')
+    },
+    {
+      path: 'register',
+      loadChildren: () => System.import('./register/register.module')
+    },
     { path: 'store', loadChildren: () => System.import('./store/store.module') },
     { path: 'apkForm', loadChildren: () => System.import('./apkForm/apkForm.module') },
 

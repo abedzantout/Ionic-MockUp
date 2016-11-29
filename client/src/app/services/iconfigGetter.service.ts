@@ -14,6 +14,7 @@ export class IconfigGetterService {
     }
 
     getJson() {
+        // pass template ID here in get request to return iconfig specific to template
         return this.http.get('http://localhost:3000/getIconfig').map(( res: Response ) =>res);
     }
 

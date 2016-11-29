@@ -8,9 +8,14 @@ router.get('/', function (req, res, next) {
     res.render('../../client/dist/index.html');
 });
 router.get('/getIconfig', function (req, res, next) {
+
+    // pass template ID here, go inside demo/ folder, get template iconfig by ID
+    // file naming convention for templates inside demo/
+
     fs.readFile('iconfig.json', 'utf8', function (err, data) {
         res.send(data);
     });
+
 });
 router.post('/sendJson', function (req, res, next) {
     if ( isJson(JSON.stringify(req[ 'body' ])) ) {

@@ -2,6 +2,9 @@ import {
     Component, ViewEncapsulation, trigger, state,
     style, transition, animate, Input, OnChanges, OnInit, Output, EventEmitter
 } from '@angular/core';
+
+import {Router} from '@angular/router';
+
 declare const require: any;
 @Component({
     selector: 'application-profile',
@@ -26,7 +29,7 @@ export class ApplicationProfileComponent implements OnChanges, OnInit {
     private menuState: string;
     @Output() resetAppName = new EventEmitter<string>();
 
-    constructor() {
+    constructor(private _router: Router) {
     }
 
     ngOnInit() {
@@ -46,6 +49,14 @@ export class ApplicationProfileComponent implements OnChanges, OnInit {
         this.menuState = 'out';
         this.resetAppName.emit(null);
 
+    }
+
+
+    private goToEditor(){
+
+         // set template ID
+
+            this._router.navigate(['dashboard']);
     }
 
 
