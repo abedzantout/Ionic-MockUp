@@ -1,0 +1,34 @@
+{
+  "Application":{
+    "title": "Ticket Booker",
+    "Authors": [
+      "Ali Al Obaji"
+    ],
+    "navColor": "dark",
+    "page":[
+      {
+        "home":{
+          "page-name": "Home Page",
+          "default-instance":{
+            "title": "Home",
+            "navColor": "dark",
+            "footerText": "www.ticketingboxoffice.com",
+            "FABColor": "danger",
+            "FABIcon": "share",
+            "Logo": "../../assets/images/logo.png",
+            "text": "We are an international ticketing office company, localized to Lebanon. We provide tickets to all the major events."
+          }
+        }
+      },
+      {
+        "events":{
+          "events-page": "Events",
+          "default-instance":{
+            "title": "Upcoming Events",
+            "navColor": "dark"
+          }
+        }
+      }
+    ]
+  }
+}

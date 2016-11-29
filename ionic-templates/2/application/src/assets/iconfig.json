@@ -1,0 +1,34 @@
+{
+  "Application":{
+    "title": "Single Button Application",
+    "Authors":[
+      "Ali Al Obaji"
+    ],
+    "page":[
+      {
+        "page1":{
+          "page-name": "Home Page",
+          "default-instance": "0",
+          "instance":[
+            {
+              "instance1":{
+                "title":"Home Page",
+                "button":{
+                  "text": "Click me!",
+                  "toastText": "Button clicked!",
+                  "toastPosition": "bottom"
+                },
+                "checkBox":{
+                  "text": "Im a check box",
+                  "toastText": "Check Box Ticked!",
+                  "toastPosition": "top"
+                },
+                "text":"Hello World! This is a simple template which we will use as case study for our application!"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

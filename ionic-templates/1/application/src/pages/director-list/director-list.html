@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Directors</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content speaker-list">
+  <ion-card *ngFor="let director of directors" class="speaker-card">
+
+    <ion-card-header>
+      <button ion-item detail-none (click)="goToDirectorDetail(director)">
+        <ion-avatar item-left>
+          <img [src]="director.profilePic">
+        </ion-avatar>
+        {{director.name}}
+      </button>
+    </ion-card-header>
+
+    <ion-card-content class="outer-content">
+      <ion-list>
+        <button ion-item *ngFor="let session of director.sessions" (click)="goToSessionDetail(session)">
+          <h3>{{session.name}}</h3>
+        </button>
+
+        <button ion-item (click)="goToSpeakerDetail(director)">
+          <h3>About {{director.name}}</h3>
+        </button>
+      </ion-list>
+    </ion-card-content>
+
+    <ion-row no-padding>
+      <ion-col>
+        <button ion-button clear small color="primary" icon-left (click)="goToDirectorTwitter(director)">
+          <ion-icon name="logo-twitter"></ion-icon>
+          Tweet
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button ion-button clear small color="primary" icon-left (click)="openDirectorShare(director)">
+          <ion-icon name='share-alt'></ion-icon>
+         Share
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button clear small color="primary" icon-left (click)="openContact(director)">
+          <ion-icon name='chatboxes'></ion-icon>
+          Contact
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+</ion-content>

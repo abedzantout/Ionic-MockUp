@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{title}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <p>{{text}}</p>
+  <button ion-button secondary id="myButton" (click)="presentToast(buttonToastText,buttonToastPosition)">{{buttonText}}</button>
+  <ion-item>
+    <ion-label>{{CBText}}</ion-label>
+    <ion-checkbox color="dark" checked="true" (click)="presentToast(CBToastText,CBToastPosition)"></ion-checkbox>
+  </ion-item>
+</ion-content>

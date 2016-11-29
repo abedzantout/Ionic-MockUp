@@ -1,0 +1,43 @@
+<!--
+  Generated template for the Home page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Products</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="card-background-page">
+  <ion-grid>
+    <ion-row wrap>
+      <ion-col   width-50  *ngFor="let c of categories | keys" >
+        <button class="btn" (click)="goToCategory(c.value['foodCategory'+c.key])">
+          <ion-card>
+            <img src="{{c.value['foodCategory'+c.key]['image']}}"/>
+            <div class="card-title">{{c.value['foodCategory'+c.key]['title']}}</div>
+            <!--<button ion-button class="card-subtitle">View</button>-->
+          </ion-card>
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar dark>
+    <ion-title class="footer">
+      <small>&copy;Restaurant Name</small>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

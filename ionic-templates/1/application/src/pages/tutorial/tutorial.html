@@ -1,0 +1,30 @@
+<ion-header no-shadow>
+  <ion-navbar>
+    <ion-buttons end *ngIf="showSkip">
+      <button ion-button (click)="startApp()" color="primary">Skip</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ion-slides class="cColor" [options]="{pager: true}" (ionWillChange)="onSlideChangeStart($event)">
+    <ion-slide *ngFor="let slide of slides">
+
+      <img [src]="slide.imageUrl" class="slide-image"/>
+
+
+      <h2 class="slide-title" [innerHTML]="slide.title"></h2>
+      <p class="slide-description" [innerHTML]="slide.description"></p>
+    </ion-slide>
+
+      <!--CANT CHANGE IT-->
+    <ion-slide>
+      <img src="assets/img/pop3.png" class="slide-image" height="250"/>
+      <br>
+      <button ion-button icon-right large clear (click)="startApp()">
+        Continue
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

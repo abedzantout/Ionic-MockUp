@@ -3,12 +3,13 @@
 /client/dist/
 /client/node_modules/
 /server/node_modules/
-/demo/ionic-template-2/.tmp/
-/demo/ionic-template-2/www/
+/ionic-templates/1/.tmp/
+/ionic-templates/1/www/
 *DS_store
-/demo/ionic-template-2/node_modules/
-/demo/ionic-template-2/platforms/
-/demo/ionic-template-2/plugins/
+/ionic-templates/1/node_modules/
+/ionic-templates/1/platforms/
+/ionic-templates/1/plugins/
 /module/
-/demo/ionic-template-1/www/
+/ionic-templates/0/www/
 
+/ionic-templates/1/application/node_modules/
