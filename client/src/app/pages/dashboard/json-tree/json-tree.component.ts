@@ -54,6 +54,7 @@ export class JsonTreeComponent {
 
 	private nodes: any;
 	private originalJsonFormat: string;
+	private templateName: string;
 
 	private nodeId: number;
 
@@ -85,10 +86,9 @@ export class JsonTreeComponent {
 
 		// get template ID and pass it in getJson();
 
-		let templateName = this._templateService.getTemplateName();
-
-		console.log(templateName);
-		this.jsonContent = this._service.getJson(templateName).subscribe(
+		this.templateName = this._templateService.getTemplateName();
+		console.log(this.templateName);
+		this.jsonContent = this._service.getJson(this.templateName).subscribe(
 			( data ) => {
 				this.jsonContent = data;
 			},
@@ -100,7 +100,6 @@ export class JsonTreeComponent {
 				this.setJsonLocally();
 				this.nodes           = [ JSON.parse(this.treeJson) ];
 				this.finishedLoading = true;
-
 			}
 		);
 
@@ -351,8 +350,9 @@ export class JsonTreeComponent {
 		}
 
 		this.treeJson = this.treeJson.substring(9, this.treeJson.length - 1);
-		this.treeJson = '{"id": 1, "name":"Application","type":"object","children":[' + this.treeJson;
-		this.treeJson = this.treeJson + ']}';
+
+		// this.treeJson = '{"id": 1, "name":"","type":"object","children":[' + this.treeJson;
+		// this.treeJson = this.treeJson + ']}';
 
 	}
 
@@ -435,8 +435,10 @@ export class JsonTreeComponent {
 
 		this.originalJsonFormat = '{' + this.originalJsonFormat + '}';
 
-		this.originalJsonFormat = this.originalJsonFormat.substring(16, this.originalJsonFormat.length - 3);
 
+		this.originalJsonFormat = this.originalJsonFormat.substring(1, this.originalJsonFormat.length - 2);
+
+		console.log(this.originalJsonFormat);
 		this.sendToServer().subscribe(
 			( data ) => {
 			},
@@ -457,7 +459,6 @@ export class JsonTreeComponent {
 		//noinspection TypeScriptUnresolvedFunction
 		return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
 			if ( res ) {
-				console.log(res[ '_body' ]);
 				document.getElementById('ionic-frame')[ 'src' ] = 'http://localhost:8100';
 			}
 		});

@@ -29,14 +29,22 @@ router.get('/getIconfig/:templateName', function (req, res, next) {
     });
 });
 router.post('/sendJson', function (req, res, next) {
+    let data = req[ 'body' ];
+    console.log(Object.keys(data));
+    let templateName = Object.keys(data)[0];
+    let id           = 0;
+    fs.readFile('mapping.json', 'utf8', function (err, data) {
+        let obj = JSON.parse(data);
+        id      = obj[ templateName ][ 'id' ];
+    });
     if ( isJson(JSON.stringify(req[ 'body' ])) ) {
         fs.writeFile('iconfig.json', JSON.stringify(req[ 'body' ]), function (err) {
             console.log(err);
         });
-        fs.writeFile('../demo/ionic-template-1/src/assets/iconfig.json', JSON.stringify(req[ 'body' ]), function (err) {
+        fs.writeFile('../ionic-templates/' + id + '/application/src/assets/iconfig.json', JSON.stringify(req[ 'body' ]), function (err) {
             console.log(err);
         });
-        fs.writeFile('../demo/ionic-template-1/www/assets/iconfig.json', JSON.stringify(req[ 'body' ]), function (err) {
+        fs.writeFile('../ionic-templates/' + id + '/application/www/assets/iconfig.json', JSON.stringify(req[ 'body' ]), function (err) {
             console.log(err);
         });
         res.send("Changes saved.");

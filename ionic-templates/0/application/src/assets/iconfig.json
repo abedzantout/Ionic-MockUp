@@ -1,5 +1,5 @@
 {
-  "Application": {
+  "Restaurant Review": {
 	"title": "Restaurant Review",
 	"authors": [
 	  "Abbas",
@@ -76,7 +76,7 @@
 			"buttons": [
 			  {
 				"button0": {
-				  "buttonText": "Home Page",
+				  "buttonText": "new page",
 				  "value": "HomePage",
 				  "linksTo": "p0i1"
 				}

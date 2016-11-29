@@ -4,8 +4,6 @@
 
         <template #treeNodeTemplate let-node>
 
-            <div *ngIf="node.data.id!=1">
-
             <label [id]="node.data.id">
                 {{ node.data.name }}
                 <!--<span *ngIf="!node.isLeaf">( {{node.data.type.trim()}} )</span>-->
@@ -23,8 +21,6 @@
                 Add Instance
             </button>
             <button class="btn btn-default" (click)="save($event, node)" *ngIf="node.isLeaf">save</button>
-
-            </div>
 
         </template>
 
