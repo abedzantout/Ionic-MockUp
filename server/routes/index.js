@@ -7,15 +7,15 @@ var spawn = require('child_process').spawn;
 router.get('/', function (req, res, next) {
     res.render('../../client/dist/index.html');
 });
-router.get('/getIconfig', function (req, res, next) {
-
-    // pass template ID here, go inside demo/ folder, get template iconfig by ID
-    // file naming convention for templates inside demo/
-
-    fs.readFile('iconfig.json', 'utf8', function (err, data) {
-        res.send(data);
+router.get('/getIconfig/:templateName', function (req, res, next) {
+    let templateName = req.params[ 'templateName' ];
+    fs.readFile('mapping.json', 'utf8', function (err, data) {
+        let obj = JSON.parse(data);
+        let id = obj[ templateName ][ 'id' ];
+        fs.readFile('../ionic-templates/' + id + '/application/src/assets/iconfig.json', 'utf8', function (err, data) {
+            res.send(data);
+        });
     });
-
 });
 router.post('/sendJson', function (req, res, next) {
     if ( isJson(JSON.stringify(req[ 'body' ])) ) {

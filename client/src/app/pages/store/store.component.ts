@@ -1,47 +1,33 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { templateService } from '../../services/template.service';
 declare const require: any;
 import * as _ from 'lodash'
 @Component({
-    selector: 'store',
-    encapsulation: ViewEncapsulation.None,
-    styles: [ require('./store.component.scss') ],
-    template: require('./store.component.html')
+	selector: 'store',
+	encapsulation: ViewEncapsulation.None,
+	styles: [ require('./store.component.scss') ],
+	template: require('./store.component.html')
 })
 export class StoreComponent {
 
-    private appName: string;
-    private countCards: Array<Object>;
+	private appName: string;
+	private countCards: Array<Object>;
 
-    constructor() {
-        this.countCards = [ {
-            "image": 'assets/app-icons/classic-diner-icon.jpg',
-            "title": "Classic Diner",
-            "description": "Restaurant menu application"
-        },
-            {
-                "image": 'assets/app-icons/conference-icon.jpg',
-                "title": "Conference",
-                "description": "Conference event scheduling"
-            },
+	constructor( private _templateService: templateService ) {
+		this.countCards = [ {
+			"image": 'assets/app-icons/classic-diner-icon.jpg',
+			"title": "Restaurant Review",
+			"description": "Restaurant menu application"
+		} ]
+	}
 
-            {
-                "image": 'assets/app-icons/mean-critique-icon.jpg',
-                "title": "Mean Critique",
-                "description": "movie review application"
-            },
-            {
-                "image": 'assets/app-icons/Ticket-Vender-icon.jpg',
-                "title": "Ticket Vender",
-                "description": "selling event tickets"
-            } ]
-    }
+	private clickEvent( appName ) {
+		this.appName = appName;
+		this._templateService.setTemplateName(appName);
+	}
 
-    private clickEvent( appName ) {
-            this.appName = appName;
-    }
-
-    private resetAppName(event){
-        this.appName = '';
-    }
+	private resetAppName( event ) {
+		this.appName = '';
+	}
 
 }

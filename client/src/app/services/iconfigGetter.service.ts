@@ -7,23 +7,20 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class IconfigGetterService {
-    private jsonContent: Object;
+	private jsonContent: Object;
 
-    constructor( private http: Http ) {
-        this.getJson();
-    }
+	constructor( private http: Http ) {}
 
-    getJson() {
-        // pass template ID here in get request to return iconfig specific to template
-        return this.http.get('http://localhost:3000/getIconfig').map(( res: Response ) =>res);
-    }
+	getJson( templateName ) {
+		return this.http.get('http://localhost:3000/getIconfig/' + templateName).map(( res: Response ) => res);
+	}
 
-    setJsonContent( content ) {
-        this.jsonContent = content;
-    }
+	setJsonContent( content ) {
+		this.jsonContent = content;
+	}
 
-    getJsonContent() {
-        return this.jsonContent[ "_body" ];
-    }
+	getJsonContent() {
+		return this.jsonContent[ "_body" ];
+	}
 }
 
