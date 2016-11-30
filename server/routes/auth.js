@@ -27,16 +27,24 @@ router.post('/register', function(req, res, next) {
     var data        = {};
     var success     = false;
 
+    let appendObject = function(obj){
+        var usersJson = fs.readFileSync('users.json');
+        var users = JSON.parse(usersJson);
+        users.push(obj);
+        var usersJsonString = JSON.stringify(config);
+        fs.writeFileSync('users.json', usersJsonString);
+    };
+
     if(users[email] === undefined) {
 
         let newUser = {
-
-            name: name,
-            password: password
-
+            email: {
+                name    : name,
+                password: password
+            }
         };
 
-        users[email] = newUser;
+        appendObject(newUser);
 
         fs.writeFile('users.json', JSON.stringify(users), (err) => {
             console.log(err);
