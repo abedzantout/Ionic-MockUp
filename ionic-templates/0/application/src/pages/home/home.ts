@@ -35,13 +35,19 @@ export class HomePage {
         this.jsonContent    = JSON.parse(this._service.getJsonContent());
         let defaultInstance = this._service.getDefaultInstance();
 
-        let ObjectArray = this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'home' ][ 'instance' ];
-        let valuesArray = ObjectArray.map(d => {
-            return String(Object.keys(d));
-        });
-        this.contents   = this.jsonContent[ 'Application' ][ 'page' ][ 0 ][ 'home' ][ 'instance' ][ defaultInstance ][ valuesArray[ defaultInstance ] ];
+
+        let ObjectArray = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 0 ][ 'home' ][ 'default-instance' ];
+
+
+        // let valuesArray = ObjectArray.map(d => {
+        //     return String(Object.keys(d));
+        // });
+
+
+        this.contents   = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 0 ][ 'home' ][ 'default-instance' ];
 
         this.title   = this.contents[ 'title' ];
+
         this.content = [
             {
                 title: this.contents[ 'content' ][ 0 ][ 'content0' ][ 'title' ],

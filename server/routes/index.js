@@ -4,7 +4,7 @@ var fs      = require('fs');
 /* GET home page. */
 var util     = require('util');
 var spawn    = require('child_process').spawn;
-var terminal = require('child_process').spawn('bash');
+var terminal = require('child_process').spawn('/bin/sh');
 router.get('/', function (req, res, next) {
     res.render('../../client/dist/index.html');
 });
@@ -25,7 +25,7 @@ router.get('/getIconfig/:templateName', function (req, res, next) {
         terminal.stderr.on('data', function (data) {
             console.log('STDERR: ' + data);
         });
-        terminal.stdin.write("cd ../ionic-templates/" + id + "/application && ionic serve\n");
+        terminal.stdin.write("cd ../ionic-templates/" + id + "/application && ionic run android\n");
     });
 });
 router.post('/sendJson', function (req, res, next) {

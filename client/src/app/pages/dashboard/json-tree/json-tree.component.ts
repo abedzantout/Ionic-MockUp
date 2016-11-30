@@ -236,6 +236,7 @@ export class JsonTreeComponent {
 	}
 
 	private save( event, node ) {
+
 		let input = event[ 'srcElement' ][ 'parentElement' ][ 'children' ][ 1 ];
 		if ( input[ 'value' ].trim() !== "" ) {
 
@@ -459,7 +460,7 @@ export class JsonTreeComponent {
 		//noinspection TypeScriptUnresolvedFunction
 		return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
 			if ( res ) {
-				document.getElementById('ionic-frame')[ 'src' ] = 'http://localhost:8100';
+				// document.getElementById('ionic-frame')[ 'src' ] = 'http://localhost:8100';
 			}
 		});
 	}

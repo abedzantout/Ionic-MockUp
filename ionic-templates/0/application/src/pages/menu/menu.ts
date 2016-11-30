@@ -29,7 +29,7 @@ export class MenuPage {
 
     private setJsonLocally() {
         this.jsonContent    = JSON.parse(this._service.getJsonContent());
-        let parentContent   = this.jsonContent[ 'Application' ][ 'page' ][ 2 ][ 'menu' ];
+        let parentContent   = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 2 ][ 'menu' ];
         let defaultInstance = this._service.getDefaultInstance();
         this.contents       = parentContent[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'content' ];
     }

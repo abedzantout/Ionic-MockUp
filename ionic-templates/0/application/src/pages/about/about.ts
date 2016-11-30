@@ -29,7 +29,7 @@ export class AboutPage {
     private setJsonLocally() {
         this.jsonContent = JSON.parse(this._service.getJsonContent());
 
-        let content         = this.jsonContent[ 'Application' ][ 'page' ][ 3 ][ 'page3' ];
+        let content         = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 3 ][ 'page3' ];
         let defaultInstance = content[ 'default-instance' ];
         console.log(content);
         this.headerText  = content[ 'instance' ][ defaultInstance ][ 'instance' + defaultInstance ][ 'content' ][ 0 ][ 'content0' ][ 'headerText' ];

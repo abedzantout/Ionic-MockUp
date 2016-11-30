@@ -44,8 +44,8 @@ export class FeedbackPage {
     private setJsonLocally() {
 
         this.jsonContent = JSON.parse(this._service.getJsonContent());
-        console.log(this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'feedback' ][ 'default-instance' ]);
-        let content  = this.jsonContent[ 'Application' ][ 'page' ][ 1 ][ 'feedback' ][ 'default-instance' ];
+        console.log(this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 1 ][ 'feedback' ][ 'default-instance' ]);
+        let content  = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 1 ][ 'feedback' ][ 'default-instance' ];
         this.title   = content[ 'title' ];
         this.fields  = content[ 'content' ];
         this.buttons = content[ 'buttons' ];
