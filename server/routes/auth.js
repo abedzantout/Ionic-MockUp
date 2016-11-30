@@ -1,9 +1,9 @@
 var express = require('express');
 var router        = express.Router();
-var jwtDecode     = require('jwt-decode');
-var CryptoJS      = require("crypto-js");
-var bcrypt        = require('bcryptjs');
-var base64url     = require('base64-url');
+// var jwtDecode     = require('jwt-decode');
+// var CryptoJS      = require("crypto-js");
+// var bcrypt        = require('bcryptjs');
+// var base64url     = require('base64-url');
 
 var fs = require('fs');
 
@@ -18,6 +18,7 @@ var signedToken;
 
 router.post('/register', function(req, res, next) {
 
+    console.log(req);
     console.log("SERVER CALLED!!!!!");
 
     var name        = req.body[ 'name' ];

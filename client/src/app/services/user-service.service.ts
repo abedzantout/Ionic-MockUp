@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Response, Headers} from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
@@ -9,75 +9,67 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UserService {
 
-    private loggedIn = false;
+	private loggedIn = false;
 
+	constructor( private http: Http ) {
+		this.loggedIn = !!localStorage.getItem("auth_token");
+	}
 
-    constructor( private http: Http ) {
-        this.loggedIn = !!localStorage.getItem("auth_token");
-    }
+	login( email, password ) {
 
+		let resHeader: Object = {};
+		let headers           = new Headers();
+		headers.append('Content-Type', 'application/json');
 
-    login( email, password ) {
+		return this.http
+		           .post(
+			           '/authenticate',
+			           JSON.stringify({ email, password }),
+			           { headers }
+		           )
+		           .map(res => res.json())
+		           .map(( res ) => {
+			           if ( res[ 'success' ] === 'true' ) {
+				           localStorage.setItem("auth_token", res[ "auth_token" ]);
+				           this.loggedIn = true;
+				           resHeader     = { success: true };
+			           }
 
-        let resHeader: Object = {};
-        let headers           = new Headers();
-        headers.append('Content-Type', 'application/json');
+			           return resHeader;
+		           });
+	}
 
-        return this.http
-            .post(
-                '/authenticate',
-                JSON.stringify({ email, password }),
-                { headers }
-            )
-            .map(res => res.json())
-            .map(( res ) => {
-                if ( res[ 'success' ] === 'true' ) {
-                    localStorage.setItem("auth_token", res[ "auth_token" ]);
-                    this.loggedIn = true;
-                    resHeader     = { success: true};
-                }
+	register( name, email, password ) {
 
-                return resHeader;
-            });
-    }
+		let resHeader: Object = {};
+		let headers           = new Headers();
+		headers.append('Content-Type', 'application/json');
 
+		console.log("register client called");
+		console.log(JSON.stringify({ name, email, password }));
 
-    register( name, email, password ) {
+		return this.http.post('/register', JSON.stringify({ name, email, password }), { headers })
+		           .map(res => res.json())
+		           .map(( res ) => {
+			           console.log(res);
+			           if ( res[ 'success' ] === 'true' ) {
+				           return { success: true };
+			           }
 
-        let resHeader: Object = {};
-        let headers           = new Headers();
-        headers.append('Content-Type', 'application/json');
+			           return { success: false };
 
+		           });
 
-        return this.http
-            .post('http://localhost:3000/register',
-                JSON.stringify({ name, email, password }),
-                { headers }
-            )
-            .map(res => res.json())
-            .map(( res ) => {
-                console.log(res);
-                if ( res[ 'success' ] === 'true') {
-                    return { success: true };
-                }
+	}
 
-                return {success: false};
+	logout() {
+		localStorage.removeItem("auth_token");
+		this.loggedIn = false;
+	}
 
-            });
+	isLoggedIn() {
 
-
-    }
-
-
-    logout() {
-        localStorage.removeItem("auth_token");
-        this.loggedIn = false;
-    }
-
-    isLoggedIn() {
-
-        return this.loggedIn;
-    }
-
+		return this.loggedIn;
+	}
 
 }
