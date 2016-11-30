@@ -19,14 +19,13 @@
 <ion-content padding>
 
     <ion-card *ngFor="let content of contents | keys">
-
-        <img [src]="content.value['content'+content.key]['image']"/>
+        <img [src]="content.value[contentKeys[content.key]]['image']"/>
         <ion-card-content>
             <ion-card-title>
-                {{content.value['content'+content.key]['name']}}
+                {{content.value[contentKeys[content.key]]['name']}}
             </ion-card-title>
             <p>
-                {{content.value['content'+content.key]['description']}}
+                {{content.value[contentKeys[content.key]]['description']}}
             </p>
         </ion-card-content>
     </ion-card>
