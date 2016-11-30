@@ -5,79 +5,20 @@ var CryptoJS      = require("crypto-js");
 var bcrypt        = require('bcryptjs');
 var base64url     = require('base64-url');
 
+var fs = require('fs');
+
+var users = require('users.json');
+
+
+// var MongoClient   = require("mongodb").MongoClient;
+// var url           = "mongodb://abedzantout:mkdbpassword69@ds059306.mlab.com:59306/heroku_bdc2vm3k";
+
 var signedToken;
 
 
-router.post('/authenticate', function (req, res, next) {
-    /**
-     *  @connect to database
-     *  @get: user according to filled email and password
-     *  @return: success or failure
-     *  @callback: generate a token that includes all of the user data and return it with success=true
-     *  @callback: if success, generate a token that includes all of the user data and return it with success=true
-     *  @callback: f failure, return success=false
-     */
+router.post('/register', function(req, res, next) {
 
-    var email    = req.body[ 'email' ];
-    var password = req.body[ 'password' ];
-    var data     = {};
-
-    // authenticate from database
-
-    // MongoClient.connect(url, function (err, db) {
-    //     var success     = false;
-    //     var isConfirmed = false;
-    //     var collection  = db.collection('users');
-    //     collection.find({"Email": email}).toArray(function (err, docs) {
-    //         data = docs[ 0 ];
-    //         console.log(data);
-    //         if ( data == undefined ) {
-    //             res.send('{"success":"' + success + '"}');
-    //             return;
-    //         }
-    //         var dbIsConfirmed = data[ 'isConfirmed' ];
-    //         if ( data !== undefined && dbIsConfirmed === 'true' ) {
-    //             var dbHashedPassword     = data[ "Password" ];
-    //             var dbHashedPasswordSalt = data[ "Salt" ];
-    //             bcrypt.hash(password, dbHashedPasswordSalt, (err, localPasswordHashedWithDbSalt) => {
-    //                 if ( localPasswordHashedWithDbSalt == dbHashedPassword ) {
-    //                     var header        = {
-    //                         "alg": "HS256",
-    //                         "typ": "JWT"
-    //                     };
-    //                     var encodedHeader = base64url.encode(JSON.stringify(header));
-    //                     var encodedData   = base64url.encode(JSON.stringify(data));
-    //                     var encodedString = encodedHeader + "." + encodedData;
-    //                     var hash          = CryptoJS.HmacSHA256(encodedString, "secret");
-    //                     var hashInBase64  = CryptoJS.enc.Base64.stringify(hash);
-    //                     signedToken       = encodedString + "." + hashInBase64;
-    //                     success           = true;
-    //                     isConfirmed       = true;
-    //                     res.send('{"success":"' + success + '", "auth_token":"' + signedToken + '", "isConfirmed":"' + isConfirmed + '"}');
-    //                 } else {
-    //                     success     = false;
-    //                     isConfirmed = false;
-    //                     res.send('{"success":"' + success + '", "auth_token":"' + signedToken + '", "isConfirmed":"' + isConfirmed + '"}');
-    //                 }
-    //             });
-    //         }
-    //         else if ( data !== undefined && dbIsConfirmed === 'false' ) {
-    //             success     = true;
-    //             isConfirmed = false;
-    //             res.send('{"success":"' + success + '", "isConfirmed":"' + isConfirmed + '"}');
-    //         }
-    //         else {
-    //             success     = false;
-    //             isConfirmed = false;
-    //             res.send('{"success":"' + success + '", "auth_token":"' + signedToken + '", "isConfirmed":"' + isConfirmed + '"}');
-    //         }
-    //         db.close();
-    //         //
-    //     });
-    // });
-});
-
-router.post('/register', (req, res, next) => {
+    console.log("SERVER CALLED!!!!!");
 
     var name        = req.body[ 'name' ];
     var email       = req.body[ 'email' ];
@@ -85,6 +26,27 @@ router.post('/register', (req, res, next) => {
     var data        = {};
     var success     = false;
 
+    if(users[email] === undefined) {
+
+        let newUser = {
+
+            name: name,
+            password: password
+
+        };
+
+        users[email] = newUser;
+
+        fs.writeFile('users.json', JSON.stringify(users), (err) => {
+            console.log(err);
+            console.log("done!");
+            res.send({success: true});
+        });
+
+    }else{
+        console.log("failed!");
+        res.send({success: false});
+    }
 
 
 
@@ -183,3 +145,74 @@ router.post('/register', (req, res, next) => {
 
 
 });
+
+
+router.post('/authenticate', function (req, res, next) {
+    /**
+     *  @connect to database
+     *  @get: user according to filled email and password
+     *  @return: success or failure
+     *  @callback: generate a token that includes all of the user data and return it with success=true
+     *  @callback: if success, generate a token that includes all of the user data and return it with success=true
+     *  @callback: f failure, return success=false
+     */
+
+    var email    = req.body[ 'email' ];
+    var password = req.body[ 'password' ];
+    var data     = {};
+
+    // authenticate from database
+
+    // MongoClient.connect(url, function (err, db) {
+    //     var success     = false;
+    //     var isConfirmed = false;
+    //     var collection  = db.collection('users');
+    //     collection.find({"Email": email}).toArray(function (err, docs) {
+    //         data = docs[ 0 ];
+    //         console.log(data);
+    //         if ( data == undefined ) {
+    //             res.send('{"success":"' + success + '"}');
+    //             return;
+    //         }
+    //         var dbIsConfirmed = data[ 'isConfirmed' ];
+    //         if ( data !== undefined && dbIsConfirmed === 'true' ) {
+    //             var dbHashedPassword     = data[ "Password" ];
+    //             var dbHashedPasswordSalt = data[ "Salt" ];
+    //             bcrypt.hash(password, dbHashedPasswordSalt, (err, localPasswordHashedWithDbSalt) => {
+    //                 if ( localPasswordHashedWithDbSalt == dbHashedPassword ) {
+    //                     var header        = {
+    //                         "alg": "HS256",
+    //                         "typ": "JWT"
+    //                     };
+    //                     var encodedHeader = base64url.encode(JSON.stringify(header));
+    //                     var encodedData   = base64url.encode(JSON.stringify(data));
+    //                     var encodedString = encodedHeader + "." + encodedData;
+    //                     var hash          = CryptoJS.HmacSHA256(encodedString, "secret");
+    //                     var hashInBase64  = CryptoJS.enc.Base64.stringify(hash);
+    //                     signedToken       = encodedString + "." + hashInBase64;
+    //                     success           = true;
+    //                     isConfirmed       = true;
+    //                     res.send('{"success":"' + success + '", "auth_token":"' + signedToken + '", "isConfirmed":"' + isConfirmed + '"}');
+    //                 } else {
+    //                     success     = false;
+    //                     isConfirmed = false;
+    //                     res.send('{"success":"' + success + '", "auth_token":"' + signedToken + '", "isConfirmed":"' + isConfirmed + '"}');
+    //                 }
+    //             });
+    //         }
+    //         else if ( data !== undefined && dbIsConfirmed === 'false' ) {
+    //             success     = true;
+    //             isConfirmed = false;
+    //             res.send('{"success":"' + success + '", "isConfirmed":"' + isConfirmed + '"}');
+    //         }
+    //         else {
+    //             success     = false;
+    //             isConfirmed = false;
+    //             res.send('{"success":"' + success + '", "auth_token":"' + signedToken + '", "isConfirmed":"' + isConfirmed + '"}');
+    //         }
+    //         db.close();
+    //         //
+    //     });
+    // });
+});
+

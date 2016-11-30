@@ -48,9 +48,9 @@ export class UserService {
         let headers           = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        console.log("register client called");
+
         return this.http
-            .post('/register',
+            .post('http://localhost:3000/register',
                 JSON.stringify({ name, email, password }),
                 { headers }
             )
