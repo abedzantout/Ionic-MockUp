@@ -33,21 +33,23 @@ export class HomePage {
 
     private setJsonLocally() {
         this.jsonContent    = JSON.parse(this._service.getJsonContent());
+
         let defaultInstance = this._service.getDefaultInstance();
 
+        if(defaultInstance == null) {
 
-        let ObjectArray = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 0 ][ 'home' ][ 'default-instance' ];
+	        let ObjectArray = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 0 ][ 'home' ][ 'default-instance' ];
 
+	        this.contents = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 0 ][ 'home' ][ 'default-instance' ];
 
-        // let valuesArray = ObjectArray.map(d => {
-        //     return String(Object.keys(d));
-        // });
+        }else{
 
-
-        this.contents   = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 0 ][ 'home' ][ 'default-instance' ];
-
+        	this.contents = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 0 ][ 'home' ]['instance'][this._service.getDefaultInstance()];
+	        let key = Object.keys(this.contents)[0];
+	        this.contents = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 0 ][ 'home' ]['instance'][this._service.getDefaultInstance()][key];
+	        this._service.setDefaultInstance(null);
+        }
         this.title   = this.contents[ 'title' ];
-
         this.content = [
             {
                 title: this.contents[ 'content' ][ 0 ][ 'content0' ][ 'title' ],

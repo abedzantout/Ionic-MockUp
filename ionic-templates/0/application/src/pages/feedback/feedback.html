@@ -21,8 +21,8 @@
         </ion-item>
     </ion-list>
     <button *ngFor="let button of buttons | keys"
-            (click)="openPage(button.value['button'+button.key])" ion-button>
-        {{button.value['button'+button.key]['buttonText']}}
+    (click)="openPage(button.value[buttonNames[button.key]])" ion-button>
+    {{button.value[buttonNames[button.key]]['buttonText']}}
     </button>
 
 </ion-content>

@@ -13,7 +13,7 @@ export class Service {
     private defaultInstance: number;
 
     constructor( private http: Http ) {
-        this.setDefaultInstance(0);
+        this.defaultInstance = null;
         this.getJson();
     }
 
