@@ -1,5 +1,5 @@
 var express = require('express');
-var router        = express.Router();
+var router = express.Router();
 // var jwtDecode     = require('jwt-decode');
 // var CryptoJS      = require("crypto-js");
 // var bcrypt        = require('bcryptjs');
@@ -7,56 +7,51 @@ var router        = express.Router();
 
 var fs = require('fs');
 
-var users = require('users.json');
-
-
-// var MongoClient   = require("mongodb").MongoClient;
-// var url           = "mongodb://abedzantout:mkdbpassword69@ds059306.mlab.com:59306/heroku_bdc2vm3k";
 
 var signedToken;
 
 
-router.post('/register', function(req, res, next) {
+router.post('/register', function (req, res, next) {
 
-    console.log(req);
-    console.log("SERVER CALLED!!!!!");
 
-    var name        = req.body[ 'name' ];
-    var email       = req.body[ 'email' ];
-    var password    = req.body[ 'password' ];
-    var data        = {};
-    var success     = false;
+    var name = req.body['name'];
+    var email = req.body['email'];
+    var password = req.body['password'];
+    var data = {};
+    var success = false;
 
-    let appendObject = function(obj){
-        var usersJson = fs.readFileSync('users.json');
-        var users = JSON.parse(usersJson);
-        users.push(obj);
-        var usersJsonString = JSON.stringify(config);
-        fs.writeFileSync('users.json', usersJsonString);
-    };
 
-    if(users[email] === undefined) {
+    fs.readFile('../database/users.json', 'utf8', (err, data) => {
 
-        let newUser = {
-            email: {
-                name    : name,
-                password: password
-            }
-        };
+        console.log(err);
 
-        appendObject(newUser);
+        let usersArray = JSON.parse(data);
 
-        fs.writeFile('users.json', JSON.stringify(users), (err) => {
-            console.log(err);
-            console.log("done!");
-            res.send({success: true});
-        });
 
-    }else{
-        console.log("failed!");
-        res.send({success: false});
-    }
+        if (usersArray[email] === undefined) {
 
+            let newUser = {
+
+                [email]: {
+                    name: name,
+                    password: password
+                }
+
+            };
+
+            usersArray.push(newUser);
+
+            fs.writeFile('../database/users.json', JSON.stringify(usersArray), (err) => {
+                console.log(err);
+                res.send({success: true});
+            });
+
+
+        } else {
+            res.send({success: false});
+        }
+
+    });
 
 
     // sign up to database
@@ -166,11 +161,56 @@ router.post('/authenticate', function (req, res, next) {
      *  @callback: f failure, return success=false
      */
 
-    var email    = req.body[ 'email' ];
-    var password = req.body[ 'password' ];
-    var data     = {};
+    var email = req.body['email'];
+    var password = req.body['password'];
+    var data = {};
 
     // authenticate from database
+
+
+    fs.readFile('../database/users.json', 'utf8', (err, data) => {
+
+        let usersArray = JSON.parse(data);
+
+        let userObject = null;
+
+        for(let i=0;i<usersArray.length;i++){
+
+            if(Object.keys(usersArray[i])[0] === email){
+                userObject = usersArray[i][email];
+            }
+        }
+
+
+
+        if(userObject != null) {
+
+            // email exists
+
+                if (userObject['password'] === password) {
+
+                    // var header = {
+                    //     "alg": "HS256",
+                    //     "typ": "JWT"
+                    // };
+                    // var encodedHeader = base64url.encode(JSON.stringify(header));
+                    // var encodedData   = base64url.encode(JSON.stringify(usersArray[email]));
+                    //
+                    // var encodedString = encodedHeader + "." + encodedData;
+                    // var hash = CryptoJS.HmacSHA256(encodedString, "secret");
+                    // var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
+                    // signedToken = encodedString + "." + hashInBase64;
+                    console.log("SENDING RESPONSE ...");
+
+                    res.send('{"success": "true", "auth_token": "anything"}');
+                }
+        }else {
+
+            res.send('{"success": false}');
+
+        }
+
+    });
 
     // MongoClient.connect(url, function (err, db) {
     //     var success     = false;
@@ -225,3 +265,5 @@ router.post('/authenticate', function (req, res, next) {
     // });
 });
 
+
+module.exports = router;

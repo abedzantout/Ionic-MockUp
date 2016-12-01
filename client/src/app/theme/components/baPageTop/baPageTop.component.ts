@@ -4,6 +4,7 @@ import {GlobalState} from '../../../global.state';
 
 
 import {Router} from '@angular/router';
+import {UserService} from "../../../services/user-service.service";
 
 @Component({
   selector: 'ba-page-top',
@@ -16,10 +17,14 @@ export class BaPageTop {
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
 
-  constructor(private _state:GlobalState, private _router: Router) {
+  private isLoggedIn: boolean = false;
+
+  constructor(private _state:GlobalState, private _router: Router, private userService: UserService) {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
+
+    this.isLoggedIn = this.userService.isLoggedIn();
   }
 
   public toggleMenu() {
