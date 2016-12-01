@@ -50,7 +50,7 @@ export class UserService {
 
 
         return this.http
-            .post('http://localhost:3000/register',
+            .post('/register',
                 JSON.stringify({ name, email, password }),
                 { headers }
             )

@@ -1,24 +1,18 @@
 var express = require('express');
 var router        = express.Router();
-var jwtDecode     = require('jwt-decode');
-var CryptoJS      = require("crypto-js");
-var bcrypt        = require('bcryptjs');
-var base64url     = require('base64-url');
+// var jwtDecode     = require('jwt-decode');
+// var CryptoJS      = require("crypto-js");
+// var bcrypt        = require('bcryptjs');
+// var base64url     = require('base64-url');
 
 var fs = require('fs');
 
-var users = require('users.json');
-
-
-// var MongoClient   = require("mongodb").MongoClient;
-// var url           = "mongodb://abedzantout:mkdbpassword69@ds059306.mlab.com:59306/heroku_bdc2vm3k";
 
 var signedToken;
 
 
 router.post('/register', function(req, res, next) {
 
-    console.log("SERVER CALLED!!!!!");
 
     var name        = req.body[ 'name' ];
     var email       = req.body[ 'email' ];
@@ -26,27 +20,44 @@ router.post('/register', function(req, res, next) {
     var data        = {};
     var success     = false;
 
-    if(users[email] === undefined) {
 
-        let newUser = {
+    fs.readFile('../database/users.json', 'utf8', (err, data)=>{
 
-            name: name,
-            password: password
+        console.log(err);
 
-        };
+        let usersArray = JSON.parse(data);
 
-        users[email] = newUser;
+        console.log(usersArray);
 
-        fs.writeFile('users.json', JSON.stringify(users), (err) => {
-            console.log(err);
-            console.log("done!");
-            res.send({success: true});
-        });
+        if(usersArray[email] === undefined) {
 
-    }else{
-        console.log("failed!");
-        res.send({success: false});
-    }
+            let newUser = {
+
+                [email]:{
+                    name: name,
+                    password: password
+                }
+
+            };
+
+            usersArray.push(newUser);
+
+            fs.writeFile('../database/users.json', JSON.stringify(usersArray), (err) => {
+                console.log(err);
+                console.log("done!");
+                res.send({success: true});
+            });
+
+
+
+        }else{
+            console.log("failed!");
+            res.send({success: false});
+        }
+
+    });
+
+
 
 
 
@@ -163,6 +174,27 @@ router.post('/authenticate', function (req, res, next) {
 
     // authenticate from database
 
+
+    fs.readFile('../database/users.json', 'utf8', (err, data) => {
+
+        let usersArray = JSON.parse(data);
+
+        if(usersArray[email] != undefined){
+
+            if(usersArray[email]['password'] === password){
+                console.log("SUCCESS!");
+                res.send({success: true});
+            }
+
+
+        }else{
+
+            res.send({success: false});
+
+        }
+
+    });
+
     // MongoClient.connect(url, function (err, db) {
     //     var success     = false;
     //     var isConfirmed = false;
@@ -216,3 +248,5 @@ router.post('/authenticate', function (req, res, next) {
     // });
 });
 
+
+module.exports = router;
