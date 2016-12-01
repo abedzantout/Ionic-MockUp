@@ -31,7 +31,9 @@ export class UserService {
             )
             .map(res => res.json())
             .map(( res ) => {
+            console.log(res);
                 if ( res[ 'success' ] === 'true' ) {
+                    console.log("logged in!");
                     localStorage.setItem("auth_token", res[ "auth_token" ]);
                     this.loggedIn = true;
                     resHeader     = { success: true};

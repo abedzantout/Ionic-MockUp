@@ -8,8 +8,7 @@ import { BaThemeConfigProvider } from "../../theme/theme.configProvider";
     selector: 'login',
     encapsulation: ViewEncapsulation.None,
     styles: [ require('./login.scss') ],
-    template: require('./login.html'),
-    providers: [UserService]
+    template: require('./login.html')
 })
 export class Login {
 
@@ -41,10 +40,11 @@ export class Login {
 
             this.userService.login(email, password).subscribe(( result: Object ) => {
                     console.log(result);
-                    if ( result[ 'success' ] === true && result[ 'isConfirmed' ] === true ) {
+                    console.log(result[ 'success' ]);
+                    if ( result[ 'success' ] === true ) {
                         this.router.navigate([ 'pages' ]);
                     }
-                    else if ( result[ 'success' ] === true && result[ 'isConfirmed' ] === false ) {
+                    else if ( result[ 'success' ] === true ) {
                         this.errorMessage = "Please confirm your Email by clicking on the link we sent you";
                     }
                     else {

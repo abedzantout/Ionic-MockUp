@@ -9,8 +9,7 @@ import { BaThemeConfigProvider } from "../../theme/theme.configProvider";
     selector: 'register',
     encapsulation: ViewEncapsulation.None,
     styles: [ require('./register.scss') ],
-    template: require('./register.html'),
-    providers: [UserService]
+    template: require('./register.html')
 })
 export class Register {
 

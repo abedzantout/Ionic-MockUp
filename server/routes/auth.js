@@ -1,5 +1,5 @@
 var express = require('express');
-var router        = express.Router();
+var router = express.Router();
 // var jwtDecode     = require('jwt-decode');
 // var CryptoJS      = require("crypto-js");
 // var bcrypt        = require('bcryptjs');
@@ -11,29 +11,28 @@ var fs = require('fs');
 var signedToken;
 
 
-router.post('/register', function(req, res, next) {
+router.post('/register', function (req, res, next) {
 
 
-    var name        = req.body[ 'name' ];
-    var email       = req.body[ 'email' ];
-    var password    = req.body[ 'password' ];
-    var data        = {};
-    var success     = false;
+    var name = req.body['name'];
+    var email = req.body['email'];
+    var password = req.body['password'];
+    var data = {};
+    var success = false;
 
 
-    fs.readFile('../database/users.json', 'utf8', (err, data)=>{
+    fs.readFile('../database/users.json', 'utf8', (err, data) => {
 
         console.log(err);
 
         let usersArray = JSON.parse(data);
 
-        console.log(usersArray);
 
-        if(usersArray[email] === undefined) {
+        if (usersArray[email] === undefined) {
 
             let newUser = {
 
-                [email]:{
+                [email]: {
                     name: name,
                     password: password
                 }
@@ -44,21 +43,15 @@ router.post('/register', function(req, res, next) {
 
             fs.writeFile('../database/users.json', JSON.stringify(usersArray), (err) => {
                 console.log(err);
-                console.log("done!");
                 res.send({success: true});
             });
 
 
-
-        }else{
-            console.log("failed!");
+        } else {
             res.send({success: false});
         }
 
     });
-
-
-
 
 
     // sign up to database
@@ -168,9 +161,9 @@ router.post('/authenticate', function (req, res, next) {
      *  @callback: f failure, return success=false
      */
 
-    var email    = req.body[ 'email' ];
-    var password = req.body[ 'password' ];
-    var data     = {};
+    var email = req.body['email'];
+    var password = req.body['password'];
+    var data = {};
 
     // authenticate from database
 
@@ -179,17 +172,41 @@ router.post('/authenticate', function (req, res, next) {
 
         let usersArray = JSON.parse(data);
 
-        if(usersArray[email] != undefined){
+        let userObject = null;
 
-            if(usersArray[email]['password'] === password){
-                console.log("SUCCESS!");
-                res.send({success: true});
+        for(let i=0;i<usersArray.length;i++){
+
+            if(Object.keys(usersArray[i])[0] === email){
+                userObject = usersArray[i][email];
             }
+        }
 
 
-        }else{
 
-            res.send({success: false});
+        if(userObject != null) {
+
+            // email exists
+
+                if (userObject['password'] === password) {
+
+                    // var header = {
+                    //     "alg": "HS256",
+                    //     "typ": "JWT"
+                    // };
+                    // var encodedHeader = base64url.encode(JSON.stringify(header));
+                    // var encodedData   = base64url.encode(JSON.stringify(usersArray[email]));
+                    //
+                    // var encodedString = encodedHeader + "." + encodedData;
+                    // var hash = CryptoJS.HmacSHA256(encodedString, "secret");
+                    // var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
+                    // signedToken = encodedString + "." + hashInBase64;
+                    console.log("SENDING RESPONSE ...");
+
+                    res.send('{"success": "true", "auth_token": "anything"}');
+                }
+        }else {
+
+            res.send('{"success": false}');
 
         }
 
