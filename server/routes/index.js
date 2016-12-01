@@ -40,9 +40,7 @@ router.post('/sendJson', function (req, res, next) {
         id      = obj[ templateName ][ 'id' ];
     });
     if ( isJson(JSON.stringify(req[ 'body' ])) ) {
-        // fs.writeFile('iconfig.json', JSON.stringify(req[ 'body' ]), function (err) {
-        //     console.log(err);
-        // });
+
         fs.writeFile('../ionic-templates/' + id + '/application/src/assets/iconfig.json', JSON.stringify(req[ 'body' ]), function (err) {
             console.log(err);
         });

@@ -5,18 +5,17 @@ import { NgaModule } from '../../theme/nga.module';
 import { uploadPageComponent } from "./upload-page.component";
 import { routing } from "./uploadPage.routing";
 
-
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        NgaModule,
-        routing
-    ],
-    declarations: [
-        uploadPageComponent
-    ],
-    providers: []
+	imports: [
+		CommonModule,
+		FormsModule,
+		NgaModule,
+		routing
+	],
+	declarations: [
+		uploadPageComponent,
+	],
+	providers: [],
 })
 export default class uploadPageModule {
 }
