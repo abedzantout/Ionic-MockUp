@@ -35,17 +35,25 @@ export class MenuPage {
 		let parentContent   = this.jsonContent[ 'Restaurant Review' ][ 'page' ][ 2 ][ 'Restaurant Menu' ];
 		let defaultInstance = this._service.getDefaultInstance();
 
+		this.contentKeys = [];
 		if ( defaultInstance == null ) {
-			this.contents = parentContent[ 'default-instance' ][ 'content' ];
+			this.contents = parentContent[ 'default-instance' ];
+			let key       = Object.keys(this.contents)[ 0 ];
+			this.contents[ 'content' ].forEach(d => {
+				let keys = Object.keys(d);
+				this.contentKeys.push(keys[ 0 ]);
+			});
+			this.contents = this.contents[ 'content' ];
+
 		} else {
 			this.contents = parentContent[ 'instance' ][ this._service.getDefaultInstance() ];
 			let key       = Object.keys(this.contents)[ 0 ];
 			this.contents = parentContent[ 'instance' ][ this._service.getDefaultInstance() ][ key ];
-			this.contents['content'].forEach(d => {
+			this.contents[ 'content' ].forEach(d => {
 				let keys = Object.keys(d);
-				this.contentKeys.push(keys[0]);
+				this.contentKeys.push(keys[ 0 ]);
 			});
-			this.contents = this.contents['content'];
+			this.contents = this.contents[ 'content' ];
 			this._service.setDefaultInstance(null);
 		}
 	}
