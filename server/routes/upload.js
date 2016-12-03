@@ -20,7 +20,7 @@ router.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-router.post("/upload", upload.array('uploads[]', 12), function (req, res) {
+router.post("/upload", upload.array('uploads[]', 1), function (req, res) {
     res.send(req.files);
 });
 module.exports = router;
