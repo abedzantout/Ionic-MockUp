@@ -1,13 +1,14 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 @Component({
-    selector: 'pages',
-    encapsulation: ViewEncapsulation.None,
-    styles: [],
-    template: `
+	selector: 'pages',
+	encapsulation: ViewEncapsulation.None,
+	styles: [],
+	template: `
     <ba-sidebar></ba-sidebar>
     <ba-page-top></ba-page-top>
     <div class="al-main">
       <div class="al-content">
+      <ng2-slim-loading-bar [height]="'4px'"></ng2-slim-loading-bar>
         <ba-content-top></ba-content-top>
         <router-outlet></router-outlet>
       </div>
@@ -29,10 +30,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class Pages {
 
-    constructor() {
+	constructor() {
 
-    }
+	}
 
-    ngOnInit() {
-    }
+	ngOnInit() {
+	}
 }

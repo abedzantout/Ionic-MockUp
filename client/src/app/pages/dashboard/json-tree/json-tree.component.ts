@@ -2,6 +2,7 @@ import {
 	Component, ElementRef, ViewChild, ViewEncapsulation
 } from '@angular/core';
 import { templateService } from '../../../services/template.service';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 
@@ -67,7 +68,7 @@ export class JsonTreeComponent {
 
 	private infoArrayIndex: number;
 
-	constructor( private router: Router, private _service: IconfigGetterService, private http: Http, private _templateService: templateService ) {
+	constructor( private router: Router, private _service: IconfigGetterService, private http: Http, private _templateService: templateService, private slimLoadingBarService: SlimLoadingBarService ) {
 
 		this.domAdapter = new BrowserDomAdapter();
 
@@ -86,7 +87,7 @@ export class JsonTreeComponent {
 		this.bracketPosition    = 0;
 		this.openBr             = 0;
 		this.descriptionArray   = [];
-
+		this.startLoading();
 		// get template ID and pass it in getJson();
 
 		this.templateName = this._templateService.getTemplateName();
@@ -103,6 +104,7 @@ export class JsonTreeComponent {
 				this.setJsonLocally();
 				this.nodes           = [ JSON.parse(this.treeJson) ];
 				this.finishedLoading = true;
+				this.completeLoading();
 			}
 		);
 
@@ -111,7 +113,7 @@ export class JsonTreeComponent {
 	private searchById( root, id ) {
 		if ( root[ 'id' ] == id ) return root;
 		if ( typeof root !== 'object' ) return null;
-		var key, val;
+		let key, val;
 		for ( key in root ) {
 			val = this.searchById(root[ key ], id);
 			if ( val != null ) return val;
@@ -474,6 +476,16 @@ export class JsonTreeComponent {
 				console.log(res);
 			}
 		});
+	}
+
+	private startLoading() {
+		this.slimLoadingBarService.start(() => {
+			console.log('Loading complete');
+		});
+	}
+
+	private completeLoading() {
+		this.slimLoadingBarService.complete();
 	}
 
 	private goToApkForm() {
