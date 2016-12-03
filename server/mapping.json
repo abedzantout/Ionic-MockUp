@@ -26,9 +26,9 @@
 	"price": "free",
 	"icon": "assets/app-icons/Ticket-Vender-icon.jpg",
 	"screenshots": [
-	  "assets/app-screenshot/0/0.png",
+	  "assets/app-screenshot/1/0.png",
 	  "assets/app-screenshot/1/1.png",
-	  "assets/app-screenshot/2/2.png"
+	  "assets/app-screenshot/1/2.png"
 	],
 	"title": "Ticket Vendor",
 	"meta-description": "Movie reservation made easy",

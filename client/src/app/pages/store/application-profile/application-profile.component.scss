@@ -17,6 +17,7 @@
   .profile-container {
 	display: inline-block;
 	margin: 0 auto;
+	float: right;
 	ba-card {
 	  display: flex;
 	  margin: 0 auto;
@@ -24,12 +25,10 @@
 	.card-body {
 	  padding: 0 0;
 	}
-
 	.card > .card-body {
 	  padding: 0 0;
 	  height: 100%;
 	}
-
 	.marvel-device {
 	  height: 500px;
 	  width: 300px;
@@ -67,6 +66,9 @@
 		.carousel-control.right {
 		  background-image: none;
 		}
+		.carousel-item img {
+		  height: auto;
+		}
 
 	  }
 	}
@@ -77,6 +79,6 @@
   float: left;
 }
 
-#edit{
-	float: left;
+#edit {
+  float: left;
 }

@@ -3,8 +3,8 @@
     <button (click)="slideOut()" id="collapse">collapse</button>
     <button (click)="goToEditor()" id="edit">Edit</button>
 
-    <div class="profile-container">
-        <div class="marvel-device iphone6 black">
+    <div class="profile-container" *ngIf="loadProfile">
+        <div *ngIf="loadFrames" class="marvel-device iphone6 black">
             <div class="top-bar"></div>
             <div class="sleep"></div>
             <div class="volume"></div>
@@ -12,17 +12,14 @@
             <div class="sensor"></div>
             <div class="speaker"></div>
 
-            <div id="application-carousel" class="carousel slide carousel-container" data-ride="carousel">
+            <div id="application-carousel" class="carousel slide carousel-container"
+                 data-ride="carousel">
                 <div class="carousel-inner" role="listbox">
-                    <div class="carousel-item active">
-                        <img src="assets/app-screenshot/About Page.png" alt="First slide">
+                    <div *ngFor="let screenshot of screenshots; let i = index" class="carousel-item"
+                         [class.active]="i === 0">
+                        <img [src]="screenshot" alt="slide">
                     </div>
-                    <div class="carousel-item">
-                        <img src="assets/app-screenshot/Home-All.png" alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/app-screenshot/map Page.png" alt="Third slide">
-                    </div>
+
                 </div>
                 <a class="left carousel-control" href="#application-carousel" role="button" data-slide="prev">
                     <span class="icon-prev" aria-hidden="true"></span>

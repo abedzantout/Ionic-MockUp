@@ -14,6 +14,7 @@ export class StoreComponent {
 	private appName: string;
 	private parentCardObject: Object;
 	private keyValueStoreObject: Array<Object>;
+	private selectedApplicationObject: Object;
 
 	constructor( private _templateService: templateService, private _storeService: StoreService ) {
 		this.parentCardObject    = {};
@@ -28,6 +29,8 @@ export class StoreComponent {
 	private clickEvent( appName ) {
 		this.appName = appName;
 		this._templateService.setTemplateName(appName);
+		this.selectedApplicationObject = this.parentCardObject[appName];
+		console.log(this.selectedApplicationObject);
 	}
 
 	private resetAppName( event ) {

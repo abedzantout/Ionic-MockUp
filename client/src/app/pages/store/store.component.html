@@ -50,4 +50,5 @@
     </div>
 </div>
 
-<application-profile [input]="appName" (resetAppName)="resetAppName($event)"></application-profile>
+<application-profile [appName]="appName" (resetAppName)="resetAppName($event)"
+                     [applicationInfo]="selectedApplicationObject"></application-profile>

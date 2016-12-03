@@ -25,23 +25,41 @@ declare const require: any;
 	]
 })
 export class ApplicationProfileComponent implements OnChanges, OnInit {
-	@Input() input;
+	@Input() applicationInfo;
+	@Input() appName;
 	private menuState: string;
+	private screenshots: Array<string>;
+	private loadProfile: boolean;
+	private loadFrames: boolean;
 	@Output() resetAppName = new EventEmitter<string>();
 
 	constructor( private _router: Router ) {
+		this.loadFrames  = false;
+		this.loadProfile = false;
+		this.screenshots = [];
 	}
 
 	ngOnInit() {
+		this.loadFrames  = false;
+		this.loadProfile = false;
+		this.screenshots = [];
 	}
 
 	ngOnChanges() {
-
-		if ( this.input != '' ) {
+		this.screenshots = [];
+		this.loadFrames  = false;
+		this.loadProfile = false;
+		if ( this.appName != '' ) {
 			this.menuState = this.menuState === 'out' ? 'in' : 'out';
 			if ( this.menuState == undefined ) {
 				this.menuState = 'out';
 			}
+			if ( this.applicationInfo !== undefined ) {
+				this.loadProfile = true;
+				this.fillApplicationInformation();
+
+			}
+
 		}
 	}
 
@@ -53,6 +71,14 @@ export class ApplicationProfileComponent implements OnChanges, OnInit {
 
 	private goToEditor() {
 		this._router.navigate([ 'dashboard' ]);
+	}
+
+	private fillApplicationInformation() {
+		this.applicationInfo[ 'screenshots' ].forEach(screenshot => this.screenshots.push(screenshot));
+		if ( this.screenshots.length > 0 ) {
+			this.loadFrames = true;
+			console.log(jQuery('.carousel-phone .carousel-inner').first());
+		}
 	}
 
 }
