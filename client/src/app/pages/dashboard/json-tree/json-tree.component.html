@@ -3,7 +3,9 @@
     <Tree #tree [nodes]="nodes">
 
         <template #treeNodeTemplate let-node>
+            <!--<div *ngIf="node.displayField !== 'description'">-->
 
+            <!--<div *ngIf="!node.data.description">-->
             <label [id]="node.data.id">
                 {{ node.data.name }}
                 <!--<span *ngIf="!node.isLeaf">( {{node.data.type.trim()}} )</span>-->
@@ -11,7 +13,6 @@
 
             <input type="text" (focus)="clearPlaceholder($event)"
                    *ngIf="node.isLeaf && !( node.data.type.includes('array') )"/>
-
             <button class="btn btn-default" (click)="removeInstance(node)"
                     *ngIf="( isInArray(node) && (node.parent.children.length > 1) )">
                 Remove Instance
@@ -21,8 +22,10 @@
                 Add Instance
             </button>
             <button class="btn btn-default" (click)="save($event, node)" *ngIf="node.isLeaf">save</button>
-
+            <!--</div>-->
         </template>
+
+
 
     </Tree>
     <ion-frame></ion-frame>

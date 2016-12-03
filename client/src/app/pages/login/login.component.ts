@@ -42,13 +42,8 @@ export class Login {
                     console.log(result);
                     console.log(result[ 'success' ]);
                     if ( result[ 'success' ] === true ) {
-                        this.router.navigate([ 'pages' ]);
-                    }
-                    else if ( result[ 'success' ] === true ) {
-                        this.errorMessage = "Please confirm your Email by clicking on the link we sent you";
-                    }
-                    else {
-                        this.validated    = false;
+                        this.router.navigate([ 'store' ]);
+                    } else if ( result[ 'success' ] === false ) {
                         this.errorMessage = "Incorrect username/password combination.";
                     }
 

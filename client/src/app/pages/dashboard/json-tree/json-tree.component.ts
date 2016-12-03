@@ -58,6 +58,8 @@ export class JsonTreeComponent {
 
 	private nodeId: number;
 
+	private descriptionArray: Array<Object>;
+
 	@ViewChild(TreeComponent)
 	private tree: TreeComponent;
 
@@ -83,6 +85,7 @@ export class JsonTreeComponent {
 		this.infoArrayIndex     = -1;
 		this.bracketPosition    = 0;
 		this.openBr             = 0;
+		this.descriptionArray   = [];
 
 		// get template ID and pass it in getJson();
 
@@ -185,12 +188,6 @@ export class JsonTreeComponent {
 					}
 				}
 
-				// this.nodeId += 1;
-				// child['id'] = this.nodeId;
-				//
-				// this.nodeId+=1;
-				// child['children'][0]['id'] = this.nodeId;
-
 				this.childTraverse(child);
 				child[ 'name' ] = newNodeName;
 
@@ -275,7 +272,7 @@ export class JsonTreeComponent {
 		if ( level == 99 ) {
 			this.newJsonContent += "{";
 		}
-		for ( var key in obj ) {
+		for ( let key in obj ) {
 
 			if ( obj.hasOwnProperty(key) ) {
 				if ( level != 69 ) {
@@ -291,6 +288,7 @@ export class JsonTreeComponent {
 				}
 
 				this.treeJson += '{"id": ' + (this.nodeId) + ', "type":" ' + this.infoArray[ this.infoArrayIndex ][ 'type' ] + '","name":"' + key + '",';
+
 				this.nodeId += 1;
 				this.buttonValues.push(key);
 
@@ -302,6 +300,7 @@ export class JsonTreeComponent {
 				this.traverse(obj[ key ], level + "    ");
 				this.treeJson += '],';
 				this.treeJson += '},';
+
 			}
 		}
 
@@ -341,6 +340,7 @@ export class JsonTreeComponent {
 
 		this.jsonContent = JSON.parse(this._service.getJsonContent());
 		this.traverse(this.jsonContent, 2);
+		console.log(this.descriptionArray);
 		//noinspection TypeScriptUnresolvedFunction
 		while ( this.treeJson.includes(',]') ) {
 			this.treeJson = this.treeJson.replace(',]', ']');
@@ -424,6 +424,9 @@ export class JsonTreeComponent {
 		};
 
 		traverse(this.nodes[ 0 ], false);
+
+		// console.log(this.searchById(this.nodes[ 0 ], this.descriptionArray[ 0 ][ 'id' ]));
+
 		//noinspection TypeScriptUnresolvedFunction
 		while ( this.originalJsonFormat.includes(',]') ) {
 			this.originalJsonFormat = this.originalJsonFormat.replace(',]', ']');
@@ -435,7 +438,6 @@ export class JsonTreeComponent {
 		}
 
 		this.originalJsonFormat = '{' + this.originalJsonFormat + '}';
-
 
 		this.originalJsonFormat = this.originalJsonFormat.substring(1, this.originalJsonFormat.length - 2);
 
@@ -460,7 +462,7 @@ export class JsonTreeComponent {
 		//noinspection TypeScriptUnresolvedFunction
 		return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
 			if ( res ) {
-				// document.getElementById('ionic-frame')[ 'src' ] = 'http://localhost:8100';
+				document.getElementById('ionic-frame')[ 'src' ] = 'http://localhost:8100';
 			}
 		});
 	}
