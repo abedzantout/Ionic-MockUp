@@ -20,7 +20,6 @@ export class uploadPageComponent {
 	upload() {
 		console.log(this.filesToUpload);
 		this.makeFileRequest("http://localhost:3000/upload", [], this.filesToUpload).then(( result ) => {
-			console.log('sent');
 			console.log(result);
 		}, ( error ) => {
 			console.error(error);
