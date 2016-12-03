@@ -37,17 +37,17 @@
 <div class="container marketing-container">
     <h2>Latest Additions</h2>
     <div class="row">
-        <div *ngFor="let c of countCards" class="col-md-2 col-sm-6 col-xs-6">
-            <div class="card" (click)="clickEvent(c['title'])">
-                <img class="card-img-top img-fluid" [src]="c['image']"
+        <div *ngFor="let obj of keyValueStoreObject" class="col-xl-3 col-md-2 col-sm-6 col-xs-6">
+            <div class="card" (click)="clickEvent(obj['title'])">
+                <img class="card-img-top img-fluid" [src]="obj['icon']"
                      alt="Card image cap">
                 <div class="card-block">
-                    <h4 class="card-title">{{c['title']}}</h4>
-                    <p class="card-text">{{c['description']}}</p>
+                    <h4 class="card-title">{{obj['title']}}</h4>
+                    <p class="card-text">{{obj['description']}}</p>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 </div>
 
 <application-profile [input]="appName" (resetAppName)="resetAppName($event)"></application-profile>

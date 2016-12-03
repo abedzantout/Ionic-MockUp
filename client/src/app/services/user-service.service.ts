@@ -59,7 +59,7 @@ export class UserService {
             .map(res => res.json())
             .map(( res ) => {
                 console.log(res);
-                if ( res[ 'success' ] === 'true') {
+                if ( res[ 'success' ] === true) {
                     return { success: true };
                 }
 

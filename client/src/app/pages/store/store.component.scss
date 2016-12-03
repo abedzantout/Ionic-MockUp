@@ -29,32 +29,57 @@
 }
 
 .marketing-container {
+
   margin-top: 7em;
-
-  /* styles for browsers larger than 960px; */
-  @media only screen and (min-width: 992px) {
-    width: 100%;
-    max-width: 100%;
-    padding-left: 2em;
-    padding-right: 2em;
+  .row {
+	display: inline-flex;
+	flex-flow: row wrap;
   }
-  /* styles for browsers larger than 1440px; */
   @media only screen and (min-width: 1200px) {
-    width: 100%;
-    max-width: 100%;
-    padding-left: 3em;
-    padding-right: 3em;
+	width: 100%;
+	max-width: 100%;
+	padding-left: 3em;
+	padding-right: 3em;
+	.row > div[class*='col-'] {
+	  display: flex;
+	  flex: 1 0 auto;
+	}
   }
-
-  .row > div[class*='col-'] {
-    display: flex;
-    flex: 1 0 auto;
+  @media only screen and (min-width: 940px) {
+	width: 100%;
+	max-width: 100%;
+	padding-left: 2em;
+	padding-right: 2em;
+	.row > div[class*='col-'] {
+	  display: flex;
+	  flex: 1 0 auto;
+	}
   }
+  @media only screen and (min-width: 768px) {
+	width: 100%;
+	max-width: 100%;
+	padding-left: 3em;
+	padding-right: 3em;
+	.row > div[class*='col-'] {
+	  display: none;
+	  flex: 1 0 auto;
+	}
+  }
+  @media only screen and (min-width: 500px) {
+	width: 100%;
+	max-width: 100%;
+	padding-left: 3em;
+	padding-right: 3em;
+	.row > div[class*='col-'] {
+	  display: flex;
+	  flex: none;
+	}
 
+  }
   .card {
-    width: auto;
-    &:hover {
-      cursor: pointer;
-    }
+	width: auto;
+	&:hover {
+	  cursor: pointer;
+	}
   }
 }

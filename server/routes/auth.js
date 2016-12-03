@@ -1,59 +1,36 @@
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
 // var jwtDecode     = require('jwt-decode');
 // var CryptoJS      = require("crypto-js");
 // var bcrypt        = require('bcryptjs');
 // var base64url     = require('base64-url');
-
 var fs = require('fs');
-
-
 var signedToken;
-
-
 router.post('/register', function (req, res, next) {
-
-
-    var name = req.body['name'];
-    var email = req.body['email'];
-    var password = req.body['password'];
-    var data = {};
-    var success = false;
-
-
+    var name     = req.body[ 'name' ];
+    var email    = req.body[ 'email' ];
+    var password = req.body[ 'password' ];
+    var data     = {};
+    var success  = false;
     fs.readFile('../database/users.json', 'utf8', (err, data) => {
-
         console.log(err);
-
         let usersArray = JSON.parse(data);
-
-
-        if (usersArray[email] === undefined) {
-
+        if ( usersArray[ email ] === undefined ) {
             let newUser = {
-
                 [email]: {
-                    name: name,
+                    name    : name,
                     password: password
                 }
-
             };
-
             usersArray.push(newUser);
-
             fs.writeFile('../database/users.json', JSON.stringify(usersArray), (err) => {
                 console.log(err);
                 res.send({success: true});
             });
-
-
         } else {
             res.send({success: false});
         }
-
     });
-
-
     // sign up to database
     // MongoClient.connect(url, (err, db) => {
     //     var collection = db.collection('users');
@@ -146,11 +123,7 @@ router.post('/register', function (req, res, next) {
     //         }
     //     });
     // });
-
-
 });
-
-
 router.post('/authenticate', function (req, res, next) {
     /**
      *  @connect to database
@@ -161,57 +134,41 @@ router.post('/authenticate', function (req, res, next) {
      *  @callback: f failure, return success=false
      */
 
-    var email = req.body['email'];
-    var password = req.body['password'];
-    var data = {};
-
+    var email    = req.body[ 'email' ];
+    var password = req.body[ 'password' ];
+    var data     = {};
     // authenticate from database
-
-
     fs.readFile('../database/users.json', 'utf8', (err, data) => {
-
         let usersArray = JSON.parse(data);
-
         let userObject = null;
-
-        for(let i=0;i<usersArray.length;i++){
-
-            if(Object.keys(usersArray[i])[0] === email){
-                userObject = usersArray[i][email];
+        for ( let i = 0; i < usersArray.length; i++ ) {
+            if ( Object.keys(usersArray[ i ])[ 0 ] === email ) {
+                userObject = usersArray[ i ][ email ];
             }
         }
-
-
-
-        if(userObject != null) {
+        if ( userObject != null ) {
 
             // email exists
+            if ( userObject[ 'password' ] === password ) {
 
-                if (userObject['password'] === password) {
-
-                    // var header = {
-                    //     "alg": "HS256",
-                    //     "typ": "JWT"
-                    // };
-                    // var encodedHeader = base64url.encode(JSON.stringify(header));
-                    // var encodedData   = base64url.encode(JSON.stringify(usersArray[email]));
-                    //
-                    // var encodedString = encodedHeader + "." + encodedData;
-                    // var hash = CryptoJS.HmacSHA256(encodedString, "secret");
-                    // var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
-                    // signedToken = encodedString + "." + hashInBase64;
-                    console.log("SENDING RESPONSE ...");
-
-                    res.send('{"success": "true", "auth_token": "anything"}');
-                }
-        }else {
-
+                // var header = {
+                //     "alg": "HS256",
+                //     "typ": "JWT"
+                // };
+                // var encodedHeader = base64url.encode(JSON.stringify(header));
+                // var encodedData   = base64url.encode(JSON.stringify(usersArray[email]));
+                //
+                // var encodedString = encodedHeader + "." + encodedData;
+                // var hash = CryptoJS.HmacSHA256(encodedString, "secret");
+                // var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
+                // signedToken = encodedString + "." + hashInBase64;
+                console.log("SENDING RESPONSE ...");
+                res.send('{"success": "true", "auth_token": "anything"}');
+            }
+        } else {
             res.send('{"success": false}');
-
         }
-
     });
-
     // MongoClient.connect(url, function (err, db) {
     //     var success     = false;
     //     var isConfirmed = false;
@@ -264,6 +221,4 @@ router.post('/authenticate', function (req, res, next) {
     //     });
     // });
 });
-
-
 module.exports = router;

@@ -5,6 +5,7 @@ import { NgaModule } from '../../theme/nga.module';
 import { StoreComponent } from "./store.component";
 import { routing } from "./store.routing";
 import { ApplicationProfileComponent } from "./application-profile/application-profile.component";
+import { StoreService } from "../../services/store.service";
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { ApplicationProfileComponent } from "./application-profile/application-p
         StoreComponent,
         ApplicationProfileComponent
     ],
-    providers: []
+    providers: [StoreService]
 })
 export default class StoreModule {
 }

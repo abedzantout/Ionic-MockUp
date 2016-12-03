@@ -76,11 +76,11 @@ router.post('/downloadApk', function (req, res, next) {
 router.get('/downloadApk', function (req, res, next) {
     res.set('Content-disposition', 'attachment; filename=AndroidRelease.apk');
     res.set('Content-Type', 'application/vnd.android.package-archive');
-    res.download('../demo/ionic-template-1/platforms/android/build/outputs/apk/AndroidRelease.apk', 'AndroidRelease.apk');
+    res.download('../ionic-templates/0/application/platforms/android/build/outputs/apk/AndroidRelease.apk', 'AndroidRelease.apk');
 });
 function ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, ionicBuildCallback) {
     var ionicbuild = spawn('ionic', [ 'build', '--release', 'android' ], {
-        cwd     : '../demo/ionic-template-1/',
+        cwd     : '../ionic-templates/0/application',
         detached: true
     });
     ionicbuild.stdout.on('data', function (data) {
@@ -104,7 +104,7 @@ function ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizatio
 function jarSigner(keyPassword, jarSignerCallback) {
     var jarSignerArray = [];
     var jarsigner      = spawn('jarsigner', [ '-verbose', '-sigalg', 'SHA1withRSA', '-digestalg', 'SHA1', '-keystore', 'newrel.keystore', 'android-release-unsigned.apk', 'newalias' ], {
-        cwd     : '../demo/ionic-template-1/platforms/android/build/outputs/apk',
+        cwd     : '../ionic-templates/0/application/platforms/android/build/outputs/apk',
         detached: true
     });
     jarsigner.stdout.on('data', function (data) {
@@ -132,7 +132,7 @@ function jarSigner(keyPassword, jarSignerCallback) {
 function keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, keytoolCallback) {
     var stringArray = [];
     var keytool     = spawn('keytool', [ '-genkey', '-v', '-keystore', 'newrel.keystore', '-alias', 'newalias', '-keyalg', 'RSA', '-keysize', '2048', '-validity', '10000' ], {
-        cwd     : '../demo/ionic-template-1/platforms/android/build/outputs/apk',
+        cwd     : '../ionic-templates/0/application/platforms/android/build/outputs/apk',
         detached: true
     });
     keytool.stdout.on('data', function (data) {
@@ -203,7 +203,7 @@ function zipalign(callback) {
     var zipalignArray = [];
     console.log('started zipalign');
     var zipalign = spawn('/Users/abedzantout/Library/Android/sdk/build-tools/25.0.0/zipalign', [ '-v', '4', 'android-release-unsigned.apk', 'AndroidRelease.apk' ], {
-        cwd     : '../demo/ionic-template-1/platforms/android/build/outputs/apk',
+        cwd     : '../ionic-templates/0/application/platforms/android/build/outputs/apk',
         detached: true
     });
     zipalign.stdout.on('data', function (data) {

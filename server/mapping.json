@@ -6,6 +6,36 @@
 	  "Abbas Baydoun"
 	],
 	"price": "free",
-	"screenshots": []
+	"icon": "assets/app-icons/classic-diner-icon.jpg",
+	"screenshots": [],
+	"title": "Restaurant Review",
+	"meta-description": "Restaurant menu application",
+	"description": "whatever"
+  },
+  "Ionic Conference": {
+	"id": 6,
+	"developers": [
+	  "Drifty. co"
+	],
+	"price": "free",
+	"icon": "assets/app-icons/conference-icon.jpg",
+	"screenshots": [],
+	"title": "Ionic Conference",
+	"meta-description": "Ionic starter application",
+	"description": "whatever"
+  },
+  "Ticket Vendor": {
+	"id": 1,
+	"developers": [
+	  "Abed",
+	  "Abbas",
+	  "Gaelle"
+	],
+	"price": "free",
+	"icon": "assets/app-icons/Ticket-Vender-icon.jpg",
+	"screenshots": [],
+	"title": "Ticket Vendor",
+	"meta-description": "Movie reservation made easy",
+	"description": "whatever"
   }
 }

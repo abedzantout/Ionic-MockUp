@@ -58,7 +58,9 @@ export class Register {
             let repeatedPassword: string = values[ "passwords" ][ "repeatPassword" ];
 
             this.userService.register(name, email, password).subscribe(( result ) => {
-                    if ( result[ 'success' ] === true ) {
+                console.log("REGISTER COMPONENT");
+                console.log(result[ 'success' ]);
+                    if ( result[ 'success' ] == true ) {
 
                         this.ngZone.run(() => {
                                 this.isEmailAvailable = true;

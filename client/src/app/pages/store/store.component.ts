@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { templateService } from '../../services/template.service';
 declare const require: any;
 import * as _ from 'lodash'
+import { StoreService } from "../../services/store.service";
 @Component({
 	selector: 'store',
 	encapsulation: ViewEncapsulation.None,
@@ -11,14 +12,17 @@ import * as _ from 'lodash'
 export class StoreComponent {
 
 	private appName: string;
-	private countCards: Array<Object>;
+	private parentCardObject: Object;
+	private keyValueStoreObject: Array<Object>;
 
-	constructor( private _templateService: templateService ) {
-		this.countCards = [ {
-			"image": 'assets/app-icons/classic-diner-icon.jpg',
-			"title": "Restaurant Review",
-			"description": "Restaurant menu application"
-		} ]
+	constructor( private _templateService: templateService, private _storeService: StoreService ) {
+		this.parentCardObject    = {};
+		this.keyValueStoreObject = [];
+		this._storeService.getAllApps().subscribe(data => {
+				this.parentCardObject = JSON.parse(data[ '_body' ]);
+			},
+			( err ) => console.log(err),
+			() => this.fillStoreData());
 	}
 
 	private clickEvent( appName ) {
@@ -28,6 +32,15 @@ export class StoreComponent {
 
 	private resetAppName( event ) {
 		this.appName = '';
+	}
+
+	private fillStoreData() {
+		this.keyValueStoreObject = [];
+		_(this.parentCardObject).forOwn(value => {
+			let obj = {};
+			_.assign(obj, value);
+			this.keyValueStoreObject.push(obj);
+		});
 	}
 
 }
