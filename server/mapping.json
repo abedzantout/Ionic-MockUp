@@ -7,21 +7,13 @@
 	],
 	"price": "free",
 	"icon": "assets/app-icons/classic-diner-icon.jpg",
-	"screenshots": [],
+	"screenshots": [
+	  "assets/app-screenshot/0/0.png",
+	  "assets/app-screenshot/0/1.png",
+	  "assets/app-screenshot/0/2.png"
+	],
 	"title": "Restaurant Review",
 	"meta-description": "Restaurant menu application",
-	"description": "whatever"
-  },
-  "Ionic Conference": {
-	"id": 6,
-	"developers": [
-	  "Drifty. co"
-	],
-	"price": "free",
-	"icon": "assets/app-icons/conference-icon.jpg",
-	"screenshots": [],
-	"title": "Ionic Conference",
-	"meta-description": "Ionic starter application",
 	"description": "whatever"
   },
   "Ticket Vendor": {
@@ -33,9 +25,25 @@
 	],
 	"price": "free",
 	"icon": "assets/app-icons/Ticket-Vender-icon.jpg",
-	"screenshots": [],
+	"screenshots": [
+	  "assets/app-screenshot/0/0.png",
+	  "assets/app-screenshot/1/1.png",
+	  "assets/app-screenshot/2/2.png"
+	],
 	"title": "Ticket Vendor",
 	"meta-description": "Movie reservation made easy",
+	"description": "whatever"
+  },
+  "Ionic Conference": {
+	"id": 7,
+	"developers": [
+	  "Drifty. co"
+	],
+	"price": "free",
+	"icon": "assets/app-icons/conference-icon.jpg",
+	"screenshots": [],
+	"title": "Ionic Conference",
+	"meta-description": "Ionic starter application",
 	"description": "whatever"
   }
 }
