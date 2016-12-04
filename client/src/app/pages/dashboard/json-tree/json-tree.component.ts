@@ -1,5 +1,5 @@
 import {
-	Component, ElementRef, ViewChild, ViewEncapsulation
+	Component, ElementRef, ViewChild, ViewEncapsulation, OnDestroy
 } from '@angular/core';
 import { templateService } from '../../../services/template.service';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
@@ -11,6 +11,7 @@ declare var require: any;
 import { IconfigGetterService } from '../../../services/iconfigGetter.service';
 import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
 import { Observable } from 'rxjs/Rx';
+
 // import preventExtensions = Reflect.preventExtensions;
 
 import { TreeComponent } from '../../../angular2-tree/lib/components/tree.component';
@@ -31,7 +32,7 @@ import { Router } from '@angular/router';
 	template: require('./json-tree.component.html')
 })
 
-export class JsonTreeComponent {
+export class JsonTreeComponent implements OnDestroy{
 
 	private jsonContent: Object;
 	private newJsonContent: string;
@@ -108,6 +109,22 @@ export class JsonTreeComponent {
 			}
 		);
 
+	}
+
+
+	ngOnDestroy(){
+	    console.log("ending terminal ...");
+        this.endTerminal().subscribe(
+
+            (data)=>{},
+            (err)=>{console.log(err);},
+            () => {}
+
+        );
+	}
+
+	endTerminal(): Observable<Response>{
+		return this.http.get('http://localhost:3000/endTerminal').map((res)=>res);
 	}
 
 	private searchById( root, id ) {
@@ -464,7 +481,8 @@ export class JsonTreeComponent {
 		//noinspection TypeScriptUnresolvedFunction
 		return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
 			if ( res ) {
-				document.getElementById('ionic-frame')[ 'src' ] = 'http://localhost:8100';
+			    let oldSrc = document.getElementById('ionic-frame')[ 'src' ];
+				document.getElementById('ionic-frame')[ 'src' ] = oldSrc;
 			}
 		});
 	}

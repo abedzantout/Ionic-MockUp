@@ -6,18 +6,40 @@ var util     = require('util');
 var spawn    = require('child_process').spawn;
 var terminal = require('child_process').spawn('/bin/sh');
 
+var ionicPort = 8000;
+
+var devLoggerPort = 53700;
+
+var liveReloadPort = 35720;
+
+
 router.get('/', function (req, res, next) {
     res.render('../../client/dist/index.html');
 });
 
 router.get('/getIconfig/:templateName', function (req, res, next) {
+
+    ionicPort += 1;
+    devLoggerPort += 1;
+    liveReloadPort+=1;
+
+    if(!terminal['killed'] == true){
+        terminal.kill('SIGKILL');
+    }
+
+
+    if(terminal['killed'] == true || terminal == null || terminal == undefined) {
+        terminal = require('child_process').spawn('/bin/sh');
+        console.log("CREATED NEW TERMINAL PROCESS");
+    }
+
     let templateName = req.params[ 'templateName' ];
     fs.readFile('mapping.json', 'utf8', function (err, data) {
         let obj = JSON.parse(data);
         let id  = obj[ templateName ][ 'id' ];
         terminal.stdout.on('data', function (data) {
             console.log('STDOUT: ' + data);
-            if ( data.includes('dev server running: http://localhost:8100/') ) {
+            if ( data.includes('dev server running: http://localhost:') ) {
                 let id = obj[ templateName ][ 'id' ];
                 fs.readFile('../ionic-templates/' + id + '/application/src/assets/iconfig.json', 'utf8', function (err, data) {
                     res.send(data);
@@ -27,9 +49,26 @@ router.get('/getIconfig/:templateName', function (req, res, next) {
         terminal.stderr.on('data', function (data) {
             console.log('STDERR: ' + data);
         });
-        terminal.stdin.write("cd ../ionic-templates/" + id + "/application && ionic serve --nobrowser\n");
+
+
+        terminal.stdin.write("cd ../ionic-templates/" + id + "/application && ionic serve -p "+ionicPort+" -r "+ liveReloadPort +" --nobrowser -- nolivereload --dev-logger-port "+devLoggerPort+"\n");
+
     });
 });
+
+
+router.get('/ionicPort', function(req,res,next){
+
+    res.send(ionicPort.toString());
+});
+
+router.get('/endTerminal', function(req,res,next){
+
+    terminal.kill('SIGKILL');
+    console.log("TERMINAL PROCESS KILLED.");
+    res.send("done");
+});
+
 router.post('/sendJson', function (req, res, next) {
     let data = req[ 'body' ];
     console.log(Object.keys(data));
@@ -78,6 +117,7 @@ router.get('/downloadApk', function (req, res, next) {
     res.set('Content-Type', 'application/vnd.android.package-archive');
     res.download('../ionic-templates/0/application/platforms/android/build/outputs/apk/AndroidRelease.apk', 'AndroidRelease.apk');
 });
+
 function ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, ionicBuildCallback) {
     var ionicbuild = spawn('ionic', [ 'build', '--release', 'android' ], {
         cwd     : '../ionic-templates/0/application',
