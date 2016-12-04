@@ -27,7 +27,7 @@ router.get('/getIconfig/:templateName', function (req, res, next) {
         terminal.stderr.on('data', function (data) {
             console.log('STDERR: ' + data);
         });
-        terminal.stdin.write("cd ../ionic-templates/" + id + "/application && ionic serve\n");
+        terminal.stdin.write("cd ../ionic-templates/" + id + "/application && ionic serve --nobrowser\n");
     });
 });
 router.post('/sendJson', function (req, res, next) {
