@@ -57,7 +57,6 @@ export class ApplicationProfileComponent implements OnChanges, OnInit {
 			if ( this.applicationInfo !== undefined ) {
 				this.loadProfile = true;
 				this.fillApplicationInformation();
-
 			}
 
 		}
@@ -77,7 +76,6 @@ export class ApplicationProfileComponent implements OnChanges, OnInit {
 		this.applicationInfo[ 'screenshots' ].forEach(screenshot => this.screenshots.push(screenshot));
 		if ( this.screenshots.length > 0 ) {
 			this.loadFrames = true;
-			console.log(jQuery('.carousel-phone .carousel-inner').first());
 		}
 	}
 

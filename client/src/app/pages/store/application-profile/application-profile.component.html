@@ -37,6 +37,10 @@
 
     </div>
 
-    <ba-card class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 row">
+    <ba-card *ngIf="loadProfile" class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 row"
+             [title]="applicationInfo['title']">
+        <div>
+            <p [innerHTML]="applicationInfo['description']"></p>
+        </div>
     </ba-card>
 </div>
