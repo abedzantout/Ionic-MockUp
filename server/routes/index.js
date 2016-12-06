@@ -2,37 +2,26 @@ var express = require('express');
 var router  = express.Router();
 var fs      = require('fs');
 /* GET home page. */
-var util     = require('util');
-var spawn    = require('child_process').spawn;
-var terminal = require('child_process').spawn('/bin/sh');
-
-var ionicPort = 8000;
-
-var devLoggerPort = 53700;
-
+var util           = require('util');
+var spawn          = require('child_process').spawn;
+var terminal       = require('child_process').spawn('/bin/sh');
+var ionicPort      = 8000;
+var devLoggerPort  = 53700;
 var liveReloadPort = 35720;
-
-
 router.get('/', function (req, res, next) {
     res.render('../../client/dist/index.html');
 });
-
 router.get('/getIconfig/:templateName', function (req, res, next) {
-
     ionicPort += 1;
     devLoggerPort += 1;
-    liveReloadPort+=1;
-
-    if(!terminal['killed'] == true){
+    liveReloadPort += 1;
+    if ( !terminal[ 'killed' ] == true ) {
         terminal.kill('SIGKILL');
     }
-
-
-    if(terminal['killed'] == true || terminal == null || terminal == undefined) {
+    if ( terminal[ 'killed' ] == true || terminal == null || terminal == undefined ) {
         terminal = require('child_process').spawn('/bin/sh');
         console.log("CREATED NEW TERMINAL PROCESS");
     }
-
     let templateName = req.params[ 'templateName' ];
     fs.readFile('mapping.json', 'utf8', function (err, data) {
         let obj = JSON.parse(data);
@@ -49,37 +38,27 @@ router.get('/getIconfig/:templateName', function (req, res, next) {
         terminal.stderr.on('data', function (data) {
             console.log('STDERR: ' + data);
         });
-
-
-        terminal.stdin.write("cd ../ionic-templates/" + id + "/application && ionic serve -p "+ionicPort+" -r "+ liveReloadPort +" --nobrowser -- nolivereload --dev-logger-port "+devLoggerPort+"\n");
-
+        terminal.stdin.write("cd ../ionic-templates/" + id + "/application && ionic serve -p " + ionicPort + " -r " + liveReloadPort + " --nobrowser -- nolivereload --dev-logger-port " + devLoggerPort + "\n");
     });
 });
-
-
-router.get('/ionicPort', function(req,res,next){
-
+router.get('/ionicPort', function (req, res, next) {
     res.send(ionicPort.toString());
 });
-
-router.get('/endTerminal', function(req,res,next){
-
+router.get('/endTerminal', function (req, res, next) {
     terminal.kill('SIGKILL');
     console.log("TERMINAL PROCESS KILLED.");
     res.send("done");
 });
-
 router.post('/sendJson', function (req, res, next) {
     let data = req[ 'body' ];
     console.log(Object.keys(data));
-    let templateName = Object.keys(data)[0];
+    let templateName = Object.keys(data)[ 0 ];
     let id           = 0;
     fs.readFile('mapping.json', 'utf8', function (err, data) {
         let obj = JSON.parse(data);
         id      = obj[ templateName ][ 'id' ];
     });
     if ( isJson(JSON.stringify(req[ 'body' ])) ) {
-
         fs.writeFile('../ionic-templates/' + id + '/application/src/assets/iconfig.json', JSON.stringify(req[ 'body' ]), function (err) {
             console.log(err);
         });
@@ -93,32 +72,35 @@ router.post('/sendJson', function (req, res, next) {
 });
 router.post('/downloadApk', function (req, res, next) {
     console.log(req[ 'body' ]);
-    var keyPassword        = req[ 'body' ][ 'keyPassword' ];
-    var authorsName        = req[ 'body' ][ 'authorsName' ];
-    var organizationalUnit = req[ 'body' ][ 'organizationalUnit' ];
-    var organizationName   = req[ 'body' ][ 'organizationName' ];
-    var cityName           = req[ 'body' ][ 'cityName' ];
-    var stateName          = req[ 'body' ][ 'stateName' ];
-    var countryCode        = req[ 'body' ][ 'countryCode' ];
+    let keyPassword        = req[ 'body' ][ 'keyPassword' ];
+    let authorsName        = req[ 'body' ][ 'authorsName' ];
+    let organizationalUnit = req[ 'body' ][ 'organizationalUnit' ];
+    let organizationName   = req[ 'body' ][ 'organizationName' ];
+    let cityName           = req[ 'body' ][ 'cityName' ];
+    let stateName          = req[ 'body' ][ 'stateName' ];
+    let countryCode        = req[ 'body' ][ 'countryCode' ];
+    let applicationName    = req[ 'body' ][ 'application-name' ];
     // keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode,  () =>{
-    ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, () => {
-        // res.set('Content-disposition', 'attachment; filename=AndroidRelease.apk');
-        // res.set('Content-Type', 'application/octet-stream');
-        // res.download('../demo/ionic-template-1/platforms/android/build/outputs/apk/AndroidRelease.apk', 'AndroidRelease.apk');
+    let callback = function () {
+        res.set('Content-disposition', 'attachment; filename=AndroidRelease.apk');
+        res.set('Content-Type', 'application/octet-stream');
+        // res.download('../ionic-templates/0/application/platforms/android/build/outputs/apk/Restaurant Review.apk', 'Restaurant Review.apk');
+        console.log('response is being sent');
         res.send('success');
+    };
+    ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, applicationName, () => {
+        console.log('ionic successfully built android application');
+        callback();
+        // res.send('success');
     });
-    next();
-}, function (req, res, next) {
-    // res.send('android build in progress....');
-    // res.end('ended')
+
 });
-router.get('/downloadApk', function (req, res, next) {
+router.get('/getAPK', function (req, res, next) {
     res.set('Content-disposition', 'attachment; filename=AndroidRelease.apk');
     res.set('Content-Type', 'application/vnd.android.package-archive');
     res.download('../ionic-templates/0/application/platforms/android/build/outputs/apk/AndroidRelease.apk', 'AndroidRelease.apk');
 });
-
-function ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, ionicBuildCallback) {
+function ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, applicationName, ionicBuildCallback) {
     var ionicbuild = spawn('ionic', [ 'build', '--release', 'android' ], {
         cwd     : '../ionic-templates/0/application',
         detached: true
@@ -136,12 +118,12 @@ function ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizatio
         console.log('ionic build finished');
         ionicbuild.stdin.end();
         ionicbuild.stdout.end();
-        keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, () => {
+        keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, applicationName, () => {
             ionicBuildCallback();
         });
     });
 }
-function jarSigner(keyPassword, jarSignerCallback) {
+function jarSigner(keyPassword, applicationName, jarSignerCallback) {
     var jarSignerArray = [];
     var jarsigner      = spawn('jarsigner', [ '-verbose', '-sigalg', 'SHA1withRSA', '-digestalg', 'SHA1', '-keystore', 'newrel.keystore', 'android-release-unsigned.apk', 'newalias' ], {
         cwd     : '../ionic-templates/0/application/platforms/android/build/outputs/apk',
@@ -164,12 +146,12 @@ function jarSigner(keyPassword, jarSignerCallback) {
     });
     jarsigner.on('close', (code) => {
         console.log('jarsigner ended');
-        zipalign(() => {
+        zipalign(applicationName, () => {
             jarSignerCallback();
         });
     })
 }
-function keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, keytoolCallback) {
+function keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, applicationName, keytoolCallback) {
     var stringArray = [];
     var keytool     = spawn('keytool', [ '-genkey', '-v', '-keystore', 'newrel.keystore', '-alias', 'newalias', '-keyalg', 'RSA', '-keysize', '2048', '-validity', '10000' ], {
         cwd     : '../ionic-templates/0/application/platforms/android/build/outputs/apk',
@@ -234,15 +216,15 @@ function keytool(keyPassword, authorsName, organizationalUnit, organizationName,
         console.log('keytool end');
         keytool.stdin.end();
         keytool.stdout.end();
-        jarSigner(keyPassword, () => {
+        jarSigner(keyPassword, applicationName, () => {
             keytoolCallback();
         });
     });
 }
-function zipalign(callback) {
+function zipalign(applicationName, callback) {
     var zipalignArray = [];
     console.log('started zipalign');
-    var zipalign = spawn('/Users/abedzantout/Library/Android/sdk/build-tools/25.0.0/zipalign', [ '-v', '4', 'android-release-unsigned.apk', 'AndroidRelease.apk' ], {
+    var zipalign = spawn('/Users/abedzantout/Library/Android/sdk/build-tools/25.0.0/zipalign', [ '-v', '4', 'android-release-unsigned.apk', applicationName + '.apk' ], {
         cwd     : '../ionic-templates/0/application/platforms/android/build/outputs/apk',
         detached: true
     });
@@ -259,16 +241,9 @@ function zipalign(callback) {
     });
     zipalign.on('close', () => {
         zipalign.stdin.end();
+        console.log('zipalign complete');
         callback();
-        // res.sendFile('../demo/ionic-template-1/platforms/android/build/outputs/apk/AndroidRelease.apk');
     })
-}
-function puts(error, stdout, stderr) {
-    if ( error ) {
-        console.log(error);
-    }
-    console.log(stdout);
-    console.log(stderr);
 }
 function isJson(str) {
     try {

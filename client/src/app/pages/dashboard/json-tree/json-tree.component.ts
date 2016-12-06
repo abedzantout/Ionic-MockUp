@@ -32,7 +32,7 @@ import { Router } from '@angular/router';
 	template: require('./json-tree.component.html')
 })
 
-export class JsonTreeComponent implements OnDestroy{
+export class JsonTreeComponent implements OnDestroy {
 
 	private jsonContent: Object;
 	private newJsonContent: string;
@@ -111,20 +111,17 @@ export class JsonTreeComponent implements OnDestroy{
 
 	}
 
-
-	ngOnDestroy(){
-	    console.log("ending terminal ...");
-        this.endTerminal().subscribe(
-
-            (data)=>{},
-            (err)=>{console.log(err);},
-            () => {}
-
-        );
+	ngOnDestroy() {
+		console.log("ending terminal ...");
+		this.endTerminal().subscribe(
+			( data ) => {},
+			( err ) => {console.log(err);},
+			() => {}
+		);
 	}
 
-	endTerminal(): Observable<Response>{
-		return this.http.get('http://localhost:3000/endTerminal').map((res)=>res);
+	endTerminal(): Observable<Response> {
+		return this.http.get('http://localhost:3000/endTerminal').map(( res ) => res);
 	}
 
 	private searchById( root, id ) {
@@ -481,7 +478,7 @@ export class JsonTreeComponent implements OnDestroy{
 		//noinspection TypeScriptUnresolvedFunction
 		return this.http.post('/sendJson', JSON.parse(this.originalJsonFormat), options).map(( res: Response ) => {
 			if ( res ) {
-			    let oldSrc = document.getElementById('ionic-frame')[ 'src' ];
+				let oldSrc                                      = document.getElementById('ionic-frame')[ 'src' ];
 				document.getElementById('ionic-frame')[ 'src' ] = oldSrc;
 			}
 		});

@@ -8,10 +8,11 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class IconfigGetterService {
 	private jsonContent: Object;
-
+	private setTemplateName:string;
 	constructor( private http: Http ) {}
 
 	getJson( templateName ) {
+		this.setTemplateName = templateName;
 		return this.http.get('http://localhost:3000/getIconfig/' + templateName).map(( res: Response ) => res);
 	}
 
@@ -21,6 +22,10 @@ export class IconfigGetterService {
 
 	getJsonContent() {
 		return this.jsonContent[ "_body" ];
+	}
+
+	getTemplateName(){
+		return this.setTemplateName;
 	}
 }
 
