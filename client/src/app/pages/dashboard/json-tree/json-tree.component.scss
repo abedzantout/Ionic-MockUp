@@ -8,6 +8,7 @@ html, body {
 //}
 
 .container {
+  display: flex;
   width: 100%;
 }
 
@@ -15,8 +16,14 @@ html, body {
 //  display: none;
 //}
 
+#tree{
+  flex: 1;
+}
+
 ion-frame {
-  float: right;
+  position: fixed;
+  //float: right;
+  left: 888px;
 }
 
 .tree-node {
@@ -28,3 +35,5 @@ ion-frame {
 .node-content-wrapper {
   color: #000 !important;
 }
+
+

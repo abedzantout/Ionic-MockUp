@@ -1,6 +1,6 @@
 <div *ngIf="finishedLoading" class="container">
 
-    <Tree #tree [nodes]="nodes">
+    <Tree #tree id="tree" [nodes]="nodes">
 
         <template #treeNodeTemplate let-node>
             <!--<div *ngIf="node.displayField !== 'description'">-->
@@ -28,8 +28,8 @@
 
 
     </Tree>
-    <ion-frame></ion-frame>
-
-    <button (click)="goToApkForm()" class="btn btn-primary">Download as APK</button>
+    <ion-frame id="ionicFrame"></ion-frame>
 
 </div>
+
+<button *ngIf="finishedLoading" (click)="goToApkForm()" class="btn btn-primary">Download as APK</button>
