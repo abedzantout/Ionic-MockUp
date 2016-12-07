@@ -50,7 +50,7 @@ export class apkForm {
 
 	private download(): Observable<any> {
 
-		return this.http.get('/downloadApk');
+		return this.http.get('/getAPK');
 
 	}
 

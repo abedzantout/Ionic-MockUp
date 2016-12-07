@@ -43,6 +43,7 @@ export class MenuPage {
 				let keys = Object.keys(d);
 				this.contentKeys.push(keys[ 0 ]);
 			});
+			this.title = this.contents['title'];
 			this.contents = this.contents[ 'content' ];
 
 		} else {
@@ -53,9 +54,14 @@ export class MenuPage {
 				let keys = Object.keys(d);
 				this.contentKeys.push(keys[ 0 ]);
 			});
+			this.title = this.contents['title'];
 			this.contents = this.contents[ 'content' ];
 			this._service.setDefaultInstance(null);
 		}
+
+		console.log(this.contents);
+
+
 	}
 
 }

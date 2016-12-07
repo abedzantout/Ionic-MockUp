@@ -1,5 +1,6 @@
 <div *ngIf="finishedLoading" class="container">
 
+    <ion-frame id="ionicFrame"></ion-frame>
     <Tree #tree id="tree" [nodes]="nodes">
 
         <template #treeNodeTemplate let-node>
@@ -12,7 +13,7 @@
             </label>
 
             <input type="text" (focus)="clearPlaceholder($event)"
-                   *ngIf="node.isLeaf && !( node.data.type.includes('array') )"/>
+                   *ngIf="node.isLeaf && !( node.data.type.includes('array') ) && !(node.parent.displayField.includes('authors'))"/>
             <button class="btn btn-default" (click)="removeInstance(node)"
                     *ngIf="( isInArray(node) && (node.parent.children.length > 1) )">
                 Remove Instance
@@ -21,14 +22,14 @@
                     *ngIf="( ( node.data.type.includes('array') ) && !( node.displayField.includes('authors') ) && !( node.displayField.includes('page') )  || ( (!node.isLeaf) &&  (node.displayField.indexOf('instances') !== -1) && !(node.displayField == 'page') && !(node.displayField == 'default-instance') )  )">
                 Add Instance
             </button>
-            <button class="btn btn-default" (click)="save($event, node)" *ngIf="node.isLeaf">save</button>
+            <button class="btn btn-default" (click)="save($event, node)" *ngIf="(node.isLeaf) && !(node.displayField.includes('instance')) && !(node.parent.displayField.includes('authors'))">save</button>
             <!--</div>-->
         </template>
 
 
 
     </Tree>
-    <ion-frame id="ionicFrame"></ion-frame>
+
 
 </div>
 

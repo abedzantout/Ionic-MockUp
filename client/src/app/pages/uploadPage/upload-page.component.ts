@@ -13,19 +13,27 @@ export class uploadPageComponent {
 
 	filesToUpload: Array<File>;
 
+    private finishedUpload: boolean = false;
+
 	constructor() {
 		this.filesToUpload = [];
+		this.finishedUpload = false;
 	}
 
 	upload() {
 		this.makeFileRequest("http://localhost:3000/upload", [], this.filesToUpload).then(( result ) => {
 			console.log(result);
+
+			// show graph
+            this.finishedUpload = true;
+
 		}, ( error ) => {
 			console.error(error);
 		});
 	}
 
 	fileChangeEvent( fileInput: any ) {
+
 		this.filesToUpload = <Array<File>> fileInput.target.files;
 	}
 

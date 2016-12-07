@@ -1,15 +1,13 @@
-html, body {
-  height: 100%;
-  font-family: Arial, Helvetica, sans-serif
-}
-
 //span.active {
 //  background-color: gray;
 //}
 
 .container {
-  display: flex;
-  width: 100%;
+  //display: flex;
+  //width: 100%;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-around;
 }
 
 //.toggle-children {
@@ -17,13 +15,16 @@ html, body {
 //}
 
 #tree{
-  flex: 1;
+  display:flex;
+  flex-direction:column;
 }
 
 ion-frame {
-  position: fixed;
+  //position: fixed;
   //float: right;
-  left: 888px;
+
+  display:flex;
+  flex-direction:column;
 }
 
 .tree-node {

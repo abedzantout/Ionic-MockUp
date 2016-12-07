@@ -1,9 +1,9 @@
 <div class="page-top clearfix" baScrollPosition maxHeight="50" (scrollChange)="scrolledChanged($event)"
      [ngClass]="{scrolled: isScrolled}">
     <a routerLink="/store" class="al-logo clearfix"><span>i</span>Edit</a>
-    <!--<a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>-->
+    <a href (click)="toggleMenu()" class="collapse-menu-link ion-navicon"></a>
 
-    <button class="btn btn-secondary" (click)="goToRegistrationForm()">Register</button>
+    <button class="btn btn-secondary register" (click)="goToRegistrationForm()">Register</button>
     <!--<div class="search">-->
     <!--<i class="ion-ios-search-strong" ng-click="startSearch()"></i>-->
     <!--<input id="searchInput" type="text" placeholder="Search for...">-->

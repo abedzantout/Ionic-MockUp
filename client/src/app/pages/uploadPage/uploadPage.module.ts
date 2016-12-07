@@ -13,7 +13,7 @@ import { routing } from "./uploadPage.routing";
 		routing
 	],
 	declarations: [
-		uploadPageComponent,
+		uploadPageComponent
 	],
 	providers: [],
 })
