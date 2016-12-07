@@ -1,6 +1,22 @@
-.collapse-menu-link {
-	display: none !important;
+.store-container {
+  position: relative;
+  overflow: hidden;
+  padding-left: 13px;
+  padding-right: 13px;
 }
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.with-scroll {
+  display: block
+}
+
+.collapse-menu-link {
+  display: none !important;
+}
+
 .carousel-container {
   display: flex;
   margin: 0 auto;
