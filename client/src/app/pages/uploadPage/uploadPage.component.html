@@ -1,7 +1,12 @@
 <!--<ba-page-top></ba-page-top>-->
 <div class="container row">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..."/>
-        <button type="button" (click)="upload()">Upload</button>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 upload-container">
+        <img alt="Upload ..." src="assets/icon.png"/>
+        <div class="uploadBtn text-center">{{fileName}}</div>
+        <label class="upload-button"> Browse
+        <input type="file" (change)="fileChangeEvent($event)"/>
+        </label>
+
+        <button *ngIf="fileSelected" type="button" class="btn btn-primary uploadBtn" (click)="upload()">Upload</button>
     </div>
 </div>

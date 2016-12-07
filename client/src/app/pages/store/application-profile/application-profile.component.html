@@ -1,7 +1,7 @@
 <div [@slideInOut]="menuState" class="container">
 
-    <button (click)="slideOut()" id="collapse">collapse</button>
-    <button (click)="goToEditor()" id="edit">Edit</button>
+    <button (click)="slideOut()" class="btn btn-primary" id="collapse">collapse</button>
+    <button (click)="goToEditor()" class="btn btn-primary" id="edit">Edit</button>
 
     <div class="profile-container" *ngIf="loadProfile">
         <div *ngIf="loadFrames" class="marvel-device iphone6 black">

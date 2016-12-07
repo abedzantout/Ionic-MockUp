@@ -1,4 +1,51 @@
 .container {
-  display: flex;
   margin: 0 auto;
+}
+
+img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.upload-button{
+  width: 200px;
+  display: block;
+
+  outline: none;
+  border-radius: 10px;
+  background: #08CCCC;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  padding: 10px 50px;
+  border: 1px solid #08CCCC;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.upload-button:hover{
+  cursor: hand;
+  cursor: pointer;
+}
+
+input{
+  display: none;
+}
+.upload-container{
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  border: 3px dashed #B5EAE1;
+  border-radius: 20px;
+}
+
+
+.uploadBtn{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

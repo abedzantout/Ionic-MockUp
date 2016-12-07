@@ -14,10 +14,14 @@ export class uploadPageComponent {
 	filesToUpload: Array<File>;
 
     private finishedUpload: boolean = false;
+    private fileSelected: boolean = false;
+    private fileName: string;
 
 	constructor() {
 		this.filesToUpload = [];
 		this.finishedUpload = false;
+		this.fileSelected = false;
+		this.fileName ="";
 	}
 
 	upload() {
@@ -33,6 +37,10 @@ export class uploadPageComponent {
 	}
 
 	fileChangeEvent( fileInput: any ) {
+
+        this.fileSelected = true;
+
+        this.fileName = fileInput.target.files[0]['name']
 
 		this.filesToUpload = <Array<File>> fileInput.target.files;
 	}
