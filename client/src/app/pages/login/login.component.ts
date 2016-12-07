@@ -17,7 +17,7 @@ export class Login {
     public password: AbstractControl;
     public submitted: boolean = false;
     private errorMessage: string;
-    private color: string     = this._baConfig.get().colors.danger;
+    private color: string     = this._baConfig.get().colors.success;
     private validated: boolean;
 
     constructor( fb: FormBuilder, private userService: UserService, private router: Router, private _baConfig: BaThemeConfigProvider ) {
@@ -42,6 +42,8 @@ export class Login {
 
                     if ( result[ 'success' ] === true ) {
 
+                        console.log("SUCCESS IS TRUE");
+
                         if(result['isDeveloper'] == true){
                             this.router.navigate([ 'upload' ]);
                         }else{
@@ -49,7 +51,9 @@ export class Login {
                         }
 
 
-                    } else if ( result[ 'success' ] === false ) {
+                    } else if ( result[ 'success' ] == false ) {
+                        console.log("EXECUTED");
+
                         this.errorMessage = "Incorrect username/password combination.";
                     }
 

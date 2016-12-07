@@ -13,7 +13,7 @@ export class UserService {
 
 
     constructor( private http: Http ) {
-        this.loggedIn = !!localStorage.getItem("auth_token");
+
     }
 
 
@@ -37,6 +37,8 @@ export class UserService {
 
                     this.loggedIn = true;
                     resHeader     = { success: true, isDeveloper:res['isDeveloper']};
+                }else{
+                    resHeader = {success: false};
                 }
 
                 return resHeader;
