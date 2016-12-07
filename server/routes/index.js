@@ -81,9 +81,9 @@ router.post('/downloadApk', function (req, res, next) {
     let countryCode        = req[ 'body' ][ 'countryCode' ];
     let applicationName    = req[ 'body' ][ 'application-name' ];
     // keytool(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode,  () =>{
-    let callback = function () {
-        res.set('Content-disposition', 'attachment; filename=AndroidRelease.apk');
-        res.set('Content-Type', 'application/octet-stream');
+    let callback           = function () {
+        // res.set('Content-disposition', 'attachment; filename=AndroidRelease.apk');
+        // res.set('Content-Type', 'application/octet-stream');
         // res.download('../ionic-templates/0/application/platforms/android/build/outputs/apk/Restaurant Review.apk', 'Restaurant Review.apk');
         console.log('response is being sent');
         res.send('success');
@@ -93,12 +93,11 @@ router.post('/downloadApk', function (req, res, next) {
         callback();
         // res.send('success');
     });
-
 });
 router.get('/getAPK', function (req, res, next) {
-    res.set('Content-disposition', 'attachment; filename=AndroidRelease.apk');
+    res.set('Content-disposition', 'attachment; filename=Restaurant Review.apk');
     res.set('Content-Type', 'application/vnd.android.package-archive');
-    res.download('../ionic-templates/0/application/platforms/android/build/outputs/apk/AndroidRelease.apk', 'AndroidRelease.apk');
+    res.download('../ionic-templates/0/application/platforms/android/build/outputs/apk/Restaurant Review.apk', 'Restaurant Review.apk');
 });
 function ionicBuildApk(keyPassword, authorsName, organizationalUnit, organizationName, cityName, stateName, countryCode, applicationName, ionicBuildCallback) {
     var ionicbuild = spawn('ionic', [ 'build', '--release', 'android' ], {
