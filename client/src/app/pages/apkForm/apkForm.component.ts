@@ -61,13 +61,14 @@ export class apkForm {
 
 		return this.http.post('/downloadApk', obj, options).map(( res: Response ) => {
 			console.log(res);
-			if ( res[ '_body' ] === 'success' ) {
-				this.download().subscribe(
-					( data ) => {console.log(data);},
-					( err ) => {console.log(err);},
-					() => {console.log("DONE!!!");}
-				);
-			}
+			window.open('/getAPK');
+			// if ( res[ '_body' ] === 'success' ) {
+			// 	this.download().subscribe(
+			// 		( data ) => {window.open("data:"+data['_body'])},
+			// 		( err ) => {console.log(err);},
+			// 		() => {}
+			// 	);
+			// }
 
 		});
 
