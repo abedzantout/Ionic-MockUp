@@ -51,6 +51,9 @@ export class ApplicationProfileComponent implements OnChanges, OnInit {
 		this.loadProfile = false;
 		if ( this.appName != '' ) {
 			this.menuState = this.menuState === 'out' ? 'in' : 'out';
+			if ( this.menuState === 'in' ) {
+				jQuery('.store-container').toggle('with-scroll')
+			}
 			if ( this.menuState == undefined ) {
 				this.menuState = 'out';
 			}
@@ -64,8 +67,8 @@ export class ApplicationProfileComponent implements OnChanges, OnInit {
 
 	private slideOut(): void {
 		this.menuState = 'out';
+		jQuery('.store-container').toggle('no-scroll');
 		this.resetAppName.emit(null);
-
 	}
 
 	private goToEditor() {
