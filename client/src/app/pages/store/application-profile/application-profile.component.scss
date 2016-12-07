@@ -1,4 +1,5 @@
 @import "../../../theme/sass/device_emulator";
+@import '../../../theme/sass/conf/conf';
 
 .container {
   top: 66px;
@@ -13,6 +14,7 @@
   z-index: 9999;
   font-weight: 400;
   padding-top: 5px;
+  overflow: auto;
 
   .profile-container {
 	display: inline-block;
@@ -72,6 +74,26 @@
 
 	  }
 	}
+  }
+}
+
+.back-icon {
+  float: left;
+  font-size: 35px;
+  margin: 10px 0 0 30px;
+  color: $primary;
+  width: 52px;
+  height: 52px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 50%;
+  line-height: 46px;
+  cursor: pointer;
+  opacity: 0.4;
+  padding-top: 5px;
+  padding-left: 4px;
+  &:hover {
+	opacity: 0.8;
   }
 }
 
