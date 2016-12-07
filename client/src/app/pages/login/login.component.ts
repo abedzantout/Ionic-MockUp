@@ -39,10 +39,16 @@ export class Login {
             let password: string = values[ "password" ];
 
             this.userService.login(email, password).subscribe(( result: Object ) => {
-                    console.log(result);
-                    console.log(result[ 'success' ]);
+
                     if ( result[ 'success' ] === true ) {
-                        this.router.navigate([ 'store' ]);
+
+                        if(result['isDeveloper'] == true){
+                            this.router.navigate([ 'upload' ]);
+                        }else{
+                            this.router.navigate([ 'store' ]);
+                        }
+
+
                     } else if ( result[ 'success' ] === false ) {
                         this.errorMessage = "Incorrect username/password combination.";
                     }

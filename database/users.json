@@ -1,1 +1,16 @@
-[{"abed.zantout94@gmail.com":{"name":"abed zantout","password":"123456"}}]
+[
+  {
+    "abbasbaydoun717@gmail.com": {
+      "name": "Abbas Baydoun",
+      "password": "anypass",
+      "isDeveloper": false
+    }
+  },
+  {
+    "abed.zantout94@gmail.com": {
+      "name": "Abed Zantout",
+      "password": "password1",
+      "isDeveloper": true
+    }
+  }
+]

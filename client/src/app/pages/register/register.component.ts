@@ -20,6 +20,8 @@ export class Register {
     public repeatPassword: AbstractControl;
     public passwords: FormGroup;
 
+    public userType: Object;
+
     private errorMessage: string;
     private signUpClicked: boolean = false;
 
@@ -40,6 +42,10 @@ export class Register {
             }, { validator: EqualPasswordsValidator.validate('password', 'repeatPassword') })
         });
 
+        this.userType = {
+            type: "none"
+        };
+
         this.name           = this.form.controls[ 'name' ];
         this.email          = this.form.controls[ 'email' ];
         this.passwords      = <FormGroup> this.form.controls[ 'passwords' ];
@@ -50,15 +56,21 @@ export class Register {
     public onSubmit( values: Object ): void {
         this.submitted = true;
 
+        console.log(values);
+
+        console.log(this.userType);
+
         if ( this.form.valid ) {
-            // your code goes here
+
             let name: string             = values[ "name" ];
             let email: string            = values[ "email" ];
             let password: string         = values[ "passwords" ][ "password" ];
             let repeatedPassword: string = values[ "passwords" ][ "repeatPassword" ];
 
-            this.userService.register(name, email, password).subscribe(( result ) => {
-                console.log("REGISTER COMPONENT");
+            let isDeveloper: boolean = (this.userType['type'] == 2);
+
+            this.userService.register(name, email, password, isDeveloper).subscribe(( result ) => {
+
                 console.log(result[ 'success' ]);
                     if ( result[ 'success' ] == true ) {
 
@@ -74,8 +86,7 @@ export class Register {
                 ,
                 err => {console.log(err)},
                 () => {}
-            )
-            ;
+            );
 
         }
     }

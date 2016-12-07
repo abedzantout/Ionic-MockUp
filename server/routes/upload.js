@@ -41,11 +41,7 @@ const storage = multer.diskStorage({
                 console.log(unziperr);
             });
 
-
         });
-
-
-
 
 
     },
@@ -64,5 +60,6 @@ router.use((req, res, next) => {
 });
 router.post("/upload", upload.array('uploads[]', 1), function (req, res) {
     res.send(req.files);
+    // res.send('any');
 });
 module.exports = router;
