@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { RequestOptions, Headers } from "@angular/http";
 import { templateService } from "../../services/template.service";
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 declare var require: any;
 
 @Component({
@@ -27,7 +28,7 @@ export class apkForm {
 	public stateName: AbstractControl;
 	public countryCode: AbstractControl;
 
-	constructor( fb: FormBuilder, private router: Router, private _baConfig: BaThemeConfigProvider, private _templateService: templateService, private http: Http ) {
+	constructor( fb: FormBuilder, private router: Router, private _baConfig: BaThemeConfigProvider, private _templateService: templateService, private http: Http, private slimLoadingBarService: SlimLoadingBarService ) {
 
 		this.form = fb.group({
 			'keyPassword': [ '', Validators.compose([ Validators.required, Validators.minLength(2) ]) ],
@@ -75,7 +76,6 @@ export class apkForm {
 	}
 
 	private onSubmit( values: Object ): void {
-
 		let object = {
 
 			keyPassword: values[ 'keyPassword' ],
@@ -95,5 +95,4 @@ export class apkForm {
 		);
 
 	}
-
 }

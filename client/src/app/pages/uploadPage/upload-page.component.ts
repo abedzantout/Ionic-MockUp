@@ -40,7 +40,7 @@ export class uploadPageComponent {
 
         this.fileSelected = true;
 
-        this.fileName = fileInput.target.files[0]['name']
+        this.fileName = fileInput.target.files[0]['name'];
 
 		this.filesToUpload = <Array<File>> fileInput.target.files;
 	}
